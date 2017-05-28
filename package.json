@@ -1,7 +1,7 @@
 {
-  "name": "__BONES_NEEDS_A_NAME__",
+  "name": "flock",
   "version": "0.0.1",
-  "description": "A happy little skeleton.",
+  "description": "CRUD for submissions.",
   "main": "index.js",
   "engines": {
     "node": ">= 7.0.0"
