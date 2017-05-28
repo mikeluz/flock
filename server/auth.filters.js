@@ -16,6 +16,17 @@ const forbidden = message => (req, res) => {
   res.status(403).send(message)
 }
 
+const isUserAdmin = (req, res, next) => {
+	if (req.user) {
+    if (!req.user.isAdmin) {
+      return res.status(403).send('Admin Privileges Required')
+    }
+  } else {
+  		return res.status(403).send('Forbidden content')
+  }
+  next()
+}
+
 // Feel free to add more filters here (suggested: something that keeps out non-admins)
 
-module.exports = {mustBeLoggedIn, selfOnly, forbidden}
+module.exports = {mustBeLoggedIn, selfOnly, forbidden, isUserAdmin}
