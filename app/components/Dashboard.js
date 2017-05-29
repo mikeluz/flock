@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router'
 import RaisedButton from 'material-ui/RaisedButton';
 
 class Dashboard extends React.Component {
@@ -16,8 +17,12 @@ class Dashboard extends React.Component {
 	render() {
 		return (
 		  <div>
-		   {this.props.user && <h1>Welcome back, {this.props.user.name}</h1>}
-		   <RaisedButton label="Publications" onClick={this.handleClick}/>
+		   {this.props.user && 
+		   <div>
+		   <h1>Welcome back, {this.props.user.name}</h1>
+		   <Link to="/pubs"><RaisedButton label="Publications" onClick={this.handleClick}/></Link>
+		   </div>
+		 	 }
 
 		  </div>
 		)
@@ -28,6 +33,8 @@ import {connect} from 'react-redux'
 import {getAllPubs} from '../reducers/allPubs'
 
 export default connect(
-  ({ auth }) => ({ user: auth }),
-  {getAllPubs},
+  ({ auth, allPubs }) => ({ 
+  	user: auth,
+  	pubs: allPubs 
+  }), {getAllPubs},
 )(Dashboard)

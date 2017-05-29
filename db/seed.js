@@ -1,13 +1,34 @@
 'use strict'
 
 const db = require('APP/db')
-    , {User, Thing, Favorite, Promise} = db
+    , {User, Pub, Promise} = db
     , {mapValues} = require('lodash')
+
+const csvFilePath = __dirname + '/pubs.csv'
+const csv = require('csvtojson')
+
+const pubsData = () => {
+  
+  let pubsData = [];
+
+  csv()
+  .fromFile(csvFilePath)
+  .on('json',(jsonObj)=>{
+    console.log("row", jsonObj);
+    pubsData.push(jsonObj);
+  })
+  .on('done',(error)=>{
+    console.log('end')
+  })
+  console.log("pubsData", pubsData);
+  return pubsData;
+}
 
 function seedEverything() {
   const seeded = {
     users: users(),
     // things: things(),
+    pubs: pubs()
   }
 
   // seeded.favorites = favorites(seeded)
@@ -25,8 +46,11 @@ const users = seed(User, {
     email: 'onlymikeluz@gmail.com',
     name: 'Mike Luz',
     password: '1234'
-  },
+  }
 })
+
+const pubs = seed(Pub, pubsData())
+
 
 // const things = seed(Thing, {
 //   surfing: {name: 'surfing'},
