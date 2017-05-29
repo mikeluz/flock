@@ -1,22 +1,21 @@
 import React from 'react'
+import TextField from 'material-ui/TextField'
+import RaisedButton from 'material-ui/RaisedButton';
 
 export const Login = ({ login }) => (
 
-  <div>
+  <div className='container text-center'>
   <br/>
   <br/>
   <br/>
-  <br/>
-  <br/>
-  <br/>
-    <h1>Please Log In</h1>
+    <h1 id="banner">FLOCK</h1>
     <form onSubmit={evt => {
       evt.preventDefault()
       login(evt.target.username.value, evt.target.password.value)
     } }>
-      <label>Username</label><br/><input name="username" /><br/>
-      <label>Password</label><br/><input name="password" type="password" /><br/>
-      <input type="submit" value="Login" />
+      <TextField hintText="username" name="username" /><br/>
+      <TextField hintText="password" name="password" type="password" /><br/><br/>
+      <RaisedButton type="submit" label="Login" backgroundColor='#000000' labelColor='white' />
     </form>
   </div>
 )

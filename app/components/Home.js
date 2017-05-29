@@ -1,15 +1,21 @@
 import React from 'react'
+import Login from './Login'
+import WhoAmI from './WhoAmI'
 
-export const Home = () => (
+export const Home = ({ user, children }) => (
 
   <div>
-  <h1>FLOCK</h1>
+    <nav>
+      {user ? <div></div> : <h1>PLEASE LOG IN</h1>}
+    </nav>
+    {children}
+	  {user ? <h1>WELCOME BACK</h1> : <div></div>}
   </div>
 )
 
 import {connect} from 'react-redux'
 
 export default connect(
-  state => ({}),
+  ({ auth }) => ({ user: auth }),
   {},
 )(Home)
