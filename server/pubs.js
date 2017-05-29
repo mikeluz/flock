@@ -7,7 +7,6 @@ const {mustBeLoggedIn, forbidden, isUserAdmin} = require('./auth.filters')
 
 module.exports = require('express').Router()
   .get('/',
-    isUserAdmin,
     (req, res, next) =>
       Pub.findAll()
         .then(pubs => res.json(pubs))

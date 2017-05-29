@@ -4,3 +4,8 @@ body {
 	text-align: center;
 	background-image: url('/flock.jpg');
 }
+
+#banner {
+	font-family: 'Permanent Marker', cursive;
+	font-size: 60px;
+}
