@@ -43,5 +43,5 @@ module.exports = require('express').Router()
           id: req.params.id
         }
       })
-      .then(pub => res.status(200))
+      .then(countOfDeletedRecords => res.json({}))
       .catch(next))
