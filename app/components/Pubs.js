@@ -6,8 +6,9 @@ import {
   TableHeader,
   TableHeaderColumn,
   TableRow,
-  TableRowColumn,
+  TableRowColumn
 } from 'material-ui/Table';
+import {RaisedButton} from 'material-ui'
 
 class Pubs extends React.Component {
 
@@ -27,8 +28,8 @@ class Pubs extends React.Component {
       <div>
        {/*user ? <div>{user.isAdmin ? <h1>PUBLICATIONS</h1> : <h2>You are trying to access an Admin Only area.</h2>}</div> : <h2>Please log in.</h2>*/}
       {this.props.user ?
-      <div>
-      <h1 id="centerMe">Publications</h1>   
+      <div id="centerMe">
+      <h1>Publications</h1>{this.props.user.isAdmin && <Link to="/pubs/add"><RaisedButton label="Add"/></Link>}
       <Table   
     	  height={'300px'}
     	  fixedHeader={true}

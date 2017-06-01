@@ -20,6 +20,7 @@ import Pubs from './components/Pubs'
 import Calls from './components/Calls'
 import OnePub from './components/OnePub'
 import EditPub from './components/EditPub'
+import AddPub from './components/AddPub'
 import FlockPad from './components/FlockPad'
 
 import {getCurrentPub} from './reducers/onePub'
@@ -49,6 +50,7 @@ render(
         <Route path="/users" component={Users} />
         <Route path="/subs" component={Subs} />
         <Route path="/calls" component={Calls} />
+        <Route path="/pubs/add" component={AddPub}/>
         <Route path="/pubs/:id" component={OnePub} onEnter={(nextRouterState) => getCurrentPub(nextRouterState)} />
         <Route path="/pubs/:id/edit" component={EditPub}/>
         <Route path="/pubs" component={Pubs}/>
