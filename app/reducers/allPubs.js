@@ -17,6 +17,6 @@ export const getAllPubs = () =>
   dispatch =>
     axios.get('/api/pubs')
       .then((res) => dispatch(setAllPubs(res.data)))
-      .catch(() => dispatch(setAllPubs()))
+      .catch(() => dispatch(setAllPubs(null)))
 
 export default reducer

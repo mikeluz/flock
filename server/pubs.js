@@ -16,6 +16,16 @@ module.exports = require('express').Router()
       Pub.create(req.body)
       .then(pub => res.status(201).json(pub))
       .catch(next))
+  .put('/:id',
+    (req, res, next) =>
+      Pub.update(req.body, {
+          where: {
+            id: req.params.id
+          },
+          returning: true
+        })
+      .spread((numOfUpdatedPubs, updatedPubs) => res.json(updatedPubs[0]))
+      .catch(next))
   .get('/:id',
     mustBeLoggedIn,
     (req, res, next) =>

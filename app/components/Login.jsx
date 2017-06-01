@@ -8,15 +8,17 @@ export const Login = ({ login }) => (
   <br/>
   <br/>
   <br/>
-    <h1 id="banner">FLOCK</h1>
-    <form onSubmit={evt => {
-      evt.preventDefault()
-      login(evt.target.username.value, evt.target.password.value)
-    } }>
-      <TextField hintText="username" name="username" /><br/>
-      <TextField hintText="password" name="password" type="password" /><br/><br/>
-      <RaisedButton type="submit" label="Login" backgroundColor='#000000' labelColor='white' />
-    </form>
+    <div id="centerMe">
+      <h1 id="banner">FLOCK</h1>
+      <form onSubmit={evt => {
+        evt.preventDefault()
+        login(evt.target.username.value, evt.target.password.value)
+      } }>
+        <TextField hintText="username" name="username" /><br/>
+        <TextField hintText="password" name="password" type="password" /><br/><br/>
+        <RaisedButton type="submit" label="Login" backgroundColor='#000000' labelColor='white' />
+      </form>
+    </div>
   </div>
 )
 

@@ -3,9 +3,9 @@ import RaisedButton from 'material-ui/RaisedButton'
 import {Link} from 'react-router'
 
 export const WhoAmI = ({ user, logout }) => (
-  <div className="whoami">
+  <div className="whoami" id="centerMe">
   	<br/>
-    <span className="whoami-user-name">Welcome, {user && user.name}</span><br/><br/>
+    <span className="whoami-user-name">{user && user.name}</span><br/><br/>
     <Link to="/dashboard"><RaisedButton type="submit" label="Logout" backgroundColor='#000000' labelColor='white' onClick={logout} /></Link>
   </div>
 )

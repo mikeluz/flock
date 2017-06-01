@@ -11,16 +11,15 @@ class Dashboard extends React.Component {
 	}
 
 	handleClick() {
-		this.props.getAllPubs();
+		// this.props.getAllPubs();
 	}
 
 	render() {
 		return (
-		  <div>
+		  <div id="centerMe">
 		   {this.props.user && 
 		   <div>
-		   <h1>Welcome back, {this.props.user.name}</h1>
-		   <Link to="/pubs"><RaisedButton label="Publications" onClick={this.handleClick}/></Link>
+		   <h1>Welcome back, {this.props.user.name.split(" ")[0]}</h1>
 		   </div>
 		 	 }
 

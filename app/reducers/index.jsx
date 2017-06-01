@@ -3,6 +3,7 @@ import { combineReducers } from 'redux'
 const rootReducer = combineReducers({
   auth: require('./auth').default,
   allPubs: require('./allPubs').default,
+  currentPub: require('./onePub').default
   // allCalls: require('./allCalls').default,
   // currentUser: require('./currentUser').default,
   // currentSubs: require('./currentSubs').default,
