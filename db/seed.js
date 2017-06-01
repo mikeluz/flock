@@ -38,19 +38,48 @@ function seedEverything() {
 
 const users = seed(User, {
   jess: {
-    email: 'jessica.feldman211@gmail.com',
     name: 'Jess Feldman',
-    password: '1234',
+    address: '91 Luquer St, Apt. 2R, Brooklyn, NY 11231',
+    bio: "Jess Feldman's poetry has appeared or is forthcoming in Sixth Finch, Vinyl, Paperbag and elsewhere. Her manuscript “Call It a Premonition” was chosen by Zachary Schomburg as winner of the 2015 BOAAT Winter Chapbook Competition. Jess lives in Brooklyn, NY.",
+    isAdmin: true,
+    email: 'jessica.feldman211@gmail.com',
+    password: 'jfeldman211',
   },
   mike: {
-    email: 'onlymikeluz@gmail.com',
     name: 'Mike Luz',
-    password: '1234'
+    address: '91 Luquer St, Apt. 2R, Brooklyn, NY 11231',
+    bio: "Mike Luz is a poet and musician living in Brooklyn, NY. Mike has published an experimental volume of poems, 'Ages of Suits by Sam Casino,' and has work forthcoming in Outlook Springs. In early 2016, he released an album recorded with Martin Bisi at BC Studios under the name Mercy Wizard.",
+    isAdmin: true,
+    email: 'onlymikeluz@gmail.com',
+    password: 'onlymikeluz',
+  },
+  meg: {
+    name: 'Megan Leonard',
+    address: '284 Cabot St, Portsmouth, NH 03801',
+    bio: "Megan Leonard’s poetry has appeared most recently in HOUSEGUEST, Reservoir, and Tupelo Quarterly. Her chapbook is forthcoming from Platypus Press. Meg lives and works on the New Hampshire seacoast.",
+    isAdmin: false,
+    email: 'megglism@gmail.com',
+    password: 'megglism',
+  },
+  kathleen: {
+    name: 'Kathleen Maris Paltrineri',
+    address: '3727 Cottage Reserve Road, Solon, IA 52333',
+    bio: "Kathleen Maris is a poet and photographer living in Iowa. In early 2016, Kathleen was the writer-in-residence at Crosshatch Center for Art and Ecology in northern Michigan. She earned her MFA in Poetry from the University of New Hampshire and is the Fall Residency coordinator for the University of Iowa's International Writing Program. You can find more of her poetry in decomP magazinE, HOUSEGUEST, The Atlas Review, and elsewhere.",
+    isAdmin: false,
+    email: 'kathleenmaris99@gmail.com',
+    password: 'kathleenmaris99',
+  },
+  hannah: {
+    name: 'Hannah Larrabee',
+    address: '18 Wisteria St, Unit 2, Salem, MA 01970',
+    bio: "Hannah Larrabee is the author of 'Virgo' (Finishing Line Press, 2009), and 'Sufjan' (forthcoming from Finishing Line Press). She’s had poems appear in HOUSEGUEST, Entropy, Rock & Sling, Printer’s Devil Review, Best Indie Lit in New England, and others. Hannah teaches writing at Northern Essex Community College and works for a software technology company in Boston. She has a Master of Fine Arts degree in Creative Writing from The University of New Hampshire. She’ll occasionally write a TinyLetter, but you can also find her @HanonymusBosch.",
+    isAdmin: false,
+    email: 'hannlarrabee@gmail.com',
+    password: 'hannlarrabee',
   }
 })
 
-const pubs = seed(Pub, pubsData())
-
+const pubs = seed(Pub, pubsData());
 
 // const things = seed(Thing, {
 //   surfing: {name: 'surfing'},

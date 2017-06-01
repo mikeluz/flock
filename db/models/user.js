@@ -2,7 +2,7 @@
 
 // bcrypt docs: https://www.npmjs.com/package/bcrypt
 const bcrypt = require('bcryptjs')
-    , {STRING, VIRTUAL, BOOLEAN} = require('sequelize')
+    , {STRING, VIRTUAL, BOOLEAN, TEXT} = require('sequelize')
 
 module.exports = db => db.define('users', {
   name: STRING,
@@ -13,6 +13,8 @@ module.exports = db => db.define('users', {
       notEmpty: true,
     }
   },
+  address: STRING,
+  bio: TEXT,
   isAdmin: {
     type: BOOLEAN,
     defaultValue: false
