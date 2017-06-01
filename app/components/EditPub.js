@@ -16,8 +16,15 @@ const EditPub = (props) => {
     });
   }
 
-  const saved = evt => {
+  const saved = () => {
     alert('Saved!');
+  }
+
+  const deletePub = () => {
+    var confirm = window.confirm("Are you sure?");
+    if (confirm) {
+      props.deleteCurrentPub(props.currentPub.id)
+    }
   }
 
   return (
@@ -35,6 +42,7 @@ const EditPub = (props) => {
         <TextField type="text" hintText="web address" name="webAddress" defaultValue={props.currentPub.web_address}/><br/>
         <h4>Submittable Link</h4>
         <TextField type="text" hintText="submittable link" name="submittableLink" defaultValue={props.currentPub.submittable_link}/><br/>
+        <RaisedButton label="Delete" onClick={deletePub}/>
         <RaisedButton 
           type="submit"
           label="Save"
@@ -52,11 +60,11 @@ const EditPub = (props) => {
 }
 
 import {connect} from 'react-redux'
-import {updateCurrentPub} from '../reducers/onePub'
+import {updateCurrentPub, deleteCurrentPub} from '../reducers/onePub'
 
 export default connect(
   ({ auth, currentPub }) => ({ 
   	user: auth,
     currentPub: currentPub
-  }), {updateCurrentPub},
+  }), {updateCurrentPub, deleteCurrentPub},
 )(EditPub)

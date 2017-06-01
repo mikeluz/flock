@@ -29,7 +29,7 @@ class Pubs extends React.Component {
        {/*user ? <div>{user.isAdmin ? <h1>PUBLICATIONS</h1> : <h2>You are trying to access an Admin Only area.</h2>}</div> : <h2>Please log in.</h2>*/}
       {this.props.user ?
       <div id="centerMe">
-      <h1>Publications</h1>{this.props.user.isAdmin && <Link to="/pubs/add"><RaisedButton label="Add"/></Link>}
+      <h1>Publications</h1>{this.props.user.isAdmin && <div><Link to="/pubs/add"><RaisedButton label="Add"/></Link><br/><br/></div>}
       <Table   
     	  height={'300px'}
     	  fixedHeader={true}

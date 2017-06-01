@@ -24,6 +24,11 @@ export const updateCurrentPub = (nextRouterState) =>
       .then((res) => store.dispatch(setCurrentPub(res.data)))
       .catch(() => store.dispatch(setCurrentPub(null)))
 
+export const deleteCurrentPub = (id) => 
+    axios.delete(`/api/pubs/${id}`)
+      .then((res) => store.dispatch(setCurrentPub(res.data)))
+      .catch(() => store.dispatch(setCurrentPub(null)))
+
 export const addPub = (nextRouterState) => 
     axios.post(`/api/pubs`, nextRouterState)
       .then((res) => store.dispatch(setCurrentPub(res.data)))

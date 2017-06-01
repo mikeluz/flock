@@ -4,8 +4,7 @@ const { STRING, ENUM } = require('sequelize')
 
 module.exports = db => db.define('pubs', {
   pub_name: STRING,
-  editor_first: STRING,
-  editor_last: STRING,
+  editor_name: STRING,
   editor_email: {
   	type: STRING,
   	isEmail: true
