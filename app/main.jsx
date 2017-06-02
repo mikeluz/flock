@@ -21,6 +21,7 @@ import EditUser from './components/EditUser'
 import Subs from './components/Subs'
 import Pubs from './components/Pubs'
 import Calls from './components/Calls'
+import AddCall from './components/AddCall'
 import OnePub from './components/OnePub'
 import EditPub from './components/EditPub'
 import AddPub from './components/AddPub'
@@ -56,6 +57,7 @@ render(
         <Route path="/users/:id/edit" component={EditUser}/>
         <Route path="/users" component={Users} />
         <Route path="/subs" component={Subs} />
+        <Route path="/calls/add" component={AddCall} />
         <Route path="/calls" component={Calls} />
         <Route path="/pubs/add" component={AddPub}/>
         <Route path="/pubs/:id" component={OnePub} onEnter={(nextRouterState) => getCurrentPub(nextRouterState)} />

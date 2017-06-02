@@ -2,7 +2,10 @@ body {
 	/*font-family: 'Hind', sans-serif;*/
 	font-family: 'Oxygen', sans-serif;
 	background-image: url('/flock.jpg');
+	background-size: 100%;
 	background-position: center;
+	background-repeat: no-repeat;
+	background-color: black;
 }
 
 #centerMe {
@@ -22,4 +25,14 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 	font-size: 12px;
+}
+
+#bio {
+	font-size: 16px;
+	width: 50%;
+	margin: auto;
+}
+
+#search {
+	margin-right: 8px;
 }

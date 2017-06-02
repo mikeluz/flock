@@ -19,6 +19,20 @@ module.exports = db => db.define('pubs', {
   },
   pub_format: ENUM('online', 'print', 'both'),
   pub_type: ENUM('lit mag', 'press', 'org')
+},{
+  classMethods: {
+    findByName: function (name) {
+      // console.log("name", name);
+      return this.findAll({
+        where: {
+          // pub_name: name
+          pub_name: {
+            $iLike: `%${name}%`
+          }
+        }
+      });
+    }
+  }
 })
 
 module.exports.associations = (Pub, {Call}) => {

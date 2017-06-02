@@ -13,13 +13,14 @@ module.exports = require('express').Router()
         .then(calls => res.json(calls))
         .catch(next))
   .post('/',
+    isUserAdmin,
     (req, res, next) =>
-      Calls.create(req.body)
+      Call.create(req.body)
       .then(call => res.status(201).json(call))
       .catch(next))
   .get('/:id',
     mustBeLoggedIn,
     (req, res, next) =>
-      Calls.findById(req.params.id)
+      Call.findById(req.params.id)
       .then(call => res.json(call))
       .catch(next))

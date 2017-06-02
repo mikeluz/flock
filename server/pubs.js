@@ -29,6 +29,12 @@ module.exports = require('express').Router()
         })
       .spread((numOfUpdatedPubs, updatedPubs) => res.json(updatedPubs[0]))
       .catch(next))
+  .get('/search',
+    mustBeLoggedIn,
+    (req, res, next) =>
+      Pub.findByName(req.query.search)
+      .then(results => res.json(results))
+      .catch(next))
   .get('/:id',
     mustBeLoggedIn,
     (req, res, next) =>
