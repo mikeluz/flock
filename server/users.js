@@ -3,7 +3,7 @@
 const db = require('APP/db')
 const User = db.model('users')
 
-const {mustBeLoggedIn, forbidden} = require('./auth.filters')
+const {mustBeLoggedIn, forbidden, isUserAdmin} = require('./auth.filters')
 
 module.exports = require('express').Router()
   .get('/',
@@ -13,7 +13,8 @@ module.exports = require('express').Router()
     // If you want to only let admins list all the users, then you'll
     // have to add a role column to the users table to support
     // the concept of admin users.
-    forbidden('listing users is not allowed'),
+    // forbidden('listing users is not allowed'),
+    isUserAdmin,
     (req, res, next) =>
       User.findAll()
         .then(users => res.json(users))
@@ -23,9 +24,30 @@ module.exports = require('express').Router()
       User.create(req.body)
       .then(user => res.status(201).json(user))
       .catch(next))
+  .put('/:id',
+    isUserAdmin,
+    (req, res, next) =>
+      User.update(req.body, {
+        where: {
+          id: req.body.id
+        },
+        returning: true
+      })
+      .spread((numOfUpdatedUsers, updatedUsers) => res.json(updatedUsers[0]))
+      .catch(next))
   .get('/:id',
     mustBeLoggedIn,
     (req, res, next) =>
       User.findById(req.params.id)
       .then(user => res.json(user))
+      .catch(next))
+  .delete('/:id',
+    isUserAdmin,
+    (req, res, next) =>
+      User.destroy({
+        where: {
+          id: req.params.id
+        }
+      })
+      .then(countOfDeletedRecords => res.json({}))
       .catch(next))

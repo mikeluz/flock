@@ -9,11 +9,16 @@ class NavBar extends React.Component {
     super(props);
     this.state = {};
 
-    this.handleClick = this.handleClick.bind(this);
+    this.handlePubClick = this.handlePubClick.bind(this);
+    this.handleUserClick = this.handleUserClick.bind(this);
   }
 
-  handleClick() {
+  handlePubClick() {
     this.props.getAllPubs();
+  }
+
+  handleUserClick() {
+    this.props.getAllUsers();
   }
 
   render() {
@@ -26,11 +31,11 @@ class NavBar extends React.Component {
       	marginLeft: "auto", 
       	marginRight: "auto"
   		}}>
-      {this.props.user.isAdmin && <Link to="/users"><RaisedButton label="Users"/></Link>}
+      {this.props.user.isAdmin && <Link to="/users"><RaisedButton label="Users" onClick={this.handleUserClick}/></Link>}
       {this.props.user.isAdmin && <ToolbarSeparator/>}
       {this.props.user.isAdmin && <Link to="/subs"><RaisedButton label="Submissions"/></Link>}
       {this.props.user.isAdmin && <ToolbarSeparator/>}
-      <Link to="/pubs"><RaisedButton label="Publications" onClick={this.handleClick}/></Link>
+      <Link to="/pubs"><RaisedButton label="Publications" onClick={this.handlePubClick}/></Link>
       <ToolbarSeparator/>
       <Link to="/calls"><RaisedButton label="Calls"/></Link>
       <ToolbarSeparator/>
@@ -45,10 +50,12 @@ class NavBar extends React.Component {
 
 import {connect} from 'react-redux'
 import {getAllPubs} from '../reducers/allPubs'
+import {getAllUsers} from '../reducers/users'
 
 export default connect(
   ({ auth, allPubs }) => ({ 
     user: auth,
-    pubs: allPubs 
-  }), {getAllPubs},
+    pubs: allPubs,
+
+  }), {getAllPubs, getAllUsers},
 )(NavBar)
