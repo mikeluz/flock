@@ -9,11 +9,13 @@ class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      searchTerm: '',
       searchResults: []
     };
 
     this.handlePubClick = this.handlePubClick.bind(this);
     this.handleUserClick = this.handleUserClick.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
     this.pubSearch = this.pubSearch.bind(this);
   }
 
@@ -27,6 +29,7 @@ class NavBar extends React.Component {
 
   pubSearch(evt) {
     evt.preventDefault();
+    // this.props.findPubsByName(this.state.searchTerm);
     this.props.findPubsByName(evt.target.search.value);
     // axios.get(`/api/pubs/search/?search=${evt.target.search.value}`)
     //   .then(res => this.setState({
@@ -34,7 +37,15 @@ class NavBar extends React.Component {
     //   }));
   }
 
+  handleSearch(evt) {
+    console.log("evt", evt);
+    this.setState({
+      searchTerm: evt.target.search.value
+    });
+  }
+
   render() {
+    console.log("props", this.props);
       return (
       <div>
         <Toolbar style={{
@@ -62,6 +73,13 @@ class NavBar extends React.Component {
             backgroundColor='green'
             labelColor='white'/>
           </form>
+          {/*<input type="text" placeholder="Find Publications" name="search" id="search" onChange={this.handleSearch}/>
+          <RaisedButton 
+            type="submit" 
+            label="Search by Name"        
+            backgroundColor='green'
+            labelColor='white'
+            onClick={this.pubSearch}/>*/}
       		</ToolbarGroup>
         </Toolbar>
       </div>
@@ -75,8 +93,9 @@ import {findPubsByName} from '../reducers/pubSearchResults'
 import {getAllUsers} from '../reducers/users'
 
 export default connect(
-  ({ auth, allPubs }) => ({ 
+  ({ auth, allPubs, pubSearchResults }) => ({ 
     user: auth,
-    pubs: allPubs
+    pubs: allPubs,
+    searchResults: pubSearchResults
   }), {getAllPubs, getAllUsers, findPubsByName},
 )(NavBar)

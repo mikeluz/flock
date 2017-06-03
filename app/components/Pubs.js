@@ -32,7 +32,7 @@ class Pubs extends React.Component {
   }
 
   render() {
-    console.log("state", this.state)
+    console.log("pubs props", this.props)
     return (
       <div id="centerMe">
        {/*user ? <div>{user.isAdmin ? <h1>PUBLICATIONS</h1> : <h2>You are trying to access an Admin Only area.</h2>}</div> : <h2>Please log in.</h2>*/}
@@ -46,8 +46,10 @@ class Pubs extends React.Component {
       <br/>
       <div>
       {
-        this.state.searchResults.length >= 1 
+        this.state.searchResults.length >= 1
         ?
+        <div>
+        <h1>Search Results</h1>
         <Table   
         height={'300px'}
         fixedHeader={true}
@@ -74,6 +76,7 @@ class Pubs extends React.Component {
           )}
           </TableBody>
         </Table>
+        </div>
         :
         <Table   
     	  height={'300px'}
@@ -112,8 +115,9 @@ import {connect} from 'react-redux'
 import {getCurrentPub} from '../reducers/onePub'
 
 export default connect(
-  ({ auth, allPubs }) => ({ 
+  ({ auth, allPubs, pubSearchResults }) => ({ 
   	user: auth,
-  	pubs: allPubs
+  	pubs: allPubs,
+    searchResults: pubSearchResults
   }), {getCurrentPub},
 )(Pubs)

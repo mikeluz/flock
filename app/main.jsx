@@ -37,7 +37,11 @@ const App = connect(
   <MuiThemeProvider>
     <div>
       <nav>
-        {user ? <div><NavBar/><WhoAmI/></div> : <Login/>}
+        {user ? 
+          <div>
+          <NavBar/>
+          <WhoAmI/>
+          </div> : <Login/>}
       </nav>
       {children}
     </div>
