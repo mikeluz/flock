@@ -17,6 +17,12 @@ module.exports = require('express').Router()
       Poem.create(req.body)
       .then(poem => res.status(201).json(poem))
       .catch(next))
+  .get('/search',
+    mustBeLoggedIn,
+    (req, res, next) =>
+      Poem.findByName(req.query.search)
+      .then(results => res.json(results))
+      .catch(next))
   .get('/:id',
     mustBeLoggedIn,
     (req, res, next) =>

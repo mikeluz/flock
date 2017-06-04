@@ -25,6 +25,7 @@ import AddCall from './components/AddCall'
 import OnePub from './components/OnePub'
 import EditPub from './components/EditPub'
 import AddPub from './components/AddPub'
+import Poems from './components/Poems'
 import FlockPad from './components/FlockPad'
 
 import {getCurrentPub} from './reducers/onePub'
@@ -55,6 +56,7 @@ render(
       <Route path="/" component={App}>
         <IndexRedirect to="/dashboard" />
         <Route path="/dashboard" component={Dashboard} />
+        <Route path="/poems" component={Poems} />
         <Route path="/flockpad" component={FlockPad} />
         <Route path="/users/add" component={AddUser}/>
         <Route path="/users/:id" component={OneUser} onEnter={(nextRouterState) => getCurrentUser(nextRouterState)} />

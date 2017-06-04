@@ -2,9 +2,23 @@ import React from 'react'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import SelectField from 'material-ui/SelectField';
+import Paper from 'material-ui/Paper';
 import MenuItem from 'material-ui/MenuItem';
 import DatePicker from 'material-ui/DatePicker';
 import {Link} from 'react-router'
+
+const style = {
+  height: 'auto',
+  width: 'auto',
+  margin: 'auto',
+  textAlign: 'center',
+  display: 'inline-block',
+  paddingLeft: '40px',
+  paddingRight: '40px',
+  paddingBottom: '40px',
+  paddingTop: '20px',
+  backgroundColor: 'rgba(240, 240, 240, 0.8)'
+};
 
 const AddCall = (props) => { 
 
@@ -37,12 +51,12 @@ const AddCall = (props) => {
     ?
     <div>{props.user.isAdmin ? <div id="centerMe">
     <hr/>
+    <Paper style={style} zDepth={3}>
+      <h2>New Call for {`${props.currentPub.pub_name}`}</h2>
       <form onSubmit={onSubmit}>
-        <h4>Call Name</h4>
+        <div id="form-left">
         <TextField type="text" hintText="call name" name="callName" /><br/>
-        <h4>Call Start</h4>
         <DatePicker hintText="call start" name="callStart" /><br/>
-        <h4>Call End</h4>
         <DatePicker hintText="call end" name="callEnd" /><br/>
         <h4>Call Type</h4>
         <select name="callType">
@@ -50,18 +64,19 @@ const AddCall = (props) => {
           <option value="manuscript">Manuscript</option>
           <option value="contest">Contest</option>
         </select>
-        <h4>Call Judge</h4>
         <TextField type="text" hintText="call judge" name="callJudge" /><br/>
+        </div>
+        <div id="form-center">
         <h4>Call Detail</h4>
-        <textarea type="text" name="callDetails" rows="10" cols="50"/><br/>
+        <textarea type="text" name="callDetails" rows="10" cols="30"/><br/>
+        </div>
+        <div id="form-right">
         <h4>Pages Or Poems</h4>
         <select name="pagesOrPoems">
           <option value="pages" selected>Pages</option>
           <option value="poems">Poems</option>
         </select>
-        <h4>Required Length</h4>
         <TextField type="text" hintText="Required Length" name="reqLength" /><br/>
-        <h4>Fee Amount</h4>
         <TextField type="text" hintText="fee amount" name="feeAmt" /><br/>
         <h4>Mail Only</h4>
         <select name="mailOnly">
@@ -73,17 +88,23 @@ const AddCall = (props) => {
           <option value={true}>Yes</option>
           <option value={false} selected>No</option>
         </select>
-        <h4>Mailing Address</h4>
         <TextField type="text" hintText="Mailing Address" name="mailingAddress" />
-        <br/><br/><br/>
+        </div>
+        <br/><br/><br/><br/>
+        <div id="button-padding">
         <RaisedButton 
           type="submit"
           label="Save"
           backgroundColor='#000000'
           labelColor='white'
           onClick={saved}
+          style={{
+            margin: "20px"
+          }}
           />
+          </div>
       </form>
+      </Paper>
       <br/>
     </div> : <h2>You are trying to access an Admin Only area.</h2>}</div>
     : 

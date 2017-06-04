@@ -36,3 +36,18 @@ body {
 #search {
 	margin-right: 8px;
 }
+
+#form-left {
+  width: 33%;
+  float: left;
+}
+
+#form-center {
+  width: 33%;
+  float: left;
+}
+
+#form-right {
+  width: 33%;
+  float: right;
+}

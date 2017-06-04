@@ -15,16 +15,22 @@ class NavBar extends React.Component {
 
     this.handlePubClick = this.handlePubClick.bind(this);
     this.handleUserClick = this.handleUserClick.bind(this);
+    this.handlePoemClick = this.handlePoemClick.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.pubSearch = this.pubSearch.bind(this);
   }
 
   handlePubClick() {
-    this.props.getAllPubs();
+    // this.props.getAllPubs();
+    this.props.findPubsByName('');
   }
 
   handleUserClick() {
     this.props.getAllUsers();
+  }
+
+  handlePoemClick() {
+    this.props.getAllPoems();
   }
 
   pubSearch(evt) {
@@ -59,6 +65,8 @@ class NavBar extends React.Component {
           {this.props.user.isAdmin && <ToolbarSeparator/>}
           {this.props.user.isAdmin && <Link to="/subs"><RaisedButton label="Submissions"/></Link>}
           {this.props.user.isAdmin && <ToolbarSeparator/>}
+          {this.props.user.isAdmin && <Link to="/poems"><RaisedButton label="Poems" onClick={this.handlePoemClick}/></Link>}
+          {this.props.user.isAdmin && <ToolbarSeparator/>}
           <Link to="/pubs"><RaisedButton label="Publications" onClick={this.handlePubClick}/></Link>
           <ToolbarSeparator/>
           <Link to="/calls"><RaisedButton label="Calls"/></Link>
@@ -88,14 +96,15 @@ class NavBar extends React.Component {
 }
 
 import {connect} from 'react-redux'
-import {getAllPubs} from '../reducers/allPubs'
+// import {getAllPubs} from '../reducers/allPubs'
 import {findPubsByName} from '../reducers/pubSearchResults'
 import {getAllUsers} from '../reducers/users'
+import {getAllPoems} from '../reducers/allPoems'
 
 export default connect(
   ({ auth, allPubs, pubSearchResults }) => ({ 
     user: auth,
     pubs: allPubs,
     searchResults: pubSearchResults
-  }), {getAllPubs, getAllUsers, findPubsByName},
+  }), {getAllUsers, findPubsByName, getAllPoems},
 )(NavBar)

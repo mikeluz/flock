@@ -11,7 +11,7 @@ import {
 } from 'material-ui/Table';
 import {RaisedButton} from 'material-ui'
 
-class Pubs extends React.Component {
+class Poems extends React.Component {
 
   constructor(props) {
     super(props);
@@ -20,29 +20,30 @@ class Pubs extends React.Component {
       searchResults: []
     }
   
-    this.pubSearch = this.pubSearch.bind(this);
+    this.poemSearch = this.poemSearch.bind(this);
   }
 
-  pubSearch(evt) {
+  poemSearch(evt) {
     evt.preventDefault();
-    axios.get(`/api/pubs/search/?search=${evt.target.search.value}`)
+    axios.get(`/api/poems/search/?search=${evt.target.search.value}`)
       .then(res => this.setState({
         searchResults: res.data
       }));
   }
 
   render() {
-    console.log("pubs props", this.props)
+    console.log("poems props", this.props)
     return (
       <div id="centerMe">
        {/*user ? <div>{user.isAdmin ? <h1>PUBLICATIONS</h1> : <h2>You are trying to access an Admin Only area.</h2>}</div> : <h2>Please log in.</h2>*/}
       {this.props.user ?
       <div>
-      <h2>Publications</h2>{this.props.user.isAdmin && <div><Link to="/pubs/add"><RaisedButton label="Add"/></Link><br/><br/></div>}
-      {/*<form method="GET" onSubmit={this.pubSearch}>
+      <h2>Poems</h2>{this.props.user.isAdmin && <div><Link to="/poems/add"><RaisedButton label="Add"/></Link><br/><br/></div>}
+      <form method="GET" onSubmit={this.poemSearch}>
         <input type="text" name="search" />
-        <button type="submit">Search</button>
-      </form>*/}
+        <button type="submit">Find Poem</button>
+      </form>
+      <br/>
       <div>
       {
         this.props.searchResults
@@ -58,17 +59,15 @@ class Pubs extends React.Component {
             adjustForCheckbox={false}
             displaySelectAll={false}>
             <TableRow>
-              <TableHeaderColumn><h2 id="title">Name</h2></TableHeaderColumn>
-              <TableHeaderColumn><h2 id="title">Web Address</h2></TableHeaderColumn>
-              <TableHeaderColumn><h2 id="title">Submittable Link</h2></TableHeaderColumn>
+              <TableHeaderColumn><h2 id="title">Title</h2></TableHeaderColumn>
+              <TableHeaderColumn><h2 id="title">Author</h2></TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
           {this.props.searchResults && this.props.searchResults.map(pub => (
-            <TableRow key={pub.id}>
-              <TableRowColumn><Link to={`/pubs/${pub.id}`}>{pub.pub_name}</Link></TableRowColumn>
-              <TableRowColumn><a href={pub.web_address}>{pub.web_address}</a></TableRowColumn>
-              <TableRowColumn><a href={pub.submittable_link}>{pub.submittable_link}</a></TableRowColumn>
+            <TableRow key={poem.id}>
+              <TableRowColumn><Link to={`/poems/${poem.id}`}>{poem.name}</Link></TableRowColumn>
+              <TableRowColumn><Link to={`/users/${poem.user_id}`}>{poem.user_id}</Link></TableRowColumn>
             </TableRow>)
           )}
           </TableBody>
@@ -85,17 +84,15 @@ class Pubs extends React.Component {
             adjustForCheckbox={false}
             displaySelectAll={false}>
             <TableRow>
-              <TableHeaderColumn><h2 id="title">Name</h2></TableHeaderColumn>
-      	      <TableHeaderColumn><h2 id="title">Web Address</h2></TableHeaderColumn>
-              <TableHeaderColumn><h2 id="title">Submittable Link</h2></TableHeaderColumn>
+              <TableHeaderColumn><h2 id="title">Title</h2></TableHeaderColumn>
+      	      <TableHeaderColumn><h2 id="title">Author</h2></TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
-      	  {this.props.pubs && this.props.pubs.map(pub => (
-            <TableRow key={pub.id}>
-              <TableRowColumn><Link to={`/pubs/${pub.id}`}>{pub.pub_name}</Link></TableRowColumn>
-              <TableRowColumn><a href={pub.web_address}>{pub.web_address}</a></TableRowColumn>
-              <TableRowColumn><a href={pub.submittable_link}>{pub.submittable_link}</a></TableRowColumn>
+      	  {this.props.poems && this.props.poems.map(poem => (
+            <TableRow key={poem.id}>
+              <TableRowColumn><Link to={`/poems/${poem.id}`}>{poem.name}</Link></TableRowColumn>
+              <TableRowColumn><Link to={`/users/${poem.user_id}`}>{poem.user_id}</Link></TableRowColumn>
             </TableRow>)
       	  )}
           </TableBody>
@@ -111,9 +108,9 @@ import {connect} from 'react-redux'
 import {getCurrentPub} from '../reducers/onePub'
 
 export default connect(
-  ({ auth, allPubs, pubSearchResults }) => ({ 
+  ({ auth, allPoems, poemSearchResults }) => ({ 
   	user: auth,
-  	pubs: allPubs,
-    searchResults: pubSearchResults
+  	poems: allPoems,
+    searchResults: poemSearchResults
   }), {getCurrentPub},
-)(Pubs)
+)(Poems)

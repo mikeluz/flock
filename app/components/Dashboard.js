@@ -15,25 +15,19 @@ class Dashboard extends React.Component {
 
 	constructor(props) {
 		super(props)
-
-		this.handleClick = this.handleClick.bind(this);
 	}
 
-	handleClick() {
-		// this.props.getAllPubs();
-	}
-
-	render() {
+  render() {
 		console.log("dashboard props", this.props);
 		return (
 		  <div id="centerMe">
 		   {this.props.user && 
 		   <div>
-		   <h1>Welcome back, {this.props.user.name.split(" ")[0]}</h1>
+		   <h2>Welcome back, {this.props.user.name.split(" ")[0]}</h2>
 		   </div>
 		 	 }
 		 	 {
-		 	 	this.props.searchResults && <div>
+		 	 	this.props.searchResults &&
 		 	 <Table   
         height={'300px'}
         fixedHeader={true}
@@ -60,7 +54,6 @@ class Dashboard extends React.Component {
           )}
           </TableBody>
         </Table>
-		 	 	</div>
 		 	 }
 		  </div>
 		)
