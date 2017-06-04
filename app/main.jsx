@@ -26,10 +26,12 @@ import OnePub from './components/OnePub'
 import EditPub from './components/EditPub'
 import AddPub from './components/AddPub'
 import Poems from './components/Poems'
+import OnePoem from './components/OnePoem'
 import FlockPad from './components/FlockPad'
 
 import {getCurrentPub} from './reducers/onePub'
 import {getCurrentUser} from './reducers/oneUser'
+import {getCurrentPoem} from './reducers/onePoem'
 
 const App = connect(
   ({ auth }) => ({ user: auth })
@@ -57,6 +59,7 @@ render(
         <IndexRedirect to="/dashboard" />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/poems" component={Poems} />
+        <Route path="/poems/:id" component={OnePoem} onEnter={(nextRouterState) => getCurrentPoem(nextRouterState)} />
         <Route path="/flockpad" component={FlockPad} />
         <Route path="/users/add" component={AddUser}/>
         <Route path="/users/:id" component={OneUser} onEnter={(nextRouterState) => getCurrentUser(nextRouterState)} />
