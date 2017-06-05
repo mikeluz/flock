@@ -23,6 +23,8 @@ import Pubs from './components/Pubs'
 import Calls from './components/Calls'
 import AddCall from './components/AddCall'
 import OnePub from './components/OnePub'
+import OneCall from './components/OneCall'
+import EditCall from './components/EditCall'
 import EditPub from './components/EditPub'
 import AddPub from './components/AddPub'
 import Poems from './components/Poems'
@@ -32,6 +34,7 @@ import FlockPad from './components/FlockPad'
 import {getCurrentPub} from './reducers/onePub'
 import {getCurrentUser} from './reducers/oneUser'
 import {getCurrentPoem} from './reducers/onePoem'
+import {getCurrentCall} from './reducers/oneCall'
 
 const App = connect(
   ({ auth }) => ({ user: auth })
@@ -68,6 +71,8 @@ render(
         <Route path="/subs" component={Subs} />
         <Route path="/calls/add" component={AddCall} />
         <Route path="/calls" component={Calls} />
+        <Route path="/calls/:id" component={OneCall} onEnter={(nextRouterState) => getCurrentCall(nextRouterState)} />
+        <Route path="/calls/:id/edit" component={EditCall}/>
         <Route path="/pubs/add" component={AddPub}/>
         <Route path="/pubs/:id" component={OnePub} onEnter={(nextRouterState) => getCurrentPub(nextRouterState)} />
         <Route path="/pubs/:id/edit" component={EditPub}/>

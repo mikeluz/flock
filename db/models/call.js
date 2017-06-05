@@ -28,5 +28,5 @@ module.exports = db => db.define('calls', {
 })
 
 module.exports.associations = (Call, {Pub}) => {
-
+  Call.belongsTo(Pub)
 }

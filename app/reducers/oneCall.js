@@ -14,18 +14,18 @@ export const setCurrentCall = currentCall => ({
   type: SET_CURRENT_CALL, currentCall
 })
 
-export const getCurrentPub = (nextRouterState) =>
-    axios.get(`/api/pubs/${nextRouterState.params.id}`)
+export const getCurrentCall = (nextRouterState) =>
+    axios.get(`/api/calls/${nextRouterState.params.id}`)
       .then((res) => store.dispatch(setCurrentCall(res.data)))
       .catch(() => store.dispatch(setCurrentCall(null)))
 
-export const updateCurrentPub = (nextRouterState) => 
-    axios.put(`/api/pubs/${nextRouterState.id}`, nextRouterState)
+export const updateCurrentCall = (nextRouterState) => 
+    axios.put(`/api/calls/${nextRouterState.id}`, nextRouterState)
       .then((res) => store.dispatch(setCurrentCall(res.data)))
       .catch(() => store.dispatch(setCurrentCall(null)))
 
-export const deleteCurrentPub = (id) => 
-    axios.delete(`/api/pubs/${id}`)
+export const deleteCurrentCall = (id) => 
+    axios.delete(`/api/calls/${id}`)
       .then((res) => store.dispatch(setCurrentCall(res.data)))
       .catch(() => store.dispatch(setCurrentCall(null)))
 

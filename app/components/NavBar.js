@@ -16,6 +16,7 @@ class NavBar extends React.Component {
     this.handlePubClick = this.handlePubClick.bind(this);
     this.handleUserClick = this.handleUserClick.bind(this);
     this.handlePoemClick = this.handlePoemClick.bind(this);
+    this.handleCallClick = this.handleCallClick.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.pubSearch = this.pubSearch.bind(this);
   }
@@ -31,6 +32,10 @@ class NavBar extends React.Component {
 
   handlePoemClick() {
     this.props.getAllPoems();
+  }
+
+  handleCallClick() {
+    this.props.getAllCalls();
   }
 
   pubSearch(evt) {
@@ -69,7 +74,7 @@ class NavBar extends React.Component {
           {this.props.user.isAdmin && <ToolbarSeparator/>}
           <Link to="/pubs"><RaisedButton label="Publications" onClick={this.handlePubClick}/></Link>
           <ToolbarSeparator/>
-          <Link to="/calls"><RaisedButton label="Calls"/></Link>
+          <Link to="/calls"><RaisedButton label="Calls" onClick={this.handleCallClick}/></Link>
           <ToolbarSeparator/>
           <Link to="/flockpad"><RaisedButton label="FlockPad"/></Link>
           <ToolbarSeparator/>
@@ -77,7 +82,7 @@ class NavBar extends React.Component {
           <input type="text" placeholder="Find Publications" name="search" id="search"/>
           <RaisedButton 
             type="submit" 
-            label="Search by Name"        
+            label="Search"        
             backgroundColor='green'
             labelColor='white'/>
           </form>
@@ -100,11 +105,13 @@ import {connect} from 'react-redux'
 import {findPubsByName} from '../reducers/pubSearchResults'
 import {getAllUsers} from '../reducers/users'
 import {getAllPoems} from '../reducers/allPoems'
+import {getAllCalls} from '../reducers/allCalls'
 
 export default connect(
-  ({ auth, allPubs, pubSearchResults }) => ({ 
+  ({ auth, allPubs, allCalls, pubSearchResults }) => ({ 
     user: auth,
     pubs: allPubs,
+    calls: allCalls,
     searchResults: pubSearchResults
-  }), {getAllUsers, findPubsByName, getAllPoems},
+  }), {getAllUsers, findPubsByName, getAllPoems, getAllCalls},
 )(NavBar)

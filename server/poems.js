@@ -2,6 +2,7 @@
 
 const db = require('APP/db')
 const Poem = db.model('poems')
+const User = db.model('users')
 
 const {mustBeLoggedIn, forbidden, isUserAdmin} = require('./auth.filters')
 
@@ -9,7 +10,9 @@ module.exports = require('express').Router()
   .get('/',
     isUserAdmin,
     (req, res, next) =>
-      Poem.findAll()
+      Poem.findAll({
+        include: [User]
+      })
         .then(poems => res.json(poems))
         .catch(next))
   .post('/',

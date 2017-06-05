@@ -18,7 +18,6 @@ class Dashboard extends React.Component {
 	}
 
   render() {
-		console.log("dashboard props", this.props);
 		return (
 		  <div id="centerMe">
 		   {this.props.user && 

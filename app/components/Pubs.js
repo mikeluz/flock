@@ -32,17 +32,18 @@ class Pubs extends React.Component {
   }
 
   render() {
-    console.log("pubs props", this.props)
+    
     return (
       <div id="centerMe">
        {/*user ? <div>{user.isAdmin ? <h1>PUBLICATIONS</h1> : <h2>You are trying to access an Admin Only area.</h2>}</div> : <h2>Please log in.</h2>*/}
       {this.props.user ?
       <div>
-      <h2>Publications</h2>{this.props.user.isAdmin && <div><Link to="/pubs/add"><RaisedButton label="Add"/></Link><br/><br/></div>}
-      {/*<form method="GET" onSubmit={this.pubSearch}>
+      {/*<h2>Publications</h2>{this.props.user.isAdmin && <div><Link to="/pubs/add"><RaisedButton label="Add"/></Link><br/><br/></div>}
+      <form method="GET" onSubmit={this.pubSearch}>
         <input type="text" name="search" />
         <button type="submit">Search</button>
       </form>*/}
+      <br/>
       <div>
       {
         this.props.searchResults
@@ -57,6 +58,11 @@ class Pubs extends React.Component {
           <TableHeader 
             adjustForCheckbox={false}
             displaySelectAll={false}>
+            <TableRow>
+              <TableHeaderColumn><h1 id="title">Publications</h1></TableHeaderColumn>
+              <TableHeaderColumn>{this.props.user.isAdmin && <div id="centerMeTable"><Link to="/pubs/add"><RaisedButton label="Add"/></Link><br/><br/></div>}</TableHeaderColumn>
+              <TableHeaderColumn></TableHeaderColumn>
+            </TableRow>
             <TableRow>
               <TableHeaderColumn><h2 id="title">Name</h2></TableHeaderColumn>
               <TableHeaderColumn><h2 id="title">Web Address</h2></TableHeaderColumn>
@@ -108,12 +114,11 @@ class Pubs extends React.Component {
 }
 
 import {connect} from 'react-redux'
-import {getCurrentPub} from '../reducers/onePub'
 
 export default connect(
   ({ auth, allPubs, pubSearchResults }) => ({ 
   	user: auth,
   	pubs: allPubs,
     searchResults: pubSearchResults
-  }), {getCurrentPub},
+  }), {},
 )(Pubs)

@@ -6,9 +6,10 @@ const appReducer = combineReducers({
   pubSearchResults: require('./pubSearchResults').default,
   currentPub: require('./onePub').default,
   currentUser: require('./oneUser').default,
+  currentCall: require('./oneCall').default,
   allPoems: require('./allPoems').default,
   currentPoem: require('./onePoem').default,
-  // allCalls: require('./allCalls').default,
+  allCalls: require('./allCalls').default,
   // currentSubs: require('./currentSubs').default,
   // currentCalls: require('./currentCalls').default,
 

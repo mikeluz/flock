@@ -67,7 +67,7 @@ class Poems extends React.Component {
           {this.props.searchResults && this.props.searchResults.map(pub => (
             <TableRow key={poem.id}>
               <TableRowColumn><Link to={`/poems/${poem.id}`}>{poem.name}</Link></TableRowColumn>
-              <TableRowColumn><Link to={`/users/${poem.user_id}`}>{poem.user_id}</Link></TableRowColumn>
+              <TableRowColumn><Link to={`/users/${poem.user_id}`}>{poem.user.name}</Link></TableRowColumn>
             </TableRow>)
           )}
           </TableBody>
@@ -92,7 +92,7 @@ class Poems extends React.Component {
       	  {this.props.poems && this.props.poems.map(poem => (
             <TableRow key={poem.id}>
               <TableRowColumn><Link to={`/poems/${poem.id}`}>{poem.name}</Link></TableRowColumn>
-              <TableRowColumn><Link to={`/users/${poem.user_id}`}>{poem.user_id}</Link></TableRowColumn>
+              <TableRowColumn><Link to={`/users/${poem.user_id}`}>{poem.user.name}</Link></TableRowColumn>
             </TableRow>)
       	  )}
           </TableBody>
