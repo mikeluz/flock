@@ -24,7 +24,7 @@ const style = {
 const EditCall = (props) => { 
 
   const onSubmit = evt => {
-    console.log("callStart", typeof evt.target.callStart.value);
+    console.log("callDetails", evt.target.callDetails.value);
     evt.preventDefault();
     props.updateCurrentCall({
       id: props.currentCall.id,
@@ -32,7 +32,7 @@ const EditCall = (props) => {
       call_start: (evt.target.callStart.value.length > 0 ? moment(evt.target.callStart.value).format('LL') : props.currentCall.call_start),
       call_end: (evt.target.callEnd.value.length > 0 ? moment(evt.target.callEnd.value).format('LL') : props.currentCall.call_end),
       call_judge: evt.target.callJudge.value,
-      call_details: evt.target.callDetails.value,
+      call_detail: evt.target.callDetails.value,
       pages_or_poems: evt.target.pagesOrPoems.value,
       req_length: evt.target.reqLength.value,
       mail_only: evt.target.mailOnly.value,
@@ -62,7 +62,7 @@ const EditCall = (props) => {
     <div>{props.user.isAdmin ? <div id="centerMe">
     <hr/>
     <Paper style={style} zDepth={3}>
-      <h2>Edit Call for {`${props.currentCall.pub.pub_name}`}</h2>
+      <h2>Edit Call for {props.currentCall.pub.pub_name}</h2>
       <form onSubmit={onSubmit}>
         <div id="form-left">
         <h4>Call Name</h4>
