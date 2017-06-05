@@ -108,7 +108,6 @@ const EditCall = (props) => {
         </div>
         <br/><br/><br/><br/>
         <div id="button-padding">
-        <RaisedButton label="Delete" onClick={deleteCall}/>
         <RaisedButton 
           type="submit"
           label="Save"

@@ -19,6 +19,14 @@ const style = {
 
 const OneCall = (props) => {
 
+
+  const deleteCall = () => {
+    var confirm = window.confirm("Are you sure?");
+    if (confirm) {
+      props.deleteCurrentCall(props.currentCall.id)
+    }
+  }
+
   let currentCallId = props.currentCall ? props.currentCall.id : 0
   let start = props.currentCall ? moment(props.currentCall.call_start).format('LL') : "NA"
   let end = props.currentCall ? moment(props.currentCall.call_end).format('LL') : "NA"
@@ -60,6 +68,7 @@ const OneCall = (props) => {
   </div>
   {props.user.isAdmin && <div>
     <Link to={`/calls/${currentCallId}/edit`}>
+    <RaisedButton label="Delete" onClick={deleteCall}/>
     <RaisedButton type="submit" label="Edit" backgroundColor='#000000' labelColor='white' />
     </Link>
   </div>}
@@ -71,10 +80,11 @@ const OneCall = (props) => {
 )}
 
 import {connect} from 'react-redux'
+import {deleteCurrentCall} from '../reducers/oneCall'
 
 export default connect(
   ({ auth, currentCall }) => ({ 
   	user: auth,
     currentCall: currentCall
-  }), {},
+  }), {deleteCurrentCall},
 )(OneCall)
