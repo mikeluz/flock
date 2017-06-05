@@ -9,7 +9,9 @@ module.exports = require('express').Router()
   .get('/',
     isUserAdmin,
     (req, res, next) =>
-      Sub.findAll()
+      Sub.findAll({
+        include: [ {all: true} ]
+      })
         .then(subs => res.json(subs))
         .catch(next))
   .post('/',

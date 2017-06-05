@@ -27,6 +27,7 @@ import OneCall from './components/OneCall'
 import EditCall from './components/EditCall'
 import EditPub from './components/EditPub'
 import AddPub from './components/AddPub'
+import AddSub from './components/AddSub'
 import Poems from './components/Poems'
 import OnePoem from './components/OnePoem'
 import FlockPad from './components/FlockPad'
@@ -69,6 +70,7 @@ render(
         <Route path="/users/:id/edit" component={EditUser}/>
         <Route path="/users" component={Users} />
         <Route path="/subs" component={Subs} />
+        <Route path="/subs/add" component={AddSub} />
         <Route path="/calls/add" component={AddCall} />
         <Route path="/calls" component={Calls} />
         <Route path="/calls/:id" component={OneCall} onEnter={(nextRouterState) => getCurrentCall(nextRouterState)} />

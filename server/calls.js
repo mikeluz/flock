@@ -32,6 +32,12 @@ module.exports = require('express').Router()
         })
       .spread((numOfUpdatedCalls, updatedCalls) => res.json(updatedCalls[0]))
       .catch(next))
+  .get('/search',
+    mustBeLoggedIn,
+    (req, res, next) =>
+      Call.findByName(req.query.search)
+      .then(results => res.json(results))
+      .catch(next))
   .get('/:id',
     mustBeLoggedIn,
     (req, res, next) =>

@@ -44,9 +44,22 @@ module.exports = app
   .use(bodyParser.urlencoded({ extended: true }))
   .use(bodyParser.json())
 
+
   // Authentication middleware
   .use(passport.initialize())
   .use(passport.session())
+
+  .use('/api', function (req, res, next) {
+    if (req.user) {
+      if (req.user.dataValues.isAdmin) {
+        req.session.submission = req.session.submission || {};
+        req.session.submission.user = req.session.submission.user || {};
+        req.session.submission.poems = req.session.submission.poems || [];
+      }
+    }
+    console.log("session", req.session);
+    next();
+  })
 
   // Serve static files from ../public
   .use(express.static(resolve(__dirname, '..', 'public')))

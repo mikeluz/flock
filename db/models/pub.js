@@ -22,10 +22,8 @@ module.exports = db => db.define('pubs', {
 },{
   classMethods: {
     findByName: function (name) {
-      // console.log("name", name);
       return this.findAll({
         where: {
-          // pub_name: name
           pub_name: {
             $iLike: `%${name}%`
           }
@@ -35,6 +33,7 @@ module.exports = db => db.define('pubs', {
   }
 })
 
-module.exports.associations = (Pub, {Call}) => {
+module.exports.associations = (Pub, {Call, Sub}) => {
   Pub.hasMany(Call)
+  Pub.hasMany(Sub)
 }

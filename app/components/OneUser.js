@@ -41,7 +41,7 @@ const OneUser = (props) => {
     <RaisedButton type="submit" label="Edit" backgroundColor='#000000' labelColor='white' />
     </Link>
     <Link to={`/subs/add`}>
-    <RaisedButton type="submit" label="Add Submission" backgroundColor='white' labelColor='black' />
+    <RaisedButton type="submit" label="New Submission" backgroundColor='white' labelColor='black' />
     </Link></div>
   }
   </Paper>

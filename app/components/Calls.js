@@ -39,11 +39,6 @@ class Calls extends React.Component {
        {/*user ? <div>{user.isAdmin ? <h1>PUBLICATIONS</h1> : <h2>You are trying to access an Admin Only area.</h2>}</div> : <h2>Please log in.</h2>*/}
       {this.props.user ?
       <div>
-      <h2>Calls</h2>
-      <form method="GET" onSubmit={this.callSearch}>
-        <input type="text" name="search" />
-        <button type="submit">Search</button>
-      </form>
       <br/>
       <div>
       {
@@ -59,6 +54,16 @@ class Calls extends React.Component {
           <TableHeader 
             adjustForCheckbox={false}
             displaySelectAll={false}>
+            <TableRow>
+              <TableHeaderColumn><h1 id="title">Calls</h1></TableHeaderColumn>
+              <TableHeaderColumn><div>      
+                <form method="GET" onSubmit={this.callSearch}>
+                <input type="text" name="search" />
+                <button type="submit">Search</button>
+                </form></div>
+              </TableHeaderColumn>
+              <TableHeaderColumn></TableHeaderColumn>
+            </TableRow>
             <TableRow>
               <TableHeaderColumn><h2 id="title">Name</h2></TableHeaderColumn>
               <TableHeaderColumn><h2 id="title">Pub</h2></TableHeaderColumn>
@@ -90,6 +95,16 @@ class Calls extends React.Component {
           <TableHeader 
             adjustForCheckbox={false}
             displaySelectAll={false}>
+            <TableRow>
+              <TableHeaderColumn><h1 id="title">Calls</h1></TableHeaderColumn>
+              <TableHeaderColumn><div>      
+                <form method="GET" onSubmit={this.callSearch}>
+                <input type="text" name="search" />
+                <button type="submit">Search</button>
+                </form></div>
+              </TableHeaderColumn>
+              <TableHeaderColumn></TableHeaderColumn>
+            </TableRow>
             <TableRow>
               <TableHeaderColumn><h2 id="title">Name</h2></TableHeaderColumn>
               <TableHeaderColumn><h2 id="title">Pub</h2></TableHeaderColumn>
