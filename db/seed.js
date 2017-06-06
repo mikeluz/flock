@@ -1,16 +1,26 @@
 'use strict'
 
 const db = require('APP/db')
-    , {User, Pub, Promise} = db
+    , {User, Pub, Poem, Call, Sub, Promise} = db
     , {mapValues} = require('lodash')
 
+// module for importing csv data as json
 const csvFilePath = __dirname + '/pubs.csv'
 const csv = require('csvtojson')
 
-const pubsData = () => {
-  
-  let pubsData = [];
+function seedEverything() {
+  const seeded = {
+    users: users(),
+    pubs: pubs(),
+    calls: calls(),
+  }
+  seeded.subs = subs(seeded)
+  seeded.poems = poems(seeded)
+  return Promise.props(seeded)
+}
 
+const pubsData = () => {
+  let pubsData = [];
   csv()
   .fromFile(csvFilePath)
   .on('json',(jsonObj)=>{
@@ -22,18 +32,6 @@ const pubsData = () => {
   })
   console.log("pubsData", pubsData);
   return pubsData;
-}
-
-function seedEverything() {
-  const seeded = {
-    users: users(),
-    // things: things(),
-    pubs: pubs()
-  }
-
-  // seeded.favorites = favorites(seeded)
-
-  return Promise.props(seeded)
 }
 
 const users = seed(User, {
@@ -78,6 +76,87 @@ const users = seed(User, {
     password: 'hannlarrabee',
   }
 })
+
+const poems = seed(Poem, ({ users }) => ({
+  testOne: {
+    name: 'The Furthest Peak',
+    user_id: users.jess.id
+  },
+  testTwo: {
+    name: 'Sharpness',
+    user_id: users.mike.id
+  },
+  testThree: {
+    name: 'Pencils Breaking',
+    user_id: users.jess.id
+  },
+  testFour: {
+    name: 'Worse Things',
+    user_id: users.mike.id
+  },
+  testFive: {
+    name: 'A Mess',
+    user_id: users.meg.id
+  },
+  testSix: {
+    name: 'You',
+    user_id: users.kathleen.id
+  },
+  testSeven: {
+    name: 'Standards',
+    user_id: users.meg.id
+  },
+  testEight: {
+    name: 'Colorblind',
+    user_id: users.kathleen.id
+  },
+}))
+
+const calls = seed(Call, {
+  testOne: {
+    call_name: 'Apogee Summer Submissions',
+    call_start: '2017-05-09',
+    call_end: '2017-09-09',
+    call_type: 'basic',
+    call_judge: 'George Oppen',
+    call_detail: 'A call for summer submissions. 2 poems per submission.',
+    open_or_closed: 'open',
+    pages_or_poems: 'poems',
+    req_length: '2',
+    fee_amt: 3,
+    mail_only: false,
+    req_sase: false,
+    mailing_address: "none",
+    pub_id: 5
+  },
+  testTwo: {
+    call_name: '2017 Gulf Coast Manuscript Contest',
+    call_start: '2017-05-28',
+    call_end: '2017-12-12',
+    call_type: 'manuscript',
+    call_judge: 'Robert Frost',
+    call_detail: 'Gulf Coast yearly manuscript contest. 50 to 80 pages.',
+    open_or_closed: 'open',
+    pages_or_poems: 'pages',
+    req_length: '50-80',
+    fee_amt: 30,
+    mail_only: true,
+    req_sase: true,
+    mailing_address: "45 Florida Drive, Tallahasee, FL, 12345",
+    pub_id: 10
+  },
+})
+
+const subs = seed(Sub, ({ users, calls }) => ({
+  testOne: {
+    sub_date: '2017-06-01',
+    sub_status: 'accepted',
+    sub_notes: 'This is the first time these poems have been submitted',
+    pub_name: 'Apogee Journal',
+    user_id: users.jess.id,
+    call_id: calls.testOne.id
+  },
+}))
 
 const pubs = seed(Pub, pubsData());
 

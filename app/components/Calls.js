@@ -100,7 +100,7 @@ class Calls extends React.Component {
               <TableHeaderColumn><div>      
                 <form method="GET" onSubmit={this.callSearch}>
                 <input type="text" name="search" />
-                <button type="submit">Search</button>
+                <button type="submit">Find Calls</button>
                 </form></div>
               </TableHeaderColumn>
               <TableHeaderColumn></TableHeaderColumn>
