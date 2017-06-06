@@ -26,6 +26,7 @@ module.exports = require('express').Router()
     (req, res, next) => {
       req.session.submission.user = req.body
       req.session.submission.poems = []
+      console.log("session", req.session);
       res.send()
   })
   .post('/current/clear', 

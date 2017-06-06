@@ -17,6 +17,7 @@ class NavBar extends React.Component {
     this.handleUserClick = this.handleUserClick.bind(this);
     this.handlePoemClick = this.handlePoemClick.bind(this);
     this.handleCallClick = this.handleCallClick.bind(this);
+    this.handleSubClick = this.handleSubClick.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.pubSearch = this.pubSearch.bind(this);
   }
@@ -36,6 +37,10 @@ class NavBar extends React.Component {
 
   handleCallClick() {
     this.props.getAllCalls();
+  }
+
+  handleSubClick() {
+    this.props.getAllSubs();
   }
 
   pubSearch(evt) {
@@ -68,7 +73,7 @@ class NavBar extends React.Component {
       		}}>
           {this.props.user.isAdmin && <Link to="/users"><RaisedButton label="Users" onClick={this.handleUserClick}/></Link>}
           {this.props.user.isAdmin && <ToolbarSeparator/>}
-          {this.props.user.isAdmin && <Link to="/subs"><RaisedButton label="Submissions"/></Link>}
+          {this.props.user.isAdmin && <Link to="/subs"><RaisedButton label="Submissions" onClick={this.handleSubClick}/></Link>}
           {this.props.user.isAdmin && <ToolbarSeparator/>}
           {this.props.user.isAdmin && <Link to="/poems"><RaisedButton label="Poems" onClick={this.handlePoemClick}/></Link>}
           {this.props.user.isAdmin && <ToolbarSeparator/>}
@@ -106,12 +111,14 @@ import {findPubsByName} from '../reducers/pubSearchResults'
 import {getAllUsers} from '../reducers/users'
 import {getAllPoems} from '../reducers/allPoems'
 import {getAllCalls} from '../reducers/allCalls'
+import {getAllSubs} from '../reducers/allSubs'
 
 export default connect(
-  ({ auth, allPubs, allCalls, pubSearchResults }) => ({ 
+  ({ auth, allPubs, allCalls, allSubs, pubSearchResults }) => ({ 
     user: auth,
     pubs: allPubs,
     calls: allCalls,
+    subs: allSubs,
     searchResults: pubSearchResults
-  }), {getAllUsers, findPubsByName, getAllPoems, getAllCalls},
+  }), {getAllUsers, findPubsByName, getAllPoems, getAllCalls, getAllSubs},
 )(NavBar)

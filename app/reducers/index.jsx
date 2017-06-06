@@ -11,6 +11,7 @@ const appReducer = combineReducers({
   allPoems: require('./allPoems').default,
   currentPoem: require('./onePoem').default,
   allCalls: require('./allCalls').default,
+  allSubs: require('./allSubs').default,
   // currentSubs: require('./currentSubs').default,
   // currentCalls: require('./currentCalls').default,
 

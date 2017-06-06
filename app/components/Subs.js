@@ -97,30 +97,34 @@ class Subs extends React.Component {
             displaySelectAll={false}>
             <TableRow>
               <TableHeaderColumn><h1 id="title">Submissions</h1></TableHeaderColumn>
+              <TableHeaderColumn></TableHeaderColumn>
               <TableHeaderColumn><div>      
                 <form method="GET" onSubmit={this.subSearch}>
                 <input type="text" name="search" />
-                <button type="submit">Search</button>
+                <button type="submit">Find</button>
                 </form></div>
               </TableHeaderColumn>
-              <TableHeaderColumn></TableHeaderColumn>
             </TableRow>
             <TableRow>
-              <TableHeaderColumn><h2 id="title">Name</h2></TableHeaderColumn>
-              <TableHeaderColumn><h2 id="title">Pub</h2></TableHeaderColumn>
-              <TableHeaderColumn><h2 id="title">Date Start</h2></TableHeaderColumn>
-              <TableHeaderColumn><h2 id="title">Date End</h2></TableHeaderColumn>
-              <TableHeaderColumn><h2 id="title">Open or Closed</h2></TableHeaderColumn>
+              <TableHeaderColumn><h2 id="title">Submission</h2></TableHeaderColumn>
+              <TableHeaderColumn><h2 id="title">User</h2></TableHeaderColumn>
+              <TableHeaderColumn><h2 id="title">Date Sent</h2></TableHeaderColumn>
+              <TableHeaderColumn><h2 id="title">Status</h2></TableHeaderColumn>
+              <TableHeaderColumn><h2 id="title">Notes</h2></TableHeaderColumn>
+              <TableHeaderColumn><h2 id="title">Publication</h2></TableHeaderColumn>
+              <TableHeaderColumn><h2 id="title">Call</h2></TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
       	  {this.props.subs && this.props.subs.map(sub => (
             <TableRow key={sub.id}>
-              <TableRowColumn><Link to={`/subs/${sub.id}`}>{sub.sub_name}</Link></TableRowColumn>
-              <TableRowColumn><Link to={`/pubs/${sub.pub.id}`}>{sub.pub.pub_name}</Link></TableRowColumn>
-              <TableRowColumn>{moment(sub.sub_start).format('LL')}</TableRowColumn>
-              <TableRowColumn>{moment(sub.sub_end).format('LL')}</TableRowColumn>
-              <TableRowColumn>{sub.open_or_closed}</TableRowColumn>
+              <TableRowColumn><Link to={`/subs/${sub.id}`}>{sub.id}</Link></TableRowColumn>
+              <TableRowColumn><Link to={`/users/${sub.user.id}`}>{sub.user.name}</Link></TableRowColumn>
+              <TableRowColumn>{moment(sub.sub_date).format('LL')}</TableRowColumn>
+              <TableRowColumn>{sub.sub_status}</TableRowColumn>
+              <TableRowColumn>{sub.sub_notes}</TableRowColumn>
+              <TableRowColumn>{sub.pub_name}</TableRowColumn>
+              <TableRowColumn>{sub.call && <Link to={`/calls/${sub.call.id}`}>{sub.call.call_name}</Link>}</TableRowColumn>
             </TableRow>)
       	  )}
           </TableBody>

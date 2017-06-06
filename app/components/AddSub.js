@@ -25,7 +25,7 @@ const AddSub = (props) => {
 
   const onSubmit = evt => {
     evt.preventDefault();
-    props.addSub({
+    props.addNewSub({
       sub_date: moment(evt.target.subDate.value).format('LL'),
       sub_status: evt.target.subStatus.value,
       sub_notes: evt.target.subNotes.value,
@@ -80,11 +80,11 @@ const AddSub = (props) => {
 }
 
 import {connect} from 'react-redux'
-import {addSub} from '../reducers/oneSub'
+import {addNewSub} from '../reducers/oneSub'
 
 export default connect(
   ({ auth, currentUser }) => ({ 
   	user: auth,
     currentUser
-  }), {addSub},
+  }), {addNewSub},
 )(AddSub)
