@@ -3,7 +3,21 @@ import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import Paper from 'material-ui/Paper';
 import {Link} from 'react-router'
+
+const style = {
+  height: 'auto',
+  width: 'auto',
+  margin: 'auto',
+  textAlign: 'center',
+  display: 'inline-block',
+  paddingLeft: '40px',
+  paddingRight: '40px',
+  paddingBottom: '40px',
+  paddingTop: '20px',
+  backgroundColor: 'rgba(240, 240, 240, 0.8)'
+};
 
 const AddUser = (props) => { 
 
@@ -27,6 +41,7 @@ const AddUser = (props) => {
     ?
     <div>{props.user.isAdmin ? <div id="centerMe">
     <hr/>
+      <Paper style={style} zDepth={3}>
       <form onSubmit={onSubmit}>
         <h4>Name</h4>
         <TextField type="text" hintText="Name" name="userName" /><br/>
@@ -44,6 +59,7 @@ const AddUser = (props) => {
           onClick={saved}
           />
       </form>
+      </Paper>
       <br/>
     </div> : <h2>You are trying to access an Admin Only area.</h2>}</div>
     : 

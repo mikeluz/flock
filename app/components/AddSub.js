@@ -56,7 +56,7 @@ const AddSub = (props) => {
         </select>
         <h4>Notes</h4>
         <textarea type="text" name="subNotes" rows="10" cols="30"/><br/>
-        <br/><br/><br/><br/>
+        <br/>
         <div id="button-padding">
           <RaisedButton 
             type="submit"

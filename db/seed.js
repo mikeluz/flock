@@ -114,7 +114,7 @@ const poems = seed(Poem, ({ users }) => ({
 
 const calls = seed(Call, {
   testOne: {
-    call_name: 'Apogee Summer Submissions',
+    call_name: 'Backlash Summer Submissions',
     call_start: '2017-05-09',
     call_end: '2017-09-09',
     call_type: 'basic',

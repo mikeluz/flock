@@ -55,7 +55,7 @@ const AddPoem = (props) => {
           })
         }
         </select>
-        <br/><br/><br/><br/>
+        <br/><br/>
         <div id="button-padding">
         <RaisedButton 
           type="submit"

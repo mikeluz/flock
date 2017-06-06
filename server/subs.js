@@ -17,9 +17,10 @@ module.exports = require('express').Router()
         .then(subs => res.json(subs))
         .catch(next))
   .get('/current/clear', 
+    isUserAdmin,
     (req, res, next) => {
       req.session.submission = {}
-      res.send();
+      res.redirect('/');
   })
   .get('/current/:id',
     isUserAdmin,
@@ -31,7 +32,10 @@ module.exports = require('express').Router()
         },
         include: [ {all: true} ]
       })
-        .then(subs => res.json(subs))
+        .then(sub => {
+          console.log("sub", sub);
+          res.json(sub)
+        })
         .catch(next)})
   .post('/current/poems',
     isUserAdmin,
@@ -51,6 +55,7 @@ module.exports = require('express').Router()
       res.send()
   })
   .post('/',
+    isUserAdmin,
     (req, res, next) =>
       Sub.create({
         sub_date: req.body.sub_date,
