@@ -17,7 +17,7 @@ const style = {
   backgroundColor: 'rgba(240, 240, 240, 0.8)'
 };
 
-const OneCall = (props) => {
+const OneSub = (props) => {
 
 
   const deleteCall = () => {
@@ -58,8 +58,6 @@ const OneCall = (props) => {
   <h2>{props.currentCall ? props.currentCall.call_judge : "No selection was made."}</h2>
   </div>
   <div id="form-center">
-  <h4>Open or Closed</h4>
-  <h2>{props.currentCall ? props.currentCall.open_or_closed : "No selection was made."}</h2>
   <h4>Call Detail</h4>
   <h2>{props.currentCall ? props.currentCall.call_detail : "No selection was made."}</h2>
   </div>
@@ -76,11 +74,11 @@ const OneCall = (props) => {
   <h2>{props.currentCall ? props.currentCall.mailing_address : "No selection was made."}</h2> 
   </div>
   {props.user.isAdmin && <div>
-    <RaisedButton label="Delete" onClick={deleteCall}/>
     <Link to={`/calls/${currentCallId}/edit`}>
+    <RaisedButton label="Delete" onClick={deleteCall}/>
     <RaisedButton type="submit" label="Edit" backgroundColor='#000000' labelColor='white' /><br/><br/>
-    </Link>
     <RaisedButton label="Add Current Sub" onClick={addCurrentSub}/>
+    </Link>
   </div>}
   </Paper>
   </div>
@@ -90,12 +88,12 @@ const OneCall = (props) => {
 )}
 
 import {connect} from 'react-redux'
-import {deleteCurrentCall} from '../reducers/oneCall'
+import {deleteCurrentSub} from '../reducers/oneSub'
 import {addCurrentSub} from '../reducers/oneSub'
 
 export default connect(
-  ({ auth, currentCall }) => ({ 
+  ({ auth, currentSub }) => ({ 
   	user: auth,
-    currentCall: currentCall
-  }), {deleteCurrentCall, addCurrentSub},
-)(OneCall)
+    currentSub: currentSub
+  }), {deleteCurrentSub, addCurrentSub},
+)(OneSub)

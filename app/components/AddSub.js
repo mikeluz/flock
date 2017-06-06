@@ -26,19 +26,10 @@ const AddSub = (props) => {
   const onSubmit = evt => {
     evt.preventDefault();
     props.addSub({
-      call_name: evt.target.callName.value,
-      call_start: moment(evt.target.callStart.value).format('LL'),
-      call_end: moment(evt.target.callEnd.value).format('LL'),
-      call_type: evt.target.callType.value,
-      call_judge: evt.target.callJudge.value,
-      call_detail: evt.target.callDetails.value,
-      pages_or_poems: evt.target.pagesOrPoems.value,
-      req_length: evt.target.reqLength.value,
-      fee_amt: evt.target.feeAmt.value,
-      mail_only: evt.target.mailOnly.value,
-      req_sase: evt.target.reqSase.value,
-      mailing_address: evt.target.mailingAddress.value,
-      pub_id: props.currentPub.id
+      sub_date: moment(evt.target.subDate.value).format('LL'),
+      sub_status: evt.target.subStatus.value,
+      sub_notes: evt.target.subNotes.value,
+      user_id: props.currentUser.id
     });
   }
 
@@ -53,45 +44,18 @@ const AddSub = (props) => {
     <div>{props.user.isAdmin ? <div id="centerMe">
     <hr/>
     <Paper style={style} zDepth={3}>
-      <h2>New Submission for {`${props.user.name}`}</h2>
+      <h2>New Submission for {`${props.currentUser.name}`}</h2>
       <form onSubmit={onSubmit}>
-        <div id="form-left">
-        <TextField type="text" hintText="call name" name="callName" /><br/>
-        <DatePicker hintText="call start" name="callStart" /><br/>
-        <DatePicker hintText="call end" name="callEnd" /><br/>
-        <h4>Call Type</h4>
-        <select name="callType">
-          <option value="basic" selected>Basic</option>
-          <option value="manuscript">Manuscript</option>
-          <option value="contest">Contest</option>
+        <DatePicker hintText="date submission sent" name="subDate" /><br/>
+        <h4>Status</h4>
+        <select name="subStatus">
+          <option value="in process" selected>In Process</option>
+          <option value="accepted" selected>Accepted</option>
+          <option value="rejected">Rejected</option>
+          <option value="withdrawn">Withdrawn</option>
         </select>
-        <TextField type="text" hintText="call judge" name="callJudge" /><br/>
-        </div>
-        <div id="form-center">
-        <h4>Call Detail</h4>
-        <textarea type="text" name="callDetails" rows="10" cols="30"/><br/>
-        </div>
-        <div id="form-right">
-        <h4>Pages Or Poems</h4>
-        <select name="pagesOrPoems">
-          <option value="pages" selected>Pages</option>
-          <option value="poems">Poems</option>
-        </select>
-        <TextField type="text" hintText="Required Length" name="reqLength" /><br/>
-        <TextField type="text" hintText="fee amount" name="feeAmt" /><br/>
-        <h4>Mail Only</h4>
-        <select name="mailOnly">
-          <option value={true}>Yes</option>
-          <option value={false} selected>No</option>
-        </select>
-        <h4>SASE Required</h4>
-        <select name="reqSase">
-          <option value={true}>Yes</option>
-          <option value={false} selected>No</option>
-        </select>
-        <h4>Mailing Address</h4>
-        <TextField type="text" hintText="Mailing Address" name="mailingAddress" />
-        </div>
+        <h4>Notes</h4>
+        <textarea type="text" name="subNotes" rows="10" cols="30"/><br/>
         <br/><br/><br/><br/>
         <div id="button-padding">
           <RaisedButton 
@@ -116,10 +80,11 @@ const AddSub = (props) => {
 }
 
 import {connect} from 'react-redux'
-// import {addSub} from '../reducers/addSub'
+import {addSub} from '../reducers/oneSub'
 
 export default connect(
-  ({ auth }) => ({ 
-  	user: auth
-  }), {},
+  ({ auth, currentUser }) => ({ 
+  	user: auth,
+    currentUser
+  }), {addSub},
 )(AddSub)

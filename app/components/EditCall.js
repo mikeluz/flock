@@ -32,6 +32,7 @@ const EditCall = (props) => {
       call_start: (evt.target.callStart.value.length > 0 ? moment(evt.target.callStart.value).format('LL') : props.currentCall.call_start),
       call_end: (evt.target.callEnd.value.length > 0 ? moment(evt.target.callEnd.value).format('LL') : props.currentCall.call_end),
       call_judge: evt.target.callJudge.value,
+      open_or_closed: evt.target.openOrClosed.value,
       call_detail: evt.target.callDetails.value,
       pages_or_poems: evt.target.pagesOrPoems.value,
       req_length: evt.target.reqLength.value,
@@ -81,6 +82,11 @@ const EditCall = (props) => {
         <TextField type="text" hintText="call judge" name="callJudge" defaultValue={props.currentCall.call_judge} /><br/>
         </div>
         <div id="form-center">
+        <h4>Open or Closed</h4>
+        <select name="openOrClosed" defaultValue={props.currentCall.open_or_closed}>
+          <option value="open">Open</option>
+          <option value="closed">Closed</option>
+        </select>
         <h4>Call Detail</h4>
         <textarea type="text" name="callDetails" rows="10" cols="30" defaultValue={props.currentCall.call_detail} /><br/>
         </div>

@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 import RaisedButton from 'material-ui/RaisedButton'
 import Paper from 'material-ui/Paper';
 import {Link} from 'react-router'
@@ -17,6 +18,17 @@ const style = {
 };
 
 const OneUser = (props) => {
+
+  const setNewSubUser = (user) => {
+    axios.post('/api/subs/new/user', user)
+      .then(res => {
+        console.log("res.config.data", res.config.data);
+      })
+  } 
+
+  const setNewSubUserHandler = () => {
+    setNewSubUser(props.currentUser);
+  }
 
   let currentUserId = props.currentUser ? props.currentUser.id : 0;
   
@@ -41,7 +53,7 @@ const OneUser = (props) => {
     <RaisedButton type="submit" label="Edit" backgroundColor='#000000' labelColor='white' />
     </Link>
     <Link to={`/subs/add`}>
-    <RaisedButton type="submit" label="New Submission" backgroundColor='white' labelColor='black' />
+    <RaisedButton type="submit" label="New Submission" backgroundColor='white' labelColor='black' onClick={setNewSubUserHandler} />
     </Link></div>
   }
   </Paper>

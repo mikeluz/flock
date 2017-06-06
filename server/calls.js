@@ -8,7 +8,7 @@ const {mustBeLoggedIn, forbidden, isUserAdmin} = require('./auth.filters')
 
 module.exports = require('express').Router()
   .get('/',
-    isUserAdmin,
+    mustBeLoggedIn,
     (req, res, next) =>
       Call.findAll({
         include: [Pub]

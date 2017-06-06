@@ -55,9 +55,10 @@ module.exports = app
         req.session.submission = req.session.submission || {};
         req.session.submission.user = req.session.submission.user || {};
         req.session.submission.poems = req.session.submission.poems || [];
+        req.session.submission.id = req.session.submission.id || 0;
       }
     }
-    console.log("session", req.session);
+    // console.log("session", req.session);
     next();
   })
 

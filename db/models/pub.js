@@ -33,7 +33,6 @@ module.exports = db => db.define('pubs', {
   }
 })
 
-module.exports.associations = (Pub, {Call, Sub}) => {
+module.exports.associations = (Pub, {Call}) => {
   Pub.hasMany(Call)
-  Pub.hasMany(Sub)
 }
