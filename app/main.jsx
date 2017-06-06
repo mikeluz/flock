@@ -75,7 +75,7 @@ render(
       <Route path="/" component={App}>
         <IndexRedirect to="/dashboard" />
         <Route path="/dashboard" component={Dashboard} />
-        <Route path="/poems/add" component={AddPoem} onEnter={(nextRouterState) => loadUsers(nextRouterState)} />
+        <Route path="/poems/add" component={AddPoem} />
         <Route path="/poems" component={Poems} />
         <Route path="/poems/:id" component={OnePoem} onEnter={(nextRouterState) => getCurrentPoem(nextRouterState)} />
         <Route path="/flockpad" component={FlockPad} />

@@ -23,7 +23,6 @@ export const addCurrentSub = (callId) =>
       .catch(() => store.dispatch(setCurrentSub(null)))
 
 export const getCurrentSub = (nextRouterState) => {
-  console.log("nextRouterState", nextRouterState);
     axios.get(`/api/subs/current/${nextRouterState.params.id}`)
       .then((res) => store.dispatch(setCurrentSub(res.data)))
       .catch(() => store.dispatch(setCurrentSub(null)))
