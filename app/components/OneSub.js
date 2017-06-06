@@ -20,23 +20,15 @@ const style = {
 const OneSub = (props) => {
 
 
-  const deleteCall = () => {
+  const deleteSub = () => {
     var confirm = window.confirm("Are you sure?");
     if (confirm) {
-      props.deleteCurrentCall(props.currentCall.id)
+      props.deleteCurrentSub(props.currentSub.id)
     }
   }
 
-  const addCurrentSub = () => {
-    var confirm = window.confirm("Are you sure?");
-    if (confirm) {
-      props.addCurrentSub(props.currentCall.id)
-    }
-  }
-
-  let currentCallId = props.currentCall ? props.currentCall.id : 0
-  let start = props.currentCall ? moment(props.currentCall.call_start).format('LL') : "NA"
-  let end = props.currentCall ? moment(props.currentCall.call_end).format('LL') : "NA"
+  let currentSubId = props.currentSub ? props.currentSub.id : 0
+  let date = props.currentSub ? moment(props.currentSub.sub_date).format('LL') : "NA"
   
   return (
   <div id="centerMe">
@@ -45,39 +37,24 @@ const OneSub = (props) => {
   <div>
   <hr/>
   <Paper style={style} zDepth={3}>
-  <div id="form-left">
-  <h4>Call Name</h4>
-  <h2>{props.currentCall ? props.currentCall.call_name : "No selection was made."}</h2>
-  <h4>Call Start</h4>
-  <h2>{props.currentCall ? start : "No selection was made."}</h2>
-  <h4>Call End</h4>
-  <h2>{props.currentCall ? end : "No selection was made."}</h2>
-  <h4>Call Type</h4>
-  <h2>{props.currentCall ? props.currentCall.call_type : "No selection was made."}</h2>
-  <h4>Call Judge</h4>
-  <h2>{props.currentCall ? props.currentCall.call_judge : "No selection was made."}</h2>
-  </div>
-  <div id="form-center">
-  <h4>Call Detail</h4>
-  <h2>{props.currentCall ? props.currentCall.call_detail : "No selection was made."}</h2>
-  </div>
-  <div id="form-right">
-  <h4>Pages Or Poems</h4>
-  <h2>{props.currentCall ? props.currentCall.pages_or_poems : "No selection was made."}</h2>
-  <h4>Required Length</h4>
-  <h2>{props.currentCall ? props.currentCall.req_length : "No selection was made."}</h2> 
-  <h4>Mail Only</h4>
-  <h2>{props.currentCall ? (props.currentCall.mail_only ? "Yes" : "No") : "No selection was made."}</h2>
-  <h4>SASE Required</h4>
-  <h2>{props.currentCall ? (props.currentCall.req_sase ? "Yes" : "No") : "No selection was made."}</h2>
-  <h4>Mailing Address</h4>
-  <h2>{props.currentCall ? props.currentCall.mailing_address : "No selection was made."}</h2> 
-  </div>
+  <h4>Date Submitted</h4>
+  <h2>{props.currentSub ? date : "No selection was made."}</h2>
+  <h4>Status</h4>
+  <h2>{props.currentSub ? props.currentSub.sub_status : "No selection was made."}</h2>
+  <h4>Notes</h4>
+  <h2>{props.currentSub ? props.currentSub.sub_notes : "No selection was made."}</h2>
+  <h4>User</h4>
+  <h2>{props.currentSub ? <div>{props.currentSub.user ? props.currentSub.user.name : "No User Assigned"}</div> : "No selection was made."}</h2>
+  <h4>Publication</h4>
+  <h2>{props.currentSub ? <div>{props.currentSub.pub ? props.currentSub.pub.pub_name : "No Publication Assigned"}</div> : "No selection was made."}</h2> 
+  <h4>Call</h4>
+  <h2>{props.currentSub ? <div>{props.currentSub.call ? props.currentSub.call.call_name : "No Call Assigned"}</div> : "No selection was made."}</h2>
+  <h4>Poems</h4>
+  {props.currentSub ? (props.currentSub.poems ? props.currentSub.poems.map(poem => <h2>{poem.name}</h2>) : <h2>No Poems Assigned</h2>) : "No selection was made."}
   {props.user.isAdmin && <div>
-    <Link to={`/calls/${currentCallId}/edit`}>
-    <RaisedButton label="Delete" onClick={deleteCall}/>
+    <Link to={`/subs/${currentSubId}/edit`}>
+    <RaisedButton label="Delete" onClick={deleteSub}/>
     <RaisedButton type="submit" label="Edit" backgroundColor='#000000' labelColor='white' /><br/><br/>
-    <RaisedButton label="Add Current Sub" onClick={addCurrentSub}/>
     </Link>
   </div>}
   </Paper>
@@ -89,11 +66,10 @@ const OneSub = (props) => {
 
 import {connect} from 'react-redux'
 import {deleteCurrentSub} from '../reducers/oneSub'
-import {addCurrentSub} from '../reducers/oneSub'
 
 export default connect(
   ({ auth, currentSub }) => ({ 
   	user: auth,
     currentSub: currentSub
-  }), {deleteCurrentSub, addCurrentSub},
+  }), {deleteCurrentSub},
 )(OneSub)

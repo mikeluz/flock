@@ -152,9 +152,9 @@ const subs = seed(Sub, ({ users, calls }) => ({
     sub_date: '2017-06-01',
     sub_status: 'accepted',
     sub_notes: 'This is the first time these poems have been submitted',
-    pub_name: 'Apogee Journal',
     user_id: users.jess.id,
-    call_id: calls.testOne.id
+    call_id: calls.testOne.id,
+    pub_id: 5
   },
 }))
 

@@ -55,7 +55,7 @@ class Poems extends React.Component {
             displaySelectAll={false}>
             <TableRow>
               <TableHeaderColumn><h1 id="title">Poems</h1></TableHeaderColumn>
-              <TableHeaderColumn>{this.props.user.isAdmin && <div id="centerMeTable"><Link to="/poems/add"><RaisedButton label="Add"/></Link><br/><br/></div>}</TableHeaderColumn>
+              <TableHeaderColumn>{this.props.user.isAdmin && <div id="centerMeTable"><Link to="/poems/add"><RaisedButton label="New"/></Link><br/><br/></div>}</TableHeaderColumn>
               <TableHeaderColumn>
                 <form method="GET" onSubmit={this.poemSearch}>
                 <input type="text" name="search" />
@@ -91,7 +91,7 @@ class Poems extends React.Component {
             displaySelectAll={false}>
             <TableRow>
               <TableHeaderColumn><h1 id="title">Poems</h1></TableHeaderColumn>
-              <TableHeaderColumn>{this.props.user.isAdmin && <div id="centerMeTable"><Link to="/poems/add"><RaisedButton label="Add"/></Link><br/><br/></div>}</TableHeaderColumn>
+              <TableHeaderColumn>{this.props.user.isAdmin && <div id="centerMeTable"><Link to="/poems/add"><RaisedButton label="New"/></Link><br/><br/></div>}</TableHeaderColumn>
               <TableHeaderColumn>
                 <form id="centerMe" method="GET" onSubmit={this.poemSearch}>
                 <input type="text" name="search" />

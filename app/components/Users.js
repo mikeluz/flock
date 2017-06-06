@@ -35,7 +35,7 @@ class Users extends React.Component {
             displaySelectAll={false}>
               <TableRow>
                 <TableHeaderColumn><h1 id="title">Users</h1></TableHeaderColumn>
-                <TableHeaderColumn>{this.props.user.isAdmin && <div id="centerMeTable"><Link to="/users/add"><RaisedButton label="Add"/></Link><br/><br/></div>}</TableHeaderColumn>
+                <TableHeaderColumn>{this.props.user.isAdmin && <div id="centerMeTable"><Link to="/users/add"><RaisedButton label="New"/></Link><br/><br/></div>}</TableHeaderColumn>
                 <TableHeaderColumn></TableHeaderColumn>
               </TableRow>
             <TableRow>

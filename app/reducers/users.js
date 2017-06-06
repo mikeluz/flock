@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const reducer = (state=null, action) => {
-	console.log("action", action);
+	// console.log("action", action);
   switch (action.type) {
   case SET_ALL_USERS:
     return action.users

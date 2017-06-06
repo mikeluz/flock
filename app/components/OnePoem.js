@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 import RaisedButton from 'material-ui/RaisedButton'
 import Paper from 'material-ui/Paper';
 import {Link} from 'react-router'
@@ -16,10 +17,15 @@ const style = {
   backgroundColor: 'rgba(240, 240, 240, 0.8)'
 };
 
+
 const OnePoem = (props) => {
 
   let currentPoemId = props.currentPoem ? props.currentPoem.id : 0;
   
+  const addPoemToSub = () => {
+    axios.post('/api/subs/current/poems', props.currentPoem)
+  }
+
   return (
   <div id="centerMe">
   {props.user 
@@ -30,12 +36,13 @@ const OnePoem = (props) => {
   <h4>Title of Poem</h4>
   <h2>{props.currentPoem ? props.currentPoem.name : "No selection was made."}</h2>
   {props.user.isAdmin && <div>
-    <Link to={`/pubs/${currentPoemId}/edit`}>
+    <Link to={`/poems/${currentPoemId}/edit`}>
     <RaisedButton type="submit" label="Edit" backgroundColor='#000000' labelColor='white' />
     </Link>
-    <Link to={`/calls/add`}>
-    <RaisedButton type="submit" label="Add To Submission" backgroundColor='white' labelColor='black' />
-    </Link></div>}
+    <Link to={`/poems`}>
+    <RaisedButton label="Add To Submission" backgroundColor='white' labelColor='black' onClick={addPoemToSub} />
+    </Link>
+    </div>}
   </Paper>
   </div>
   : 

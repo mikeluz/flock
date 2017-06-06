@@ -110,7 +110,6 @@ class Subs extends React.Component {
               <TableHeaderColumn><h2 id="title">User</h2></TableHeaderColumn>
               <TableHeaderColumn><h2 id="title">Date Sent</h2></TableHeaderColumn>
               <TableHeaderColumn><h2 id="title">Status</h2></TableHeaderColumn>
-              <TableHeaderColumn><h2 id="title">Notes</h2></TableHeaderColumn>
               <TableHeaderColumn><h2 id="title">Publication</h2></TableHeaderColumn>
               <TableHeaderColumn><h2 id="title">Call</h2></TableHeaderColumn>
             </TableRow>
@@ -122,8 +121,7 @@ class Subs extends React.Component {
               <TableRowColumn><Link to={`/users/${sub.user.id}`}>{sub.user.name}</Link></TableRowColumn>
               <TableRowColumn>{moment(sub.sub_date).format('LL')}</TableRowColumn>
               <TableRowColumn>{sub.sub_status}</TableRowColumn>
-              <TableRowColumn>{sub.sub_notes}</TableRowColumn>
-              <TableRowColumn>{sub.pub_name}</TableRowColumn>
+              <TableRowColumn>{sub.pub && <Link to={`/pubs/${sub.pub.id}`}>{sub.pub.pub_name}</Link>}</TableRowColumn>
               <TableRowColumn>{sub.call && <Link to={`/calls/${sub.call.id}`}>{sub.call.call_name}</Link>}</TableRowColumn>
             </TableRow>)
       	  )}

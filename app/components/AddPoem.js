@@ -21,21 +21,21 @@ const style = {
   backgroundColor: 'rgba(240, 240, 240, 0.8)'
 };
 
-const AddSub = (props) => { 
+const AddPoem = (props) => { 
 
   const onSubmit = evt => {
     evt.preventDefault();
-    props.addNewSub({
-      sub_date: moment(evt.target.subDate.value).format('LL'),
-      sub_status: evt.target.subStatus.value,
-      sub_notes: evt.target.subNotes.value,
-      user_id: props.currentUser.id
+    props.addPoem({
+      name: evt.target.poemName.value,
+      user_id: evt.target.userId.value,
     });
   }
 
   const saved = evt => {
-    alert('Click OK to create new submission');
+    alert('Click OK to save new poem');
   }
+
+  console.log("ADD POEM props", props);
 
   return (
     <div>
@@ -44,31 +44,30 @@ const AddSub = (props) => {
     <div>{props.user.isAdmin ? <div id="centerMe">
     <hr/>
     <Paper style={style} zDepth={3}>
-      <h2>New Submission for {`${props.currentUser.name}`}</h2>
+      <h2>New Poem</h2>
       <form onSubmit={onSubmit}>
-        <DatePicker hintText="date submission sent" name="subDate" /><br/>
-        <h4>Status</h4>
-        <select name="subStatus">
-          <option value="in process" selected>In Process</option>
-          <option value="accepted" selected>Accepted</option>
-          <option value="rejected">Rejected</option>
-          <option value="withdrawn">Withdrawn</option>
+        <TextField type="text" hintText="poem name" name="poemName" /><br/>
+        <h4>User</h4>
+        <select name="userId">
+        {
+          props.users && props.users.map(user => {
+            return (<option value={user.id}>{user.name}</option>)
+          })
+        }
         </select>
-        <h4>Notes</h4>
-        <textarea type="text" name="subNotes" rows="10" cols="30"/><br/>
         <br/><br/><br/><br/>
         <div id="button-padding">
-          <RaisedButton 
-            type="submit"
-            label="Save"
-            backgroundColor='#000000'
-            labelColor='white'
-            onClick={saved}
-            style={{
-              margin: "20px"
-            }}
+        <RaisedButton 
+          type="submit"
+          label="Save"
+          backgroundColor='#000000'
+          labelColor='white'
+          onClick={saved}
+          style={{
+            margin: "20px"
+          }}
           />
-        </div>
+          </div>
       </form>
       </Paper>
       <br/>
@@ -80,11 +79,11 @@ const AddSub = (props) => {
 }
 
 import {connect} from 'react-redux'
-import {addNewSub} from '../reducers/oneSub'
+import {addPoem} from '../reducers/onePoem'
 
 export default connect(
-  ({ auth, currentUser }) => ({ 
+  ({ auth, users }) => ({ 
   	user: auth,
-    currentUser
-  }), {addNewSub},
-)(AddSub)
+    users: users
+  }), {addPoem},
+)(AddPoem)

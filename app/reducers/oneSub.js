@@ -22,15 +22,18 @@ export const addCurrentSub = (callId) =>
       .then((res) => store.dispatch(setsCurrentSub(res.data)))
       .catch(() => store.dispatch(setCurrentSub(null)))
 
-export const getCurrentSub = (nextRouterState) =>
-    axios.get(`/api/subs/current`, nextRouterState)
+export const getCurrentSub = (nextRouterState) => {
+  console.log("nextRouterState", nextRouterState);
+    axios.get(`/api/subs/current/${nextRouterState.params.id}`)
       .then((res) => store.dispatch(setCurrentSub(res.data)))
       .catch(() => store.dispatch(setCurrentSub(null)))
+    }
 
 export const updateCurrentSub = (nextRouterState) => 
+  dispatch =>
     axios.put(`/api/subs/${nextRouterState.id}`, nextRouterState)
-      .then((res) => store.dispatch(setCurrentSub(res.data)))
-      .catch(() => store.dispatch(setCurrentSub(null)))
+      .then((res) => dispatch(setCurrentSub(res.data)))
+      .catch(() => dispatch(setCurrentSub(null)))
 
 export const deleteCurrentSub = (id) => 
     axios.delete(`/api/subs/${id}`)

@@ -33,6 +33,7 @@ class NavBar extends React.Component {
 
   handlePoemClick() {
     this.props.getAllPoems();
+    this.props.getAllUsers();
   }
 
   handleCallClick() {
@@ -71,6 +72,8 @@ class NavBar extends React.Component {
           	marginLeft: "auto", 
           	marginRight: "auto"
       		}}>
+          {this.props.user.isAdmin && <a href="/api/subs/current/clear"><RaisedButton label="Clear Sub" backgroundColor='red'/></a>}
+          {this.props.user.isAdmin && <ToolbarSeparator/>}
           {this.props.user.isAdmin && <Link to="/users"><RaisedButton label="Users" onClick={this.handleUserClick}/></Link>}
           {this.props.user.isAdmin && <ToolbarSeparator/>}
           {this.props.user.isAdmin && <Link to="/subs"><RaisedButton label="Submissions" onClick={this.handleSubClick}/></Link>}
@@ -114,8 +117,9 @@ import {getAllCalls} from '../reducers/allCalls'
 import {getAllSubs} from '../reducers/allSubs'
 
 export default connect(
-  ({ auth, allPubs, allCalls, allSubs, pubSearchResults }) => ({ 
+  ({ auth, users, allPubs, allCalls, allSubs, pubSearchResults }) => ({ 
     user: auth,
+    users: users,
     pubs: allPubs,
     calls: allCalls,
     subs: allSubs,
