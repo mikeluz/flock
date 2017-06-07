@@ -84,8 +84,8 @@ class NavBar extends React.Component {
           <ToolbarSeparator/>
           <Link to="/calls"><RaisedButton label="Calls" onClick={this.handleCallClick}/></Link>
           <ToolbarSeparator/>
-          <Link to="/flockpad"><RaisedButton label="FlockPad"/></Link>
-          <ToolbarSeparator/>
+          <Link to="/flockpad"><RaisedButton backgroundColor='green' label="FlockPad"/></Link>
+          {/*<ToolbarSeparator/>
           <form method="GET" onSubmit={this.pubSearch}>
           <input type="text" placeholder="Find Publications" name="search" id="search"/>
           <RaisedButton 
@@ -94,7 +94,7 @@ class NavBar extends React.Component {
             backgroundColor='green'
             labelColor='white'/>
           </form>
-          {/*<input type="text" placeholder="Find Publications" name="search" id="search" onChange={this.handleSearch}/>
+          <input type="text" placeholder="Find Publications" name="search" id="search" onChange={this.handleSearch}/>
           <RaisedButton 
             type="submit" 
             label="Search by Name"        

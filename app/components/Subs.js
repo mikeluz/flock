@@ -16,27 +16,17 @@ class Subs extends React.Component {
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      searchResults: []
-    }
-  
     this.subSearch = this.subSearch.bind(this);
   }
 
   subSearch(evt) {
     evt.preventDefault();
-    axios.get(`/api/subs/search/?search=${evt.target.search.value}`)
-      .then(res => this.setState({
-        searchResults: res.data
-      }));
+    this.props.findSubsByUserName(evt.target.search.value);
   }
 
   render() {
-    console.log("subs props", this.props)
     return (
       <div id="centerMe">
-       {/*user ? <div>{user.isAdmin ? <h1>PUBLICATIONS</h1> : <h2>You are trying to access an Admin Only area.</h2>}</div> : <h2>Please log in.</h2>*/}
       {this.props.user ?
       <div>
       <br/>
@@ -56,30 +46,39 @@ class Subs extends React.Component {
             displaySelectAll={false}>
             <TableRow>
               <TableHeaderColumn><h1 id="title">Submissions</h1></TableHeaderColumn>
+              <TableHeaderColumn></TableHeaderColumn>
+              <TableHeaderColumn></TableHeaderColumn>
+              <TableHeaderColumn></TableHeaderColumn>
               <TableHeaderColumn><div>      
                 <form method="GET" onSubmit={this.subSearch}>
-                <input type="text" name="search" />
-                <button type="submit">Search</button>
+                <input type="text" placeholder="Find Submissions" name="search" id="search" />
+                  <RaisedButton 
+                    type="submit" 
+                    label="Find Submissions"        
+                    backgroundColor='green'
+                    labelColor='white'/>
                 </form></div>
               </TableHeaderColumn>
               <TableHeaderColumn></TableHeaderColumn>
             </TableRow>
             <TableRow>
-              <TableHeaderColumn><h2 id="title">Name</h2></TableHeaderColumn>
-              <TableHeaderColumn><h2 id="title">Pub</h2></TableHeaderColumn>
-              <TableHeaderColumn><h2 id="title">Date Start</h2></TableHeaderColumn>
-              <TableHeaderColumn><h2 id="title">Date End</h2></TableHeaderColumn>
-              <TableHeaderColumn><h2 id="title">Open or Closed</h2></TableHeaderColumn>
+              <TableHeaderColumn><h2 id="title">Submission</h2></TableHeaderColumn>
+              <TableHeaderColumn><h2 id="title">User</h2></TableHeaderColumn>
+              <TableHeaderColumn><h2 id="title">Date Sent</h2></TableHeaderColumn>
+              <TableHeaderColumn><h2 id="title">Status</h2></TableHeaderColumn>
+              <TableHeaderColumn><h2 id="title">Publication</h2></TableHeaderColumn>
+              <TableHeaderColumn><h2 id="title">Call</h2></TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
           {this.props.searchResults && this.props.searchResults.map(sub => (
             <TableRow key={sub.id}>
-              <TableRowColumn><Link to={`/subs/${sub.id}`}>{sub.sub_name}</Link></TableRowColumn>
-              <TableRowColumn><Link to={`/pubs/${sub.pub.id}`}>{sub.pub.pub_name}</Link></TableRowColumn>
-              <TableRowColumn>{moment(sub.sub_start).format('LL')}</TableRowColumn>
-              <TableRowColumn>{moment(sub.sub_end).format('LL')}</TableRowColumn>
-              <TableRowColumn>{sub.open_or_closed}</TableRowColumn>
+              <TableRowColumn><Link to={`/subs/${sub.id}`}>{sub.id}</Link></TableRowColumn>
+              <TableRowColumn><Link to={`/users/${sub.user.id}`}>{sub.user.name}</Link></TableRowColumn>
+              <TableRowColumn>{moment(sub.sub_date).format('LL')}</TableRowColumn>
+              <TableRowColumn>{sub.sub_status}</TableRowColumn>
+              <TableRowColumn>{sub.pub && <Link to={`/pubs/${sub.pub.id}`}>{sub.pub.pub_name}</Link>}</TableRowColumn>
+              <TableRowColumn>{sub.call && <Link to={`/calls/${sub.call.id}`}>{sub.call.call_name}</Link>}</TableRowColumn>
             </TableRow>)
           )}
           </TableBody>
@@ -98,10 +97,16 @@ class Subs extends React.Component {
             <TableRow>
               <TableHeaderColumn><h1 id="title">Submissions</h1></TableHeaderColumn>
               <TableHeaderColumn></TableHeaderColumn>
+              <TableHeaderColumn></TableHeaderColumn>
+              <TableHeaderColumn></TableHeaderColumn>
               <TableHeaderColumn><div>      
                 <form method="GET" onSubmit={this.subSearch}>
-                <input type="text" name="search" />
-                <button type="submit">Find</button>
+                <input type="text" placeholder="Find Submissions" name="search" id="search" />
+                  <RaisedButton 
+                    type="submit" 
+                    label="Find Submissions"        
+                    backgroundColor='green'
+                    labelColor='white'/>
                 </form></div>
               </TableHeaderColumn>
             </TableRow>
@@ -131,15 +136,15 @@ class Subs extends React.Component {
       </div>
     )
   }
-
 }
 
 import {connect} from 'react-redux'
+import {findSubsByUserName} from '../reducers/subSearchResults'
 
 export default connect(
   ({ auth, allSubs, subSearchResults }) => ({ 
   	user: auth,
   	subs: allSubs,
     searchResults: subSearchResults
-  }), {},
+  }), {findSubsByUserName},
 )(Subs)

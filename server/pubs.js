@@ -38,14 +38,7 @@ module.exports = require('express').Router()
   .get('/:id',
     mustBeLoggedIn,
     (req, res, next) =>
-      Pub.findAll({
-        where: {
-          call_name: {
-            $iLike: `%${req.query.search}%`
-          }
-        },
-        include: [Pub]
-      })
+      Pub.findById(req.params.id)
       .then(pub => res.json(pub))
       .catch(next))
   .delete('/:id',

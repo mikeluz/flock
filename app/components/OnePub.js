@@ -5,7 +5,7 @@ import {Link} from 'react-router'
 
 const style = {
   height: 'auto',
-  width: 'auto',
+  width: '100%',
   margin: 'auto',
   textAlign: 'center',
   display: 'inline-block',

@@ -6,6 +6,7 @@ const appReducer = combineReducers({
   pubSearchResults: require('./pubSearchResults').default,
   callSearchResults: require('./callSearchResults').default,
   poemSearchResults: require('./poemSearchResults').default,
+  subSearchResults: require('./subSearchResults').default,
   currentPub: require('./onePub').default,
   currentUser: require('./oneUser').default,
   currentCall: require('./oneCall').default,

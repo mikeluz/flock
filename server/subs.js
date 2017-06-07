@@ -3,6 +3,7 @@
 const db = require('APP/db')
 const Sub = db.model('subs')
 const Call = db.model('calls')
+const User = db.model('users')
 const SubDetail = db.model('sub_detail')
 
 const {mustBeLoggedIn, forbidden, isUserAdmin} = require('./auth.filters')
@@ -84,6 +85,36 @@ module.exports = require('express').Router()
         res.status(201).json(sub)
       })
       .catch(next))
+  .get('/search',
+    mustBeLoggedIn,
+    (req, res, next) => {
+      if (req.query.search === '') {
+        Sub.findAll({
+          include: [ {all: true} ]
+        })
+          .then(subs => res.json(subs))
+          .catch(next)
+      } else {
+        User.findOne({
+          where: {
+            name: {
+              $iLike: `%${req.query.search}%`
+            }
+          }
+        })
+        .then(user => 
+          Sub.findAll({
+            where: {
+              user_id: user.id
+            },
+            include: [ {all: true} ]
+        }))
+        .then(results => {
+            res.json(results)
+        })
+        .catch(next)
+      }
+    })
   .get('/:id',
     mustBeLoggedIn,
     (req, res, next) =>

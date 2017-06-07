@@ -1,7 +1,21 @@
 import React from 'react'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
+import Paper from 'material-ui/Paper';
 import {Link} from 'react-router'
+
+const style = {
+  height: 'auto',
+  width: '100%',
+  margin: 'auto',
+  textAlign: 'center',
+  display: 'inline-block',
+  paddingLeft: '40px',
+  paddingRight: '40px',
+  paddingBottom: '40px',
+  paddingTop: '20px',
+  backgroundColor: 'rgba(240, 240, 240, 0.8)'
+};
 
 const EditUser = (props) => { 
 
@@ -33,6 +47,7 @@ const EditUser = (props) => {
     ?
     <div id="centerMe">
     <hr/>
+      <Paper style={style} zDepth={3}>
       <form onSubmit={onSubmit}>
         <h4>Name</h4>
         <TextField type="text" hintText="Name" name="userName" defaultValue={props.currentUser.name}/><br/>
@@ -53,6 +68,7 @@ const EditUser = (props) => {
           />
           <Link to={`/users/${props.currentUser.id}`}><RaisedButton label="View"/></Link>
       </form>
+      </Paper>
     </div>
     : 
     <h2 id="centerMe">Please log in.</h2>}

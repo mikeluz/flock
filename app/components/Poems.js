@@ -50,8 +50,12 @@ class Poems extends React.Component {
               <TableHeaderColumn>{this.props.user.isAdmin && <div id="centerMeTable"><Link to="/poems/add"><RaisedButton label="New"/></Link><br/><br/></div>}</TableHeaderColumn>
               <TableHeaderColumn>
                 <form method="GET" onSubmit={this.poemSearch}>
-                <input type="text" name="search" />
-                <button type="submit">Find Poem</button>
+                <input type="text" placeholder="Find Poems" name="search" id="search" />
+                  <RaisedButton 
+                    type="submit" 
+                    label="Find Poems"        
+                    backgroundColor='green'
+                    labelColor='white'/>
                 </form>
               </TableHeaderColumn>
             </TableRow>
@@ -85,9 +89,13 @@ class Poems extends React.Component {
               <TableHeaderColumn><h1 id="title">Poems</h1></TableHeaderColumn>
               <TableHeaderColumn>{this.props.user.isAdmin && <div id="centerMeTable"><Link to="/poems/add"><RaisedButton label="New"/></Link><br/><br/></div>}</TableHeaderColumn>
               <TableHeaderColumn>
-                <form id="centerMe" method="GET" onSubmit={this.poemSearch}>
-                <input type="text" name="search" />
-                <button type="submit">Find Poem</button>
+                <form method="GET" onSubmit={this.poemSearch}>
+                <input type="text" placeholder="Find Poems" name="search" id="search" />
+                  <RaisedButton 
+                    type="submit" 
+                    label="Find Poems"        
+                    backgroundColor='green'
+                    labelColor='white'/>
                 </form>
               </TableHeaderColumn>
             </TableRow>

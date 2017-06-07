@@ -46,13 +46,18 @@ class Calls extends React.Component {
             displaySelectAll={false}>
             <TableRow>
               <TableHeaderColumn><h1 id="title">Calls</h1></TableHeaderColumn>
+              <TableHeaderColumn></TableHeaderColumn>
+              <TableHeaderColumn></TableHeaderColumn>
               <TableHeaderColumn><div>      
                 <form method="GET" onSubmit={this.callSearch}>
-                <input type="text" name="search" />
-                <button type="submit">Find Calls</button>
+                <input type="text" placeholder="Find Calls" name="search" id="search" />
+                  <RaisedButton 
+                    type="submit" 
+                    label="Find Calls"        
+                    backgroundColor='green'
+                    labelColor='white'/>
                 </form></div>
               </TableHeaderColumn>
-              <TableHeaderColumn></TableHeaderColumn>
             </TableRow>
             <TableRow>
               <TableHeaderColumn><h2 id="title">Name</h2></TableHeaderColumn>
@@ -87,13 +92,18 @@ class Calls extends React.Component {
             displaySelectAll={false}>
             <TableRow>
               <TableHeaderColumn><h1 id="title">Calls</h1></TableHeaderColumn>
+              <TableHeaderColumn></TableHeaderColumn>
+              <TableHeaderColumn></TableHeaderColumn>
               <TableHeaderColumn><div>      
                 <form method="GET" onSubmit={this.callSearch}>
-                <input type="text" name="search" />
-                <button type="submit">Find Calls</button>
+                <input type="text" placeholder="Find Calls" name="search" id="search" />
+                  <RaisedButton 
+                    type="submit" 
+                    label="Find Calls"        
+                    backgroundColor='green'
+                    labelColor='white'/>
                 </form></div>
               </TableHeaderColumn>
-              <TableHeaderColumn></TableHeaderColumn>
             </TableRow>
             <TableRow>
               <TableHeaderColumn><h2 id="title">Name</h2></TableHeaderColumn>

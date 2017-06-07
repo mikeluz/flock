@@ -15,34 +15,20 @@ class Pubs extends React.Component {
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      searchResults: []
-    }
-  
     this.pubSearch = this.pubSearch.bind(this);
   }
 
   pubSearch(evt) {
     evt.preventDefault();
-    axios.get(`/api/pubs/search/?search=${evt.target.search.value}`)
-      .then(res => this.setState({
-        searchResults: res.data
-      }));
+    this.props.findPubsByName(evt.target.search.value);
   }
 
   render() {
     
     return (
       <div id="centerMe">
-       {/*user ? <div>{user.isAdmin ? <h1>PUBLICATIONS</h1> : <h2>You are trying to access an Admin Only area.</h2>}</div> : <h2>Please log in.</h2>*/}
       {this.props.user ?
       <div>
-      {/*<h2>Publications</h2>{this.props.user.isAdmin && <div><Link to="/pubs/add"><RaisedButton label="Add"/></Link><br/><br/></div>}
-      <form method="GET" onSubmit={this.pubSearch}>
-        <input type="text" name="search" />
-        <button type="submit">Search</button>
-      </form>*/}
       <br/>
       <div>
       {
@@ -61,7 +47,16 @@ class Pubs extends React.Component {
             <TableRow>
               <TableHeaderColumn><h1 id="title">Publications</h1></TableHeaderColumn>
               <TableHeaderColumn>{this.props.user.isAdmin && <div id="centerMeTable"><Link to="/pubs/add"><RaisedButton label="New"/></Link><br/><br/></div>}</TableHeaderColumn>
-              <TableHeaderColumn></TableHeaderColumn>
+              <TableHeaderColumn>
+                <form method="GET" onSubmit={this.pubSearch}>
+                  <input type="text" placeholder="Find Publications" name="search" id="search"/>
+                  <RaisedButton 
+                    type="submit" 
+                    label="Search"        
+                    backgroundColor='green'
+                    labelColor='white'/>
+                </form>
+              </TableHeaderColumn>
             </TableRow>
             <TableRow>
               <TableHeaderColumn><h2 id="title">Name</h2></TableHeaderColumn>
@@ -110,15 +105,15 @@ class Pubs extends React.Component {
       </div>
     )
   }
-
 }
 
 import {connect} from 'react-redux'
+import {findPubsByName} from '../reducers/pubSearchResults'
 
 export default connect(
   ({ auth, allPubs, pubSearchResults }) => ({ 
   	user: auth,
   	pubs: allPubs,
     searchResults: pubSearchResults
-  }), {},
+  }), {findPubsByName},
 )(Pubs)
