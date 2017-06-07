@@ -2,6 +2,7 @@
 
 const db = require('APP/db')
 const User = db.model('users')
+const Sub = db.model('subs')
 
 const {mustBeLoggedIn, forbidden, isUserAdmin} = require('./auth.filters')
 
@@ -19,6 +20,16 @@ module.exports = require('express').Router()
       User.findAll()
         .then(users => res.json(users))
         .catch(next))
+  .get('/:id/subs',
+    mustBeLoggedIn,
+    (req, res, next) =>
+      Sub.findAll({
+        where: {
+          user_id: req.params.id
+        }
+      })
+      .then(subs => res.json(subs))
+      .catch(next))
   .post('/',
     (req, res, next) =>
       User.create(req.body)

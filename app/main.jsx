@@ -60,14 +60,6 @@ const App = connect(
   </MuiThemeProvider>
 )
 
-const loadCallWithCurrentSub = (nextRouterState) => {
-  getCurrentCall(nextRouterState);
-}
-
-const loadUsers = () => {
-  getAllUsers();
-}
-
 injectTapEventPlugin()
 render(
   <Provider store={store}>

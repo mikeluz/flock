@@ -17,7 +17,7 @@ const appReducer = combineReducers({
   allSubs: require('./allSubs').default,
   
   // for user dashboard
-  // currentSubs: require('./currentSubs').default,
+  userSubs: require('./userSubs').default,
   // currentCalls: require('./currentCalls').default,
 
   // admin only

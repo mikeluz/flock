@@ -56,3 +56,20 @@ body {
   width: 33%;
   float: right;
 }
+
+#pie {
+	width: 30%;
+	height: 30%;
+}
+
+#inline {
+	margin-left: 60px;
+	display:flex; 
+	flex-direction:row;
+}
+
+#deadlines {
+	margin-left: 60px;
+	text-align: center;
+	width: 30%;
+}
