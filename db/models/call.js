@@ -34,7 +34,7 @@ module.exports = db => db.define('calls', {
             $iLike: `%${name}%`
           }
         }
-      });
+      })
     }
   }
 })

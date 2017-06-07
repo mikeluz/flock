@@ -35,8 +35,17 @@ module.exports = require('express').Router()
   .get('/search',
     mustBeLoggedIn,
     (req, res, next) =>
-      Call.findByName(req.query.search)
-      .then(results => res.json(results))
+      Call.findAll({
+        where: {
+          call_name: {
+            $iLike: `%${req.query.search}%`
+          }
+        },
+        include: [Pub]
+      })
+      .then(results => {
+        res.json(results)
+      })
       .catch(next))
   .get('/:id',
     mustBeLoggedIn,

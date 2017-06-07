@@ -4,6 +4,7 @@ const appReducer = combineReducers({
   auth: require('./auth').default,
   allPubs: require('./allPubs').default,
   pubSearchResults: require('./pubSearchResults').default,
+  callSearchResults: require('./callSearchResults').default,
   currentPub: require('./onePub').default,
   currentUser: require('./oneUser').default,
   currentCall: require('./oneCall').default,

@@ -2,15 +2,15 @@ import axios from 'axios'
 
 const reducer = (state=null, action) => {
   switch (action.type) {
-  case SET_SEARCH_RESULTS:
+  case SET_PUB_SEARCH_RESULTS:
     return action.pubSearchResults;
   }
   return state
 }
 
-const SET_SEARCH_RESULTS = 'SET_SEARCH_RESULTS'
+const SET_PUB_SEARCH_RESULTS = 'SET_PUB_SEARCH_RESULTS'
 export const setPubSearchResults = pubSearchResults => ({
-  type: SET_SEARCH_RESULTS, pubSearchResults
+  type: SET_PUB_SEARCH_RESULTS, pubSearchResults
 })
 
 export const findPubsByName = (searchTerm) =>

@@ -26,10 +26,11 @@ class Calls extends React.Component {
 
   callSearch(evt) {
     evt.preventDefault();
-    axios.get(`/api/calls/search/?search=${evt.target.search.value}`)
-      .then(res => this.setState({
-        searchResults: res.data
-      }));
+    this.props.findCallsByName(evt.target.search.value);
+    // axios.get(`/api/calls/search/?search=${evt.target.search.value}`)
+    //   .then(res => this.setState({
+    //     searchResults: res.data
+    //   }));
   }
 
   render() {
@@ -133,11 +134,12 @@ class Calls extends React.Component {
 }
 
 import {connect} from 'react-redux'
+import {findCallsByName} from '../reducers/callSearchResults'
 
 export default connect(
   ({ auth, allCalls, callSearchResults }) => ({ 
   	user: auth,
   	calls: allCalls,
     searchResults: callSearchResults
-  }), {},
+  }), {findCallsByName},
 )(Calls)

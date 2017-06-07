@@ -38,7 +38,14 @@ module.exports = require('express').Router()
   .get('/:id',
     mustBeLoggedIn,
     (req, res, next) =>
-      Pub.findById(req.params.id)
+      Pub.findAll({
+        where: {
+          call_name: {
+            $iLike: `%${req.query.search}%`
+          }
+        },
+        include: [Pub]
+      })
       .then(pub => res.json(pub))
       .catch(next))
   .delete('/:id',
@@ -51,3 +58,5 @@ module.exports = require('express').Router()
       })
       .then(countOfDeletedRecords => res.json({}))
       .catch(next))
+
+  
