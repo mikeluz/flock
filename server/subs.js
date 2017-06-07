@@ -33,20 +33,36 @@ module.exports = require('express').Router()
         include: [ {all: true} ]
       })
         .then(sub => {
-          console.log("sub", sub);
           res.json(sub)
         })
         .catch(next)})
   .post('/current/poems',
     isUserAdmin,
     (req, res, next) => {
-      req.session.submission.poems.push(req.body)
-      SubDetail.create({
-        poem_id: req.body.id,
-        sub_id: req.session.submission.id 
+      // prevent dupes
+      if (req.session.submission.poems.every(poem => poem.id !== req.body.id)) {
+        req.session.submission.poems.push(req.body)
+      } // do not create if already exists
+      Sub.findById(req.session.submission.id)
+      .then(sub => {
+        // prevent user from adding poems written by users other than the user to whom the submission belongs
+        if (sub.user_id === req.body.user_id) {
+          SubDetail.findOrCreate({
+            where: {
+              poem_id: req.body.id,
+              sub_id: req.session.submission.id
+            }
+          })
+          .then(sub => {
+            res.json(sub)
+          })
+          .catch(next) 
+        } else {
+          console.log("You can only add poems written by the person to whom the submission is assigned.")
+          res.json("You can only add poems written by the person to whom the submission is assigned.")
+        }
       })
-      .then(subDetails => res.json(subDetails))
-      .catch(next)})
+    })
   .post('/new/user', 
     (req, res, next) => {
       req.session.submission.user = req.body
