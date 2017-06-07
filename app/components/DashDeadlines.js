@@ -67,7 +67,7 @@ class DashDeadlines extends React.Component {
             this.props.calls && upcomingDeadlines(this.props.calls, this.state.deadlineWindow).map(deadline => {
               return (
                 <TableRow key={deadline.id}>
-                  <TableRowColumn><Link to={`/pubs/${deadline.pub.pub_id}`}>{deadline.pub.pub_name}</Link></TableRowColumn>
+                  <TableRowColumn><Link to={`/pubs/${deadline.pub.id}`}>{deadline.pub.pub_name}</Link></TableRowColumn>
                   <TableRowColumn>{moment(deadline.call_end).format('LL')}</TableRowColumn>
                 </TableRow>
               )
