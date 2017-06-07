@@ -23,8 +23,17 @@ module.exports = require('express').Router()
   .get('/search',
     mustBeLoggedIn,
     (req, res, next) =>
-      Poem.findByName(req.query.search)
-      .then(results => res.json(results))
+      Poem.findAll({
+        where: {
+          name: {
+            $iLike: `%${req.query.search}%`
+          }
+        },
+        include: [User]
+      })
+      .then(results => {
+        res.json(results)
+      })
       .catch(next))
   .get('/:id',
     mustBeLoggedIn,

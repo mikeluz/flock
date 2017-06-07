@@ -16,28 +16,17 @@ class Calls extends React.Component {
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      searchResults: []
-    }
-  
     this.callSearch = this.callSearch.bind(this);
   }
 
   callSearch(evt) {
     evt.preventDefault();
     this.props.findCallsByName(evt.target.search.value);
-    // axios.get(`/api/calls/search/?search=${evt.target.search.value}`)
-    //   .then(res => this.setState({
-    //     searchResults: res.data
-    //   }));
   }
 
   render() {
-    console.log("calls props", this.props)
     return (
       <div id="centerMe">
-       {/*user ? <div>{user.isAdmin ? <h1>PUBLICATIONS</h1> : <h2>You are trying to access an Admin Only area.</h2>}</div> : <h2>Please log in.</h2>*/}
       {this.props.user ?
       <div>
       <br/>
@@ -130,7 +119,6 @@ class Calls extends React.Component {
       </div>
     )
   }
-
 }
 
 import {connect} from 'react-redux'

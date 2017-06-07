@@ -15,20 +15,12 @@ class Poems extends React.Component {
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      searchResults: []
-    }
-  
     this.poemSearch = this.poemSearch.bind(this);
   }
 
   poemSearch(evt) {
     evt.preventDefault();
-    axios.get(`/api/poems/search/?search=${evt.target.search.value}`)
-      .then(res => this.setState({
-        searchResults: res.data
-      }));
+    this.props.findPoemsByName(evt.target.search.value);
   }
 
   render() {
@@ -69,7 +61,7 @@ class Poems extends React.Component {
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
-          {this.props.searchResults && this.props.searchResults.map(pub => (
+          {this.props.searchResults && this.props.searchResults.map(poem => (
             <TableRow key={poem.id}>
               <TableRowColumn><Link to={`/poems/${poem.id}`}>{poem.name}</Link></TableRowColumn>
               <TableRowColumn><Link to={`/users/${poem.user_id}`}>{poem.user.name}</Link></TableRowColumn>
@@ -122,12 +114,12 @@ class Poems extends React.Component {
 }
 
 import {connect} from 'react-redux'
-import {getCurrentPub} from '../reducers/onePub'
+import {findPoemsByName} from '../reducers/poemSearchResults'
 
 export default connect(
   ({ auth, allPoems, poemSearchResults }) => ({ 
   	user: auth,
   	poems: allPoems,
     searchResults: poemSearchResults
-  }), {getCurrentPub},
+  }), {findPoemsByName},
 )(Poems)

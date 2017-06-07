@@ -25,18 +25,6 @@ module.exports = db => db.define('calls', {
   	defaultValue: false
   },
   mailing_address: TEXT
-},{
-  classMethods: {
-    findByName: function (name) {
-      return this.findAll({
-        where: {
-          call_name: {
-            $iLike: `%${name}%`
-          }
-        }
-      })
-    }
-  }
 })
 
 module.exports.associations = (Call, {Pub}) => {
