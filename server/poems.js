@@ -41,3 +41,24 @@ module.exports = require('express').Router()
       Poem.findById(req.params.id)
       .then(poem => res.json(poem))
       .catch(next))
+  .put('/:id',
+    isUserAdmin,
+    (req, res, next) =>
+      Poem.update(req.body, {
+          where: {
+            id: req.params.id
+          },
+          returning: true
+        })
+      .spread((numOfUpdatedPoems, updatedPoems) => res.json(updatedPoems[0]))
+      .catch(next))
+  .delete('/:id',
+    isUserAdmin,
+    (req, res, next) =>
+      Poem.destroy({
+        where: {
+          id: req.params.id
+        }
+      })
+      .then(countOfDeletedRecords => res.json({}))
+      .catch(next))

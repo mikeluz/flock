@@ -1,4 +1,5 @@
 import React from 'react'
+import {browserHistory} from 'react-router'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import SelectField from 'material-ui/SelectField';
@@ -28,14 +29,13 @@ const AddPoem = (props) => {
     props.addPoem({
       name: evt.target.poemName.value,
       user_id: evt.target.userId.value,
-    });
+    })
+    browserHistory.push('/dashboard')
   }
 
   const saved = evt => {
     alert('Click OK to save new poem');
   }
-
-  console.log("ADD POEM props", props);
 
   return (
     <div>
@@ -51,7 +51,7 @@ const AddPoem = (props) => {
         <select name="userId">
         {
           props.users && props.users.map(user => {
-            return (<option value={user.id}>{user.name}</option>)
+            return (<option key={user.id} value={user.id}>{user.name}</option>)
           })
         }
         </select>

@@ -29,11 +29,12 @@ class DashPie extends React.Component {
   
   constructor(props) {
     super(props)
+
   }
 
   componentDidUpdate() {
 
-    if (this.props.userSubs) {
+    if (this.props.userSubs.length > 0) {
       let subStatusData = countUserSubs(this.props.userSubs);
       let ctx = document.getElementById("myChart").getContext('2d');
       let chart = new Chart(ctx, {

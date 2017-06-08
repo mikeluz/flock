@@ -24,6 +24,7 @@ const OneSub = (props) => {
     var confirm = window.confirm("Are you sure?");
     if (confirm) {
       props.deleteCurrentSub(props.currentSub.id)
+      browserHistory.push('/dashboard')
     }
   }
 
@@ -50,7 +51,7 @@ const OneSub = (props) => {
   <h4>Call</h4>
   <h2>{props.currentSub ? <div>{props.currentSub.call ? props.currentSub.call.call_name : "No Call Assigned"}</div> : "No selection was made."}</h2>
   <h4>Poems</h4>
-  {props.currentSub ? (props.currentSub.poems ? props.currentSub.poems.map(poem => <h2>{poem.name}</h2>) : <h2>No Poems Assigned</h2>) : "No selection was made."}
+  {props.currentSub ? (props.currentSub.poems ? props.currentSub.poems.map(poem => <h2 key={poem.id}>{poem.name}</h2>) : <h2>No Poems Assigned</h2>) : "No selection was made."}
   {props.user.isAdmin && <div>
     <Link to={`/subs/${currentSubId}/edit`}>
     <RaisedButton label="Delete" onClick={deleteSub}/>

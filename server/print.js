@@ -2,66 +2,105 @@
 
 const db = require('APP/db')
 const fs = require('fs')
+const PDFParser = require("pdf2json")
+
+const nodemailer = require('nodemailer');
 
 const {mustBeLoggedIn, forbidden, isUserAdmin} = require('./auth.filters')
 
 const PDFDocument = require('pdfkit')
 
+function handleEmail(req, res, next) {
+
+    const transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        secure: true,
+        auth: {
+            user: 'mikeluz84@gmail.com',
+            pass: 'mikeluzpoetry'
+        }
+    });
+
+    const message = {
+        from: 'admin@flocklit.nyc',
+        to: req.body.email,
+        subject: 'New FlockJot',
+        text: 'Thanks for using Flock!',
+        attachments: [{ path: __dirname + '/flockpad.pdf' }]
+    };
+
+    transporter.sendMail(message, function(error, info) {
+        if (error) {
+            console.log(error);
+            res.json({yo:'error'});
+        } else {
+            console.log('Message sent: ' + info.response);
+            res.json({yo: info.response});
+        }
+    })
+}
+
+function readFile (filename, callback) {
+  fs.readFile(filename, function (err, buffer) {
+    if (err) callback(err);
+    else callback(null, buffer.toString());
+  });
+};
+
+function promisifiedReadFile (filename) {
+  return new Promise(function (resolve, reject) {
+    readFile(filename, function (err, str) {
+      if (err) reject(err);
+      else resolve(str);
+    });
+  })
+};
+
 module.exports = require('express').Router()
   .get('/',
+    mustBeLoggedIn,
     (req, res, next) => {
-      
+
+    let pdfParser = new PDFParser(this,1);
+    
+    // read pdf
+    pdfParser.on("pdfParser_dataError", errData => console.error(errData.parserError) );
+    pdfParser.on("pdfParser_dataReady", pdfData => {
+        fs.writeFile(__dirname + '/flockpad.txt', pdfParser.getRawTextContent());
+    });
+ 
+    pdfParser.loadPDF(__dirname + '/flockpad.pdf');
+
+    promisifiedReadFile(__dirname + '/flockpad.txt')
+    .then(data => {
+      console.log('data', data)
+      res.send(data)
+    })
+
+  })
+  .post('/email', handleEmail)
+  .post('/',
+    (req, res, next) => {
+    console.log("input", req.body.input);
     let doc = new PDFDocument
      
     // Pipe its output somewhere, like to a file or HTTP response 
     // See below for browser usage 
-    doc.pipe(fs.createWriteStream(__dirname + '/output.pdf'))
+    doc.pipe(fs.createWriteStream(__dirname + '/flockpad.pdf'))
      
     // Embed a font, set the font size, and render some text 
     doc.font(__dirname + '/fonts/PalatinoBold.ttf')
        .fontSize(25)
-       .text('Some with an embedded font!', 100, 100)
-     
-    // Add an image, constrain it to a given size, and center it vertically and horizontally 
-    // doc.image('path/to/image.png', {
-    //    fit: [250, 300],
-    //    align: 'center',
-    //    valign: 'center'
-    // });
-     
-    // Add another page 
-    doc.addPage()
-       .fontSize(25)
-       .text('Here is some vector graphics...', 100, 100)
-     
-    // Draw a triangle 
-    doc.save()
-       .moveTo(100, 150)
-       .lineTo(100, 250)
-       .lineTo(200, 250)
-       .fill("#FF3300")
-     
-    // Apply some transforms and render an SVG path with the 'even-odd' fill rule 
-    doc.scale(0.6)
-       .translate(470, -380)
-       .path('M 250,75 L 323,301 131,161 369,161 177,301 z')
-       .fill('red', 'even-odd')
-       .restore()
+       .text(req.body.input, 100, 100)
      
     // Add some text with annotations 
-    doc.addPage()
-       .fillColor("blue")
-       .text('Here is a link!', 100, 100)
-       .underline(100, 100, 160, 27, {color: "#0000FF"})
-       .link(100, 100, 160, 27, 'http://google.com/')
+    // doc.addPage()
+    //    .fillColor("blue")
+    //    .text('Here is a link!', 100, 100)
+    //    .underline(100, 100, 160, 27, {color: "#0000FF"})
+    //    .link(100, 100, 160, 27, 'http://google.com/')
      
     // Finalize PDF file 
     doc.end()
     res.send();
   })
-  .get('/:id',
-    mustBeLoggedIn,
-    (req, res, next) =>
-      Call.findById(req.params.id)
-      .then(call => res.json(call))
-      .catch(next))

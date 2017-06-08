@@ -1,4 +1,5 @@
 import React from 'react'
+import {browserHistory} from 'react-router'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import Paper from 'material-ui/Paper';
@@ -28,6 +29,7 @@ const EditUser = (props) => {
       address: evt.target.userAddress.value,
       bio: evt.target.userBio.value
     });
+    browserHistory.push('/dashboard')
   }
 
   const saved = () => {
@@ -38,6 +40,7 @@ const EditUser = (props) => {
     var confirm = window.confirm("Are you sure?");
     if (confirm) {
       props.deleteCurrentUser(props.currentUser.id)
+      browserHistory.push('/dashboard')
     }
   }
 

@@ -24,6 +24,7 @@ const OnePoem = (props) => {
   
   const addPoemToSub = () => {
     axios.post('/api/subs/current/poems', props.currentPoem)
+      .then(() => browserHistory.push('/poems'))
   }
 
   return (

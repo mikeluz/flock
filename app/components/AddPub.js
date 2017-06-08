@@ -1,4 +1,5 @@
 import React from 'react'
+import {browserHistory} from 'react-router'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import SelectField from 'material-ui/SelectField';
@@ -32,6 +33,7 @@ const AddPub = (props) => {
       pub_format: evt.target.format.value,
       pub_type: evt.target.type.value
     });
+    browserHistory.push('/dashboard')
   }
 
   const saved = evt => {

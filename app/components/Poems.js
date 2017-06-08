@@ -18,6 +18,12 @@ class Poems extends React.Component {
     this.poemSearch = this.poemSearch.bind(this);
   }
 
+  componentDidMount() {
+    if (!this.props.poems) {
+      this.props.getAllPoems();
+    }
+  }
+
   poemSearch(evt) {
     evt.preventDefault();
     this.props.findPoemsByName(evt.target.search.value);
@@ -27,7 +33,6 @@ class Poems extends React.Component {
     console.log("poems props", this.props)
     return (
       <div id="centerMe">
-       {/*user ? <div>{user.isAdmin ? <h1>PUBLICATIONS</h1> : <h2>You are trying to access an Admin Only area.</h2>}</div> : <h2>Please log in.</h2>*/}
       {this.props.user ?
       <div>
       <br/>
@@ -123,11 +128,12 @@ class Poems extends React.Component {
 
 import {connect} from 'react-redux'
 import {findPoemsByName} from '../reducers/poemSearchResults'
+import {getAllPoems} from '../reducers/allPoems'
 
 export default connect(
   ({ auth, allPoems, poemSearchResults }) => ({ 
   	user: auth,
   	poems: allPoems,
     searchResults: poemSearchResults
-  }), {findPoemsByName},
+  }), {findPoemsByName, getAllPoems},
 )(Poems)

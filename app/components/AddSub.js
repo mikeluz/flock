@@ -1,4 +1,5 @@
 import React from 'react'
+import {browserHistory} from 'react-router'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import SelectField from 'material-ui/SelectField';
@@ -31,6 +32,7 @@ const AddSub = (props) => {
       sub_notes: evt.target.subNotes.value,
       user_id: props.currentUser.id
     });
+    browserHistory.push('/calls')
   }
 
   const saved = evt => {

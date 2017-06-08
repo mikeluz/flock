@@ -1,4 +1,5 @@
 import React from 'react'
+import {browserHistory} from 'react-router'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import SelectField from 'material-ui/SelectField';
@@ -40,6 +41,7 @@ const AddCall = (props) => {
       mailing_address: evt.target.mailingAddress.value,
       pub_id: props.currentPub.id
     });
+    browserHistory.push('/dashboard')
   }
 
   const saved = evt => {

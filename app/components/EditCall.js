@@ -1,4 +1,5 @@
 import React from 'react'
+import {browserHistory} from 'react-router'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import {Link} from 'react-router'
@@ -24,7 +25,6 @@ const style = {
 const EditCall = (props) => { 
 
   const onSubmit = evt => {
-    console.log("callDetails", evt.target.callDetails.value);
     evt.preventDefault();
     props.updateCurrentCall({
       id: props.currentCall.id,
@@ -40,6 +40,7 @@ const EditCall = (props) => {
       req_sase: evt.target.reqSase.value,
       mailing_address: evt.target.mailingAddress.value
     });
+    browserHistory.push('/dashboard')
   }
 
   const saved = () => {
@@ -50,6 +51,7 @@ const EditCall = (props) => {
     var confirm = window.confirm("Are you sure?");
     if (confirm) {
       props.deleteCurrentCall(props.currentCall.id)
+      browserHistory.push('/dashboard')
     }
   }
 

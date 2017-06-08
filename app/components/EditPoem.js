@@ -2,14 +2,12 @@ import React from 'react'
 import {browserHistory} from 'react-router'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
 import Paper from 'material-ui/Paper';
 import {Link} from 'react-router'
 
 const style = {
   height: 'auto',
-  width: 'auto',
+  width: '100%',
   margin: 'auto',
   textAlign: 'center',
   display: 'inline-block',
@@ -20,39 +18,42 @@ const style = {
   backgroundColor: 'rgba(240, 240, 240, 0.8)'
 };
 
-const AddUser = (props) => { 
+const EditPoem = (props) => { 
 
   const onSubmit = evt => {
     evt.preventDefault();
-    props.addUser({
-      name: evt.target.userName.value,
-      email: evt.target.userEmail.value,
-      address: evt.target.userAddress.value,
-      bio: evt.target.userBio.value
+    props.updateCurrentPoem({
+      id: props.currentPoem.id,
+      name: evt.target.poemName.value,
+      user_id: evt.target.userId.value
     });
     browserHistory.push('/dashboard')
   }
 
-  const saved = evt => {
+  const saved = () => {
     alert('Saved!');
+  }
+
+  const deletePoem = () => {
+    var confirm = window.confirm("Are you sure?");
+    if (confirm) {
+      props.deleteCurrentPoem(props.currentPoem.id)
+      browserHistory.push('/dashboard')
+    }
   }
 
   return (
     <div>
     {props.user 
     ?
-    <div>{props.user.isAdmin ? <div id="centerMe">
+    <div id="centerMe">
     <hr/>
       <Paper style={style} zDepth={3}>
       <form onSubmit={onSubmit}>
         <h4>Name</h4>
-        <TextField type="text" hintText="Name" name="userName" /><br/>
-        <h4>Email</h4>
-        <TextField type="text" hintText="Email" name="userEmail" /><br/>
-        <h4>Address</h4>
-        <TextField type="text" hintText="Address" name="userAddress" /><br/>
-        <h4>Bio</h4>
-        <TextField type="text" hintText="Bio" name="userBio" /><br/>
+        <TextField type="text" hintText="Name" name="poemName" defaultValue={props.currentPoem.name}/><br/>
+        <br/>
+        <RaisedButton label="Delete" onClick={deletePoem}/>
         <RaisedButton 
           type="submit"
           label="Save"
@@ -60,22 +61,22 @@ const AddUser = (props) => {
           labelColor='white'
           onClick={saved}
           />
+          <Link to={`/poems/${props.currentPoem.id}`}><RaisedButton label="View"/></Link>
       </form>
       </Paper>
-      <br/>
-    </div> : <h2>You are trying to access an Admin Only area.</h2>}</div>
+    </div>
     : 
-    <h2>Please log in.</h2>}
+    <h2 id="centerMe">Please log in.</h2>}
     </div>
   )
 }
 
 import {connect} from 'react-redux'
-import {addUser} from '../reducers/oneUser'
+import {updateCurrentPoem, deleteCurrentPoem} from '../reducers/onePoem'
 
 export default connect(
-  ({ auth, currentUser }) => ({ 
+  ({ auth, currentPoem }) => ({ 
   	user: auth,
-    currentUser: currentUser
-  }), {addUser},
-)(AddUser)
+    currentPoem: currentPoem
+  }), {updateCurrentPoem, deleteCurrentPoem},
+)(EditPoem)

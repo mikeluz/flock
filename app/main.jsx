@@ -18,6 +18,7 @@ import Users from './components/Users'
 import OneUser from './components/OneUser'
 import AddUser from './components/AddUser'
 import EditUser from './components/EditUser'
+import EditPoem from './components/EditPoem'
 import Subs from './components/Subs'
 import Pubs from './components/Pubs'
 import Calls from './components/Calls'
@@ -40,7 +41,6 @@ import {getCurrentUser} from './reducers/oneUser'
 import {getCurrentPoem} from './reducers/onePoem'
 import {getCurrentCall} from './reducers/oneCall'
 import {getCurrentSub} from './reducers/oneSub'
-import {getAllUsers} from './reducers/users'
 
 const App = connect(
   ({ auth }) => ({ user: auth })
@@ -70,6 +70,7 @@ render(
         <Route path="/poems/add" component={AddPoem} />
         <Route path="/poems" component={Poems} />
         <Route path="/poems/:id" component={OnePoem} onEnter={(nextRouterState) => getCurrentPoem(nextRouterState)} />
+        <Route path="/poems/:id/edit" component={EditPoem}/>
         <Route path="/flockpad" component={FlockPad} />
         <Route path="/users/add" component={AddUser}/>
         <Route path="/users/:id" component={OneUser} onEnter={(nextRouterState) => getCurrentUser(nextRouterState)} />

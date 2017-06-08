@@ -1,4 +1,5 @@
 import React from 'react'
+import {browserHistory} from 'react-router'
 import TextField from 'material-ui/TextField'
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton'
@@ -28,6 +29,7 @@ const EditPub = (props) => {
       web_address: evt.target.webAddress.value,
       submittable_link: evt.target.submittableLink.value
     });
+    browserHistory.push('/dashboard')
   }
 
   const saved = () => {
@@ -38,6 +40,7 @@ const EditPub = (props) => {
     var confirm = window.confirm("Are you sure?");
     if (confirm) {
       props.deleteCurrentPub(props.currentPub.id)
+      browserHistory.push('/dashboard')
     }
   }
 

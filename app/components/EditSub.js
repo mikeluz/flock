@@ -1,4 +1,5 @@
 import React from 'react'
+import {browserHistory} from 'react-router'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import {Link} from 'react-router'
@@ -31,6 +32,7 @@ const EditSub = (props) => {
       sub_status: evt.target.subStatus.value,
       sub_notes: evt.target.subNotes.value,
     });
+    browserHistory.push('/dashboard')
   }
 
   const saved = () => {

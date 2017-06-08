@@ -1,4 +1,5 @@
 import React from 'react'
+import {browserHistory} from 'react-router'
 import RaisedButton from 'material-ui/RaisedButton'
 import Paper from 'material-ui/Paper'
 import {Link} from 'react-router'
@@ -19,11 +20,11 @@ const style = {
 
 const OneCall = (props) => {
 
-
   const deleteCall = () => {
     var confirm = window.confirm("Are you sure?");
     if (confirm) {
       props.deleteCurrentCall(props.currentCall.id)
+      browserHistory.push('/dashboard')
     }
   }
 
@@ -31,6 +32,7 @@ const OneCall = (props) => {
     var confirm = window.confirm("Are you sure?");
     if (confirm) {
       props.addCurrentSub(props.currentCall.id)
+      browserHistory.push('/poems')
     }
   }
 
