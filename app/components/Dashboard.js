@@ -14,6 +14,7 @@ import Pubs from './Pubs'
 import Chart from 'chart.js'
 import DashPie from './DashPie'
 import DashDeadlines from './DashDeadlines'
+import DashSubs from './DashSubs'
 
 const style = {
   height: 'auto',
@@ -56,7 +57,7 @@ class Dashboard extends React.Component {
        <h2 id='centerMe'>Welcome back, {this.props.user && this.props.user.name.split(" ")[0]}</h2>
        <hr/>
 
-       <div id="inline"><DashPie /> <DashDeadlines /></div>
+       <div id="inline"><DashDeadlines /><DashPie /><DashSubs /></div>
 
      {/* need data viz stuff:
         

@@ -21,7 +21,9 @@ const upcomingDeadlines = (calls, deadlineWindow) => {
     return Math.ceil((deadline - today) / (1000 * 3600 * 24)) < deadlineWindow;
   })
 
-  return deadlines.sort();
+  return deadlines.sort((a, b) => {
+      return new Date(b.sub_date) - new Date(a.sub_date)
+    });
 
 }
 
