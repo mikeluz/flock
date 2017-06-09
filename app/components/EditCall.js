@@ -63,7 +63,7 @@ const EditCall = (props) => {
     {props.user 
     ?
     <div>{props.user.isAdmin ? <div id="centerMe">
-    <hr/>
+    <br/>
     <Paper style={style} zDepth={3}>
       <h2>Edit Call for {props.currentCall.pub.pub_name}</h2>
       <form onSubmit={onSubmit}>

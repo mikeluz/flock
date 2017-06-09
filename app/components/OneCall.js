@@ -45,7 +45,7 @@ const OneCall = (props) => {
   {props.user 
   ?
   <div>
-  <hr/>
+  <br/>
   <Paper style={style} zDepth={3}>
   <div id="form-left">
   <h4>Call Name</h4>

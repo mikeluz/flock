@@ -23,6 +23,9 @@ const appReducer = combineReducers({
   // admin only
   users: require('./users').default,
   // allSubs: require('./allSubs').default,
+
+  // flockpad
+  currentJot: require('./currentJot').default
 })
 
 const rootReducer = (state, action) => {

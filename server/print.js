@@ -29,15 +29,21 @@ function handleEmail(req, res, next) {
         attachments: [{ path: __dirname + '/flockpad.pdf' }]
     };
 
-    transporter.sendMail(message, function(error, info) {
-        if (error) {
-            console.log(error);
-            res.json({yo:'error'});
-        } else {
-            console.log('Message sent: ' + info.response);
-            res.json({yo: info.response});
-        }
-    })
+    // placeholder response -- comment out and uncomment below code to send email
+    res.send("OK")
+
+    // uncomment this to send emails //
+    ///////////////////////////////////
+    // transporter.sendMail(message, function(error, info) {
+    //     if (error) {
+    //         console.log(error);
+    //         res.json({yo:'error'});
+    //     } else {
+    //         console.log('Message sent: ' + info.response);
+    //         res.json({yo: info.response});
+    //     }
+    // })
+
 }
 
 function readFile (filename, callback) {
@@ -50,6 +56,7 @@ function readFile (filename, callback) {
 function promisifiedReadFile (filename) {
   return new Promise(function (resolve, reject) {
     readFile(filename, function (err, str) {
+      console.log("str in promise", str)
       if (err) reject(err);
       else resolve(str);
     });
@@ -61,21 +68,21 @@ module.exports = require('express').Router()
     mustBeLoggedIn,
     (req, res, next) => {
 
-    let pdfParser = new PDFParser(this,1);
+    let pdfParser = new PDFParser(this, 1);
     
-    // read pdf
-    pdfParser.on("pdfParser_dataError", errData => console.error(errData.parserError) );
+    pdfParser.on("pdfParser_dataError", errData => console.error(errData.parserError));
     pdfParser.on("pdfParser_dataReady", pdfData => {
-        fs.writeFile(__dirname + '/flockpad.txt', pdfParser.getRawTextContent());
+        fs.writeFile(__dirname + '/flockpad.txt', pdfParser.getRawTextContent())
+    
+        promisifiedReadFile.call(null, __dirname + '/flockpad.txt')
+        .then(data => {
+          console.log('data', data)
+          res.send(data)
+          pdfParser = null;
+        })
     });
  
     pdfParser.loadPDF(__dirname + '/flockpad.pdf');
-
-    promisifiedReadFile(__dirname + '/flockpad.txt')
-    .then(data => {
-      console.log('data', data)
-      res.send(data)
-    })
 
   })
   .post('/email', handleEmail)

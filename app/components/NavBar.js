@@ -14,6 +14,7 @@ class NavBar extends React.Component {
     };
 
     this.handlePubClick = this.handlePubClick.bind(this);
+    this.handleJotClick = this.handleJotClick.bind(this);
     this.handleUserClick = this.handleUserClick.bind(this);
     this.handlePoemClick = this.handlePoemClick.bind(this);
     this.handleCallClick = this.handleCallClick.bind(this);
@@ -42,6 +43,10 @@ class NavBar extends React.Component {
 
   handleSubClick() {
     this.props.getAllSubs();
+  }
+
+  handleJotClick() {
+    this.props.getCurrentJot();
   }
 
   pubSearch(evt) {
@@ -84,7 +89,7 @@ class NavBar extends React.Component {
           <ToolbarSeparator/>
           <Link to="/calls"><RaisedButton label="Calls" onClick={this.handleCallClick}/></Link>
           <ToolbarSeparator/>
-          <Link to="/flockpad"><RaisedButton backgroundColor='green' label="FlockPad"/></Link>
+          <Link to="/flockpad"><RaisedButton backgroundColor='green' label="FlockPad" labelColor="white" onClick={this.handleJotClick}/></Link>
           {/*<ToolbarSeparator/>
           <form method="GET" onSubmit={this.pubSearch}>
           <input type="text" placeholder="Find Publications" name="search" id="search"/>
@@ -115,14 +120,16 @@ import {getAllUsers} from '../reducers/users'
 import {getAllPoems} from '../reducers/allPoems'
 import {getAllCalls} from '../reducers/allCalls'
 import {getAllSubs} from '../reducers/allSubs'
+import {getCurrentJot} from '../reducers/currentJot'
 
 export default connect(
-  ({ auth, users, allPubs, allCalls, allSubs, pubSearchResults }) => ({ 
+  ({ auth, users, allPubs, allCalls, allSubs, pubSearchResults, currentJot }) => ({ 
     user: auth,
     users: users,
     pubs: allPubs,
     calls: allCalls,
     subs: allSubs,
-    searchResults: pubSearchResults
-  }), {getAllUsers, findPubsByName, getAllPoems, getAllCalls, getAllSubs},
+    searchResults: pubSearchResults,
+    currentJot: currentJot
+  }), {getAllUsers, findPubsByName, getAllPoems, getAllCalls, getAllSubs, getCurrentJot},
 )(NavBar)

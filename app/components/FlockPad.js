@@ -1,7 +1,23 @@
 import React from 'react'
-import {browserHistory} from 'react-router'
-import {Link} from 'react-router'
+import {browserHistory, Link} from 'react-router'
+import RaisedButton from 'material-ui/RaisedButton'
+import Paper from 'material-ui/Paper';
 import axios from 'axios'
+import store from '../store'
+
+const style = {
+  height: 'auto',
+  width: '100%',
+  margin: 'auto',
+  textAlign: 'center',
+  display: 'inline-block',
+  paddingLeft: '40px',
+  paddingRight: '40px',
+  paddingBottom: '40px',
+  paddingTop: '20px',
+  backgroundColor: 'rgba(240, 240, 240, 0.8)'
+};
+
 
 class FlockPad extends React.Component {
 
@@ -14,16 +30,6 @@ class FlockPad extends React.Component {
 
     this.printHandler = this.printHandler.bind(this)
     this.handleChange = this.handleChange.bind(this)
-  }
-
-  componentDidMount() {
-    axios.get('/api/print')
-      .then(res => {
-        console.log("FROM BACKEND", res.data);
-        this.setState({
-          jot: res.data.split("----")[0]
-        })
-      })
   }
 
   handleChange(evt) {
@@ -41,6 +47,7 @@ class FlockPad extends React.Component {
         axios.post('/api/print/email', {"email": this.props.user.email})
           .then(res => {
             console.log("email res", res)
+            this.props.getCurrentJot();
           })
       })
     }
@@ -48,30 +55,40 @@ class FlockPad extends React.Component {
   }
 
   render() {
-    
     return (
       <div id="centerMe">
+      <br/>
+      <Paper style={style} zDepth={3}>
       <h1 id="banner">FLOCKPAD</h1>
       <form onSubmit={this.printHandler}>
       {
-        this.state.jot.length > 0 ?
-        <textarea id="flockpad" name="pad" rows="20" cols="100" value={this.state.jot} onChange={this.handleChange}></textarea> :
-        <textarea id="flockpad" name="pad" rows="20" cols="100" >Collaborative Writing!</textarea>
+        this.props.currentJot &&
+        <textarea id="flockpad" name="pad" rows="20" cols="100" defaultValue={this.props.currentJot} onChange={this.handleChange}></textarea>
       }
       <br/>
-      <button type="submit">PRINT</button>
+      <RaisedButton 
+        type="submit"
+        label="Print"
+        backgroundColor='#000000'
+        labelColor='white'
+        style={{
+          margin: "20px"
+        }}
+        />
       </form>
+      </Paper>
       </div>
-      )
-
+    )
   }
 
 }
 
 import {connect} from 'react-redux'
+import {getCurrentJot} from '../reducers/currentJot'
 
 export default connect(
-  ({ auth, allPubs }) => ({ 
+  ({ auth, currentJot }) => ({ 
   	user: auth,
-  }), {},
+    currentJot: currentJot
+  }), {getCurrentJot},
 )(FlockPad)
