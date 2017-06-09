@@ -13,7 +13,7 @@ export const setCurrentJot = currentJot => ({
   type: SET_CURRENT_JOT, currentJot
 })
 
-export const getCurrentJot = (searchTerm) => 
+export const getCurrentJot = () => 
 	dispatch =>
     axios.get('/api/print')
 	    .then((res) => {

@@ -13,6 +13,8 @@ const PDFDocument = require('pdfkit')
 function handleEmail(req, res, next) {
 
     const transporter = nodemailer.createTransport({
+        // if using gmail, you need to set "allow less secure apps" option in gmail security center
+        // should find an alternative email service to use and conceal password
         service: 'Gmail',
         secure: true,
         auth: {
@@ -43,7 +45,7 @@ function handleEmail(req, res, next) {
     //         res.json({yo: info.response});
     //     }
     // })
-
+    
 }
 
 function readFile (filename, callback) {
@@ -92,20 +94,12 @@ module.exports = require('express').Router()
     let doc = new PDFDocument
      
     // Pipe its output somewhere, like to a file or HTTP response 
-    // See below for browser usage 
     doc.pipe(fs.createWriteStream(__dirname + '/flockpad.pdf'))
      
     // Embed a font, set the font size, and render some text 
     doc.font(__dirname + '/fonts/PalatinoBold.ttf')
        .fontSize(25)
        .text(req.body.input, 100, 100)
-     
-    // Add some text with annotations 
-    // doc.addPage()
-    //    .fillColor("blue")
-    //    .text('Here is a link!', 100, 100)
-    //    .underline(100, 100, 160, 27, {color: "#0000FF"})
-    //    .link(100, 100, 160, 27, 'http://google.com/')
      
     // Finalize PDF file 
     doc.end()
