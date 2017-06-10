@@ -33,7 +33,7 @@ const AddPub = (props) => {
       pub_format: evt.target.format.value,
       pub_type: evt.target.type.value
     });
-    props.getAllPubs();
+    props.findPubsByName('');
     browserHistory.push('/pubs')
   }
 
@@ -94,11 +94,11 @@ const AddPub = (props) => {
 
 import {connect} from 'react-redux'
 import {addPub} from '../reducers/onePub'
-import {getAllPubs} from '../reducers/allPubs'
+import {findPubsByName} from '../reducers/pubSearchResults'
 
 export default connect(
   ({ auth, currentPub }) => ({ 
   	user: auth,
     currentPub: currentPub
-  }), {addPub, getAllPubs},
+  }), {addPub, findPubsByName},
 )(AddPub)

@@ -40,7 +40,7 @@ const EditPub = (props) => {
     var confirm = window.confirm("Are you sure?");
     if (confirm) {
       props.deleteCurrentPub(props.currentPub.id)
-      props.getAllPubs()
+      props.findPubsByName('')
       browserHistory.push('/pubs')
     }
   }
@@ -81,11 +81,11 @@ const EditPub = (props) => {
 
 import {connect} from 'react-redux'
 import {updateCurrentPub, deleteCurrentPub} from '../reducers/onePub'
-import {getAllPubs} from '../reducers/allPubs'
+import {findPubsByName} from '../reducers/pubSearchResults'
 
 export default connect(
   ({ auth, currentPub }) => ({ 
   	user: auth,
     currentPub: currentPub
-  }), {updateCurrentPub, deleteCurrentPub, getAllPubs},
+  }), {updateCurrentPub, deleteCurrentPub, findPubsByName},
 )(EditPub)
