@@ -33,7 +33,8 @@ const AddPub = (props) => {
       pub_format: evt.target.format.value,
       pub_type: evt.target.type.value
     });
-    browserHistory.push('/dashboard')
+    props.getAllPubs();
+    browserHistory.push('/pubs')
   }
 
   const saved = evt => {
@@ -93,10 +94,11 @@ const AddPub = (props) => {
 
 import {connect} from 'react-redux'
 import {addPub} from '../reducers/onePub'
+import {getAllPubs} from '../reducers/allPubs'
 
 export default connect(
   ({ auth, currentPub }) => ({ 
   	user: auth,
     currentPub: currentPub
-  }), {addPub},
+  }), {addPub, getAllPubs},
 )(AddPub)

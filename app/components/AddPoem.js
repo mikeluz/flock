@@ -30,7 +30,8 @@ const AddPoem = (props) => {
       name: evt.target.poemName.value,
       user_id: evt.target.userId.value,
     })
-    browserHistory.push('/dashboard')
+    props.getAllPoems();
+    browserHistory.push('/poems')
   }
 
   const saved = evt => {
@@ -80,10 +81,11 @@ const AddPoem = (props) => {
 
 import {connect} from 'react-redux'
 import {addPoem} from '../reducers/onePoem'
+import {getAllPoems} from '../reducers/allPoems'
 
 export default connect(
   ({ auth, users }) => ({ 
   	user: auth,
     users: users
-  }), {addPoem},
+  }), {addPoem, getAllPoems},
 )(AddPoem)

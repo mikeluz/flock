@@ -42,16 +42,19 @@ class FlockPad extends React.Component {
     evt.preventDefault();
     let confirm = window.confirm("Are you sure?");
     if (confirm) {
-    axios.post('/api/print', {"input": this.state.jot})
-      .then(res => {
-        axios.post('/api/print/email', {"email": this.props.user.email})
-          .then(res => {
-            console.log("email res", res)
-            this.props.getCurrentJot();
-          })
-      })
+      axios.post('/api/print', {"input": this.state.jot})
+        .then(res => {
+          axios.post('/api/print/email', {"email": this.props.user.email})
+            .then(res => {
+              console.log("email res", res)
+              this.props.getUserSubs(this.props.user.id);
+              this.props.getCurrentJot();
+            })
+        })
+        .then(() => {
+          browserHistory.push('/dashboard')
+        })
     }
-    browserHistory.push('/dashboard')
   }
 
   render() {
@@ -86,10 +89,11 @@ class FlockPad extends React.Component {
 
 import {connect} from 'react-redux'
 import {getCurrentJot} from '../reducers/currentJot'
+import {getUserSubs} from '../reducers/userSubs'
 
 export default connect(
   ({ auth, currentJot }) => ({ 
   	user: auth,
     currentJot: currentJot
-  }), {getCurrentJot},
+  }), {getCurrentJot, getUserSubs},
 )(FlockPad)

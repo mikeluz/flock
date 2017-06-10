@@ -20,18 +20,21 @@ export const getCurrentPub = (nextRouterState) =>
       .catch(() => store.dispatch(setCurrentPub(null)))
 
 export const updateCurrentPub = (nextRouterState) => 
+  dispatch =>
     axios.put(`/api/pubs/${nextRouterState.id}`, nextRouterState)
-      .then((res) => store.dispatch(setCurrentPub(res.data)))
-      .catch(() => store.dispatch(setCurrentPub(null)))
+      .then((res) => dispatch(setCurrentPub(res.data)))
+      .catch(() => dispatch(setCurrentPub(null)))
 
 export const deleteCurrentPub = (id) => 
+  dispatch =>
     axios.delete(`/api/pubs/${id}`)
-      .then((res) => store.dispatch(setCurrentPub(res.data)))
-      .catch(() => store.dispatch(setCurrentPub(null)))
+      .then((res) => dispatch(setCurrentPub(res.data)))
+      .catch(() => dispatch(setCurrentPub(null)))
 
 export const addPub = (nextRouterState) => 
+  dispatch =>
     axios.post(`/api/pubs`, nextRouterState)
-      .then((res) => store.dispatch(setCurrentPub(res.data)))
-      .catch(() => store.dispatch(setCurrentPub(null)))
+      .then((res) => dispatch(setCurrentPub(res.data)))
+      .catch(() => dispatch(setCurrentPub(null)))
 
 export default reducer

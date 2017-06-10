@@ -29,7 +29,7 @@ const EditUser = (props) => {
       address: evt.target.userAddress.value,
       bio: evt.target.userBio.value
     });
-    browserHistory.push('/dashboard')
+    browserHistory.push(`/users/${props.currentUser.id}`)
   }
 
   const saved = () => {
@@ -40,7 +40,7 @@ const EditUser = (props) => {
     var confirm = window.confirm("Are you sure?");
     if (confirm) {
       props.deleteCurrentUser(props.currentUser.id)
-      browserHistory.push('/dashboard')
+      browserHistory.push('/users')
     }
   }
 

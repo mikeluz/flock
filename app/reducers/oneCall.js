@@ -20,18 +20,21 @@ export const getCurrentCall = (nextRouterState) =>
       .catch(() => store.dispatch(setCurrentCall(null)))
 
 export const updateCurrentCall = (nextRouterState) => 
+  dispatch =>
     axios.put(`/api/calls/${nextRouterState.id}`, nextRouterState)
-      .then((res) => store.dispatch(setCurrentCall(res.data)))
-      .catch(() => store.dispatch(setCurrentCall(null)))
+      .then((res) => dispatch(setCurrentCall(res.data)))
+      .catch(() => dispatch(setCurrentCall(null)))
 
 export const deleteCurrentCall = (id) => 
+  dispatch =>
     axios.delete(`/api/calls/${id}`)
-      .then((res) => store.dispatch(setCurrentCall(res.data)))
-      .catch(() => store.dispatch(setCurrentCall(null)))
+      .then((res) => dispatch(setCurrentCall(res.data)))
+      .catch(() => dispatch(setCurrentCall(null)))
 
 export const addCall = (nextRouterState) => 
+  dispatch =>
     axios.post(`/api/calls`, nextRouterState)
-      .then((res) => store.dispatch(setCurrentCall(res.data)))
-      .catch(() => store.dispatch(setCurrentCall(null)))
+      .then((res) => dispatch(setCurrentCall(res.data)))
+      .catch(() => dispatch(setCurrentCall(null)))
 
 export default reducer

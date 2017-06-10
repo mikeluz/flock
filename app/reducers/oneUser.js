@@ -20,18 +20,21 @@ export const getCurrentUser = (nextRouterState) =>
       .catch(() => store.dispatch(setCurrentUser(null)))
 
 export const updateCurrentUser = (nextRouterState) => 
+  dispatch =>
     axios.put(`/api/users/${nextRouterState.id}`, nextRouterState)
-      .then((res) => store.dispatch(setCurrentUser(res.data)))
-      .catch(() => store.dispatch(setCurrentUser(null)))
+      .then((res) => dispatch(setCurrentUser(res.data)))
+      .catch(() => dispatch(setCurrentUser(null)))
 
 export const deleteCurrentUser = (id) => 
+  dispatch =>
     axios.delete(`/api/users/${id}`)
-      .then((res) => store.dispatch(setCurrentUser(res.data)))
-      .catch(() => store.dispatch(setCurrentUser(null)))
+      .then((res) => dispatch(setCurrentUser(res.data)))
+      .catch(() => dispatch(setCurrentUser(null)))
 
 export const addUser = (nextRouterState) => 
+  dispatch =>
     axios.post(`/api/users`, nextRouterState)
-      .then((res) => store.dispatch(setCurrentUser(res.data)))
-      .catch(() => store.dispatch(setCurrentUser(null)))
+      .then((res) => dispatch(setCurrentUser(res.data)))
+      .catch(() => dispatch(setCurrentUser(null)))
 
 export default reducer

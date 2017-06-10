@@ -19,8 +19,8 @@ export const addCurrentSub = (callId) =>
     axios.put(`/api/subs`, {
       call_id: callId
     })
-      .then((res) => store.dispatch(setsCurrentSub(res.data)))
-      .catch(() => store.dispatch(setCurrentSub(null)))
+      .then((res) => dispatch(setsCurrentSub(res.data)))
+      .catch(() => dispatch(setCurrentSub(null)))
 
 export const getCurrentSub = (nextRouterState) => {
     axios.get(`/api/subs/current/${nextRouterState.params.id}`)
@@ -35,15 +35,15 @@ export const updateCurrentSub = (nextRouterState) =>
       .catch(() => dispatch(setCurrentSub(null)))
 
 export const deleteCurrentSub = (id) => 
+  dispatch =>
     axios.delete(`/api/subs/${id}`)
-      .then((res) => store.dispatch(setCurrentSub(res.data)))
-      .catch(() => store.dispatch(setCurrentSub(null)))
+      .then((res) => dispatch(setCurrentSub(res.data)))
+      .catch(() => dispatch(setCurrentSub(null)))
 
 export const addNewSub = (newSub) => 
   dispatch =>
     axios.post(`/api/subs`, newSub)
       .then((res) => {
-        console.log("addNewSub res", res.data);
         dispatch(setCurrentSub(res.data))
       })
       .catch(() => dispatch(setCurrentSub(null)))

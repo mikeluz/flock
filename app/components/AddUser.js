@@ -29,8 +29,9 @@ const AddUser = (props) => {
       email: evt.target.userEmail.value,
       address: evt.target.userAddress.value,
       bio: evt.target.userBio.value
-    });
-    browserHistory.push('/dashboard')
+    })
+    props.getAllUsers();
+    browserHistory.push('/users')
   }
 
   const saved = evt => {
@@ -72,10 +73,11 @@ const AddUser = (props) => {
 
 import {connect} from 'react-redux'
 import {addUser} from '../reducers/oneUser'
+import {getAllUsers} from '../reducers/users'
 
 export default connect(
   ({ auth, currentUser }) => ({ 
   	user: auth,
     currentUser: currentUser
-  }), {addUser},
+  }), {addUser, getAllUsers},
 )(AddUser)

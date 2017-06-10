@@ -24,10 +24,9 @@ const EditPoem = (props) => {
     evt.preventDefault();
     props.updateCurrentPoem({
       id: props.currentPoem.id,
-      name: evt.target.poemName.value,
-      user_id: evt.target.userId.value
+      name: evt.target.poemName.value
     });
-    browserHistory.push('/dashboard')
+    browserHistory.push(`/poems/${props.currentPoem.id}`)
   }
 
   const saved = () => {
@@ -38,7 +37,8 @@ const EditPoem = (props) => {
     var confirm = window.confirm("Are you sure?");
     if (confirm) {
       props.deleteCurrentPoem(props.currentPoem.id)
-      browserHistory.push('/dashboard')
+      props.getAllPoems();
+      browserHistory.push('/poems')
     }
   }
 
@@ -73,10 +73,11 @@ const EditPoem = (props) => {
 
 import {connect} from 'react-redux'
 import {updateCurrentPoem, deleteCurrentPoem} from '../reducers/onePoem'
+import {getAllPoems} from '../reducers/allPoems'
 
 export default connect(
   ({ auth, currentPoem }) => ({ 
   	user: auth,
     currentPoem: currentPoem
-  }), {updateCurrentPoem, deleteCurrentPoem},
+  }), {updateCurrentPoem, deleteCurrentPoem, getAllPoems},
 )(EditPoem)

@@ -114,7 +114,6 @@ class NavBar extends React.Component {
 }
 
 import {connect} from 'react-redux'
-// import {getAllPubs} from '../reducers/allPubs'
 import {findPubsByName} from '../reducers/pubSearchResults'
 import {getAllUsers} from '../reducers/users'
 import {getAllPoems} from '../reducers/allPoems'

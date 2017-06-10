@@ -29,7 +29,6 @@ class DashPie extends React.Component {
   
   constructor(props) {
     super(props)
-
   }
 
   componentDidUpdate() {
@@ -60,7 +59,7 @@ class DashPie extends React.Component {
       <h2 id="centerMe">Your Submissions</h2>
       <canvas id="myChart"></canvas>
       </div>
-    )}
+  )}
 }
 
 import {connect} from 'react-redux'

@@ -29,7 +29,7 @@ const EditPub = (props) => {
       web_address: evt.target.webAddress.value,
       submittable_link: evt.target.submittableLink.value
     });
-    browserHistory.push('/dashboard')
+    browserHistory.push(`/pubs/${props.currentPub.id}`)
   }
 
   const saved = () => {
@@ -40,7 +40,8 @@ const EditPub = (props) => {
     var confirm = window.confirm("Are you sure?");
     if (confirm) {
       props.deleteCurrentPub(props.currentPub.id)
-      browserHistory.push('/dashboard')
+      props.getAllPubs()
+      browserHistory.push('/pubs')
     }
   }
 
@@ -80,10 +81,11 @@ const EditPub = (props) => {
 
 import {connect} from 'react-redux'
 import {updateCurrentPub, deleteCurrentPub} from '../reducers/onePub'
+import {getAllPubs} from '../reducers/allPubs'
 
 export default connect(
   ({ auth, currentPub }) => ({ 
   	user: auth,
     currentPub: currentPub
-  }), {updateCurrentPub, deleteCurrentPub},
+  }), {updateCurrentPub, deleteCurrentPub, getAllPubs},
 )(EditPub)
