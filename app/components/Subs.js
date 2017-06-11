@@ -45,7 +45,6 @@ class Subs extends React.Component {
               <TableHeaderColumn><h1 id="title">Submissions</h1><div>{this.props.searchResults && this.props.countOfResults(this.props.searchResults)}</div></TableHeaderColumn>
               <TableHeaderColumn></TableHeaderColumn>
               <TableHeaderColumn></TableHeaderColumn>
-              <TableHeaderColumn></TableHeaderColumn>
               <TableHeaderColumn><div>      
                 <form method="GET" onSubmit={this.subSearch}>
                 <input type="text" placeholder="Find Submissions" name="search" id="search" />
@@ -59,7 +58,6 @@ class Subs extends React.Component {
               <TableHeaderColumn></TableHeaderColumn>
             </TableRow>
             <TableRow>
-              <TableHeaderColumn><h2 id="title">Submission</h2></TableHeaderColumn>
               <TableHeaderColumn><h2 id="title">User</h2></TableHeaderColumn>
               <TableHeaderColumn><h2 id="title">Date Sent</h2></TableHeaderColumn>
               <TableHeaderColumn><h2 id="title">Status</h2></TableHeaderColumn>
@@ -70,9 +68,8 @@ class Subs extends React.Component {
           <TableBody displayRowCheckbox={false}>
           {this.props.searchResults && this.props.searchResults.map(sub => (
             <TableRow key={sub.id}>
-              <TableRowColumn><Link to={`/subs/${sub.id}`}>{sub.id}</Link></TableRowColumn>
               <TableRowColumn><Link to={`/users/${sub.user.id}`}>{sub.user.name}</Link></TableRowColumn>
-              <TableRowColumn>{moment(sub.sub_date).format('LL')}</TableRowColumn>
+              <TableRowColumn><Link to={`/subs/${sub.id}`}>{moment(sub.sub_date).format('LL')}</Link></TableRowColumn>
               <TableRowColumn>{sub.sub_status}</TableRowColumn>
               <TableRowColumn>{sub.pub && <Link to={`/pubs/${sub.pub.id}`}>{sub.pub.pub_name}</Link>}</TableRowColumn>
               <TableRowColumn>{sub.call && <Link to={`/calls/${sub.call.id}`}>{sub.call.call_name}</Link>}</TableRowColumn>
