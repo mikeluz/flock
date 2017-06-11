@@ -38,6 +38,7 @@ const OneSub = (props) => {
   <div>
   <hr/>
   <Paper style={style} zDepth={3}>
+  <h1>Submission for {props.currentSub && props.currentSub.user.name}</h1>
   <h4>Date Submitted</h4>
   <h2>{props.currentSub ? date : "No selection was made."}</h2>
   <h4>Status</h4>

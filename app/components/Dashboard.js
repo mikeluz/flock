@@ -20,7 +20,6 @@ const style = {
   height: 'auto',
   width: '100%',
   margin: 'auto',
-  // textAlign: '',
   display: 'inline-block',
   paddingLeft: '40px',
   paddingRight: '40px',
@@ -56,15 +55,7 @@ class Dashboard extends React.Component {
        <Paper style={style} zDepth={3}>
        <h2 id='centerMe'>Welcome back, {this.props.user && this.props.user.name.split(" ")[0]}</h2>
        <hr/>
-
        <div id="inline"><DashDeadlines /><DashPie /><DashSubs /></div>
-
-     {/* need data viz stuff:
-        
-        -- upcoming opening calls
-        -- active submissions
-        
-      */}
        </Paper>
        }
 		   </div>

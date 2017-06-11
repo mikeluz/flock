@@ -38,7 +38,12 @@ module.exports = require('express').Router()
   .get('/:id',
     mustBeLoggedIn,
     (req, res, next) =>
-      Poem.findById(req.params.id)
+      Poem.findOne({
+        where: {
+          id: req.params.id
+        },
+        include: [User]
+      })
       .then(poem => res.json(poem))
       .catch(next))
   .put('/:id',

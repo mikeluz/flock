@@ -34,6 +34,7 @@ const OnePoem = (props) => {
   <div>
   <hr/>
   <Paper style={style} zDepth={3}>
+  <h1>Poem by {props.currentPoem && props.currentPoem.user.name}</h1>
   <h4>Title of Poem</h4>
   <h2>{props.currentPoem ? props.currentPoem.name : "No selection was made."}</h2>
   {props.user.isAdmin && <div>

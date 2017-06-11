@@ -47,6 +47,7 @@ const OneCall = (props) => {
   <div>
   <br/>
   <Paper style={style} zDepth={3}>
+  <h1>{props.currentCall && `${props.currentCall.call_type.toUpperCase()}`} call for {props.currentCall && `${props.currentCall.pub.pub_name}`}</h1>
   <div id="form-left">
   <h4>Call Name</h4>
   <h2>{props.currentCall ? props.currentCall.call_name : "No selection was made."}</h2>

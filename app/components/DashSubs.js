@@ -46,8 +46,8 @@ class DashSubs extends React.Component {
               .map(sub => {
                 return (
                   <TableRow key={sub.id}>
-                    <TableRowColumn>{moment(sub.sub_date).format('LL')}</TableRowColumn>
-                    <TableRowColumn><Link to={`/pubs/${sub.pub_id}`}>{sub.pub_id}</Link></TableRowColumn>
+                    <TableRowColumn><Link to={`/subs/${sub.id}`}>{moment(sub.sub_date).format('LL')}</Link></TableRowColumn>
+                    <TableRowColumn><Link to={`/calls/${sub.call.id}`}>{sub.pub.pub_name}</Link></TableRowColumn>
                   </TableRow>
                 )
               })

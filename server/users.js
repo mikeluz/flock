@@ -26,7 +26,8 @@ module.exports = require('express').Router()
       Sub.findAll({
         where: {
           user_id: req.params.id
-        }
+        },
+        include: [ {all: true} ]
       })
       .then(subs => res.json(subs))
       .catch(next))
