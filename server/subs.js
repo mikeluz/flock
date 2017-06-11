@@ -105,7 +105,8 @@ module.exports = require('express').Router()
         .then(user => 
           Sub.findAll({
             where: {
-              user_id: user.id
+              // failsafe if no user found
+              user_id: user ? user.id : 0
             },
             include: [ {all: true} ]
         }))

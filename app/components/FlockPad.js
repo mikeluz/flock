@@ -61,6 +61,7 @@ class FlockPad extends React.Component {
 
     return (
       <div id="centerMe">
+      {this.props.user && <div>
       <br/>
       <Paper style={style} zDepth={3}>
       <h1 id="banner">FLOCKPAD</h1>
@@ -81,6 +82,7 @@ class FlockPad extends React.Component {
         />
       </form>
       </Paper>
+      </div>}
       </div>
     )
   }

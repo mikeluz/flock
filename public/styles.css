@@ -8,6 +8,11 @@ body {
 	background-color: black;
 }
 
+h4 {
+	text-decoration: underline;
+	color: rgb(212, 212, 214, .1);
+}
+
 #centerMe {
 	text-align: center;
 }

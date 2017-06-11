@@ -8,105 +8,113 @@ class NavBar extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      searchTerm: '',
-      searchResults: []
-    };
 
+    // bind all handlers
     this.handlePubClick = this.handlePubClick.bind(this);
     this.handleJotClick = this.handleJotClick.bind(this);
     this.handleUserClick = this.handleUserClick.bind(this);
     this.handlePoemClick = this.handlePoemClick.bind(this);
     this.handleCallClick = this.handleCallClick.bind(this);
     this.handleSubClick = this.handleSubClick.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
-    this.pubSearch = this.pubSearch.bind(this);
   }
 
   handlePubClick() {
+    // find pubs by name, passing empty string gets all
     this.props.findPubsByName('');
   }
 
   handleUserClick() {
+    // simple get all users
     this.props.getAllUsers();
   }
 
   handlePoemClick() {
-    this.props.getAllPoems();
+    // find poems by name, passing empty string gets all
+    this.props.findPoemsByName('');
+    // also load all users
     this.props.getAllUsers();
   }
 
   handleCallClick() {
-    this.props.getAllCalls();
+    // find calls by name, passing empty string gets all
+    this.props.findCallsByName('');
   }
 
   handleSubClick() {
-    this.props.getAllSubs();
+    // find subs by user name, passing empty string gets all
+    this.props.findSubsByUserName('');
   }
 
   handleJotClick() {
+    // get current jot
     this.props.getCurrentJot();
   }
 
-  pubSearch(evt) {
-    evt.preventDefault();
-    this.props.findPubsByName(evt.target.search.value);
-  }
-
-  handleSearch(evt) {
-    console.log("evt", evt);
-    this.setState({
-      searchTerm: evt.target.search.value
-    });
-  }
-
   render() {
-    console.log("props", this.props);
+
+    // 'is Admin' boolean from db
+    let userIsAdmin = this.props.user.isAdmin
+    // if not admin, add "auto" as left margin to nonadmin navbar, else null
+    let nonAdminCenteringBool = this.props.user.isAdmin ? null : "auto"
+
       return (
       <div>
+
         <Toolbar style={{
         	backgroundColor: "rgba(0, 0, 0, 0.8)", 
         }}>
-      		<ToolbarGroup style={{
-          	marginLeft: "auto", 
-          	marginRight: "auto"
-      		}}>
-          {this.props.user.isAdmin && <a href="/api/subs/current/clear"><RaisedButton label="Clear Sub" backgroundColor='red'/></a>}
-          {this.props.user.isAdmin && <ToolbarSeparator/>}
-          {this.props.user.isAdmin && <Link to="/users"><RaisedButton label="Users" onClick={this.handleUserClick}/></Link>}
-          {this.props.user.isAdmin && <ToolbarSeparator/>}
-          {this.props.user.isAdmin && <Link to="/subs"><RaisedButton label="Submissions" onClick={this.handleSubClick}/></Link>}
-          {this.props.user.isAdmin && <ToolbarSeparator/>}
-          {this.props.user.isAdmin && <Link to="/poems"><RaisedButton label="Poems" onClick={this.handlePoemClick}/></Link>}
-          {this.props.user.isAdmin && <ToolbarSeparator/>}
+
+          {/* admin portion of navbar */}
+          {userIsAdmin && 
+          <ToolbarGroup style={{
+            marginLeft: "auto", 
+          }}>
+          <a href="/api/subs/current/clear"><RaisedButton label="Finish Sub" backgroundColor='red'/></a>
+          <ToolbarSeparator/>
+          <Link to="/users"><RaisedButton label="Users" onClick={this.handleUserClick}/></Link>
+          <ToolbarSeparator/>
+          <Link to="/subs"><RaisedButton label="Submissions" onClick={this.handleSubClick}/></Link>
+          <ToolbarSeparator/>
+          <Link to="/poems"><RaisedButton label="Poems" onClick={this.handlePoemClick}/></Link>
+          <ToolbarSeparator/>
+          </ToolbarGroup>}
+          {/* admin portion of navbar */}
+
+          <ToolbarGroup style={{
+            marginRight: "auto",
+            marginLeft: nonAdminCenteringBool
+          }}>
           <Link to="/pubs"><RaisedButton label="Publications" onClick={this.handlePubClick}/></Link>
           <ToolbarSeparator/>
           <Link to="/calls"><RaisedButton label="Calls" onClick={this.handleCallClick}/></Link>
           <ToolbarSeparator/>
           <Link to="/flockpad"><RaisedButton backgroundColor='green' label="FlockPad" labelColor="white" onClick={this.handleJotClick}/></Link>
       		</ToolbarGroup>
+
         </Toolbar>
+      
       </div>
       )
   }
 }
 
 import {connect} from 'react-redux'
+
+// action creators
 import {findPubsByName} from '../reducers/pubSearchResults'
+import {findCallsByName} from '../reducers/callSearchResults'
+import {findPoemsByName} from '../reducers/poemSearchResults'
+import {findSubsByUserName} from '../reducers/subSearchResults'
 import {getAllUsers} from '../reducers/users'
-import {getAllPoems} from '../reducers/allPoems'
-import {getAllCalls} from '../reducers/allCalls'
-import {getAllSubs} from '../reducers/allSubs'
 import {getCurrentJot} from '../reducers/currentJot'
 
 export default connect(
-  ({ auth, users, allPubs, allCalls, allSubs, pubSearchResults, currentJot }) => ({ 
-    user: auth,
-    users: users,
-    pubs: allPubs,
-    calls: allCalls,
-    subs: allSubs,
-    searchResults: pubSearchResults,
-    currentJot: currentJot
-  }), {getAllUsers, findPubsByName, getAllPoems, getAllCalls, getAllSubs, getCurrentJot},
+  ({ auth }) => ({ 
+    user: auth
+  }), {getAllUsers, 
+    findPubsByName,
+    findCallsByName,
+    findPoemsByName,
+    findSubsByUserName,
+    getCurrentJot},
 )(NavBar)

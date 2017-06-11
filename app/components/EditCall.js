@@ -71,9 +71,9 @@ const EditCall = (props) => {
         <h4>Call Name</h4>
         <TextField type="text" hintText="call name" name="callName" defaultValue={props.currentCall.call_name} /><br/>
         <h4>Call Start: {start}</h4>
-        <DatePicker hintText="call start" name="callStart" /><br/>
+        <DatePicker hintText="new call start" name="callStart" /><br/>
         <h4>Call End: {end}</h4>
-        <DatePicker hintText="call end" name="callEnd" /><br/>
+        <DatePicker hintText="new call end" name="callEnd" /><br/>
         <h4>Call Type</h4>
         <select name="callType" defaultValue={props.currentCall.call_type}>
           <option value="basic">Basic</option>

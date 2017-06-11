@@ -31,9 +31,6 @@ class Pubs extends React.Component {
       <div>
       <br/>
       <div>
-      {
-        this.props.searchResults
-        ?
         <Table   
         height={'300px'}
         fixedHeader={true}
@@ -45,7 +42,7 @@ class Pubs extends React.Component {
             adjustForCheckbox={false}
             displaySelectAll={false}>
             <TableRow>
-              <TableHeaderColumn><h1 id="title">Publications</h1></TableHeaderColumn>
+              <TableHeaderColumn><h1 id="title">Publications</h1>{this.props.searchResults && <div>{this.props.countOfResults(this.props.searchResults)}</div>}</TableHeaderColumn>
               <TableHeaderColumn>{this.props.user.isAdmin && <div id="centerMeTable"><Link to="/pubs/add"><RaisedButton label="New"/></Link><br/><br/></div>}</TableHeaderColumn>
               <TableHeaderColumn>
                 <form method="GET" onSubmit={this.pubSearch}>
@@ -73,35 +70,7 @@ class Pubs extends React.Component {
             </TableRow>)
           )}
           </TableBody>
-        </Table>
-        :
-        <Table   
-    	  height={'300px'}
-    	  fixedHeader={true}
-    	  fixedFooter={true}
-        selectable={false}
-    	  style={{
-        	backgroundColor: 'rgba(240, 240, 240, 0.8)', textColor: '#ffffff'}}>
-          <TableHeader 
-            adjustForCheckbox={false}
-            displaySelectAll={false}>
-            <TableRow>
-              <TableHeaderColumn><h2 id="title">Name</h2></TableHeaderColumn>
-      	      <TableHeaderColumn><h2 id="title">Web Address</h2></TableHeaderColumn>
-              <TableHeaderColumn><h2 id="title">Submittable Link</h2></TableHeaderColumn>
-            </TableRow>
-          </TableHeader>
-          <TableBody displayRowCheckbox={false}>
-      	  {this.props.pubs && this.props.pubs.map(pub => (
-            <TableRow key={pub.id}>
-              <TableRowColumn><Link to={`/pubs/${pub.id}`}>{pub.pub_name}</Link></TableRowColumn>
-              <TableRowColumn><a href={pub.web_address}>{pub.web_address}</a></TableRowColumn>
-              <TableRowColumn><a href={pub.submittable_link}>{pub.submittable_link}</a></TableRowColumn>
-            </TableRow>)
-      	  )}
-          </TableBody>
-        </Table>
-      }</div></div> : <h2>Please log in.</h2>}
+        </Table></div></div> : <h2>Please log in.</h2>}
       </div>
     )
   }
@@ -109,11 +78,12 @@ class Pubs extends React.Component {
 
 import {connect} from 'react-redux'
 import {findPubsByName} from '../reducers/pubSearchResults'
+import countOfResults from '../utils/countOfResults'
 
 export default connect(
   ({ auth, allPubs, pubSearchResults }) => ({ 
   	user: auth,
   	pubs: allPubs,
     searchResults: pubSearchResults
-  }), {findPubsByName},
+  }), {findPubsByName, countOfResults},
 )(Pubs)

@@ -39,6 +39,7 @@ const OneCall = (props) => {
   let currentCallId = props.currentCall ? props.currentCall.id : 0
   let start = props.currentCall ? moment(props.currentCall.call_start).format('LL') : "NA"
   let end = props.currentCall ? moment(props.currentCall.call_end).format('LL') : "NA"
+  let timeFromNow = props.currentCall ? moment(new Date(props.currentCall.call_end)).endOf('day').fromNow() : "NA";
   
   return (
   <div id="centerMe">
@@ -61,6 +62,8 @@ const OneCall = (props) => {
   <h2>{props.currentCall ? props.currentCall.call_judge : "No selection was made."}</h2>
   </div>
   <div id="form-center">
+  <h2>Deadline:</h2>
+  <h2>{props.currentCall ? timeFromNow: "No selection was made."}</h2>
   <h4>Open or Closed</h4>
   <h2>{props.currentCall ? props.currentCall.open_or_closed : "No selection was made."}</h2>
   <h4>Call Detail</h4>

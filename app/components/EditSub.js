@@ -52,7 +52,7 @@ const EditSub = (props) => {
       <h2>{subUser ? <div>Edit Submission for {subUser}</div> : "Updated!"}</h2>
       <form onSubmit={onSubmit}>
         <h4>Date Submitted: {date}</h4>
-        <DatePicker hintText="date submitted" name="subDate" /><br/>
+        <DatePicker hintText="new date submitted" name="subDate" /><br/>
         <h4>Status</h4>
         <select name="subStatus" defaultValue={props.currentSub.sub_status}>
           <option value="in process" selected>In Process</option>

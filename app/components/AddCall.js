@@ -41,7 +41,8 @@ const AddCall = (props) => {
       mailing_address: evt.target.mailingAddress.value,
       pub_id: props.currentPub.id
     });
-    browserHistory.push('/dashboard')
+    props.getAllCalls();
+    browserHistory.push('/calls')
   }
 
   const saved = evt => {
@@ -119,10 +120,11 @@ const AddCall = (props) => {
 
 import {connect} from 'react-redux'
 import {addCall} from '../reducers/oneCall'
+import {getAllCalls} from '../reducers/allCalls'
 
 export default connect(
   ({ auth, currentPub }) => ({ 
   	user: auth,
     currentPub: currentPub
-  }), {addCall},
+  }), {addCall, getAllCalls},
 )(AddCall)

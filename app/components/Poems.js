@@ -20,7 +20,7 @@ class Poems extends React.Component {
 
   componentDidMount() {
     if (!this.props.poems) {
-      this.props.getAllPoems();
+      this.props.findPoemsByName('');
     }
   }
 
@@ -30,16 +30,12 @@ class Poems extends React.Component {
   }
 
   render() {
-    console.log("poems props", this.props)
     return (
       <div id="centerMe">
       {this.props.user ?
       <div>
       <br/>
       <div>
-      {
-        this.props.searchResults
-        ?
         <Table   
         height={'300px'}
         fixedHeader={true}
@@ -51,7 +47,7 @@ class Poems extends React.Component {
             adjustForCheckbox={false}
             displaySelectAll={false}>
             <TableRow>
-              <TableHeaderColumn><h1 id="title">Poems</h1></TableHeaderColumn>
+              <TableHeaderColumn><h1 id="title">Poems</h1><div>{this.props.searchResults && this.props.countOfResults(this.props.searchResults)}</div></TableHeaderColumn>
               <TableHeaderColumn>{this.props.user.isAdmin && <div id="centerMeTable"><Link to="/poems/add"><RaisedButton label="New"/></Link><br/><br/></div>}</TableHeaderColumn>
               <TableHeaderColumn>
                 <form method="GET" onSubmit={this.poemSearch}>
@@ -79,47 +75,7 @@ class Poems extends React.Component {
           )}
           </TableBody>
         </Table>
-        :
-        <Table   
-    	  height={'300px'}
-    	  fixedHeader={true}
-    	  fixedFooter={true}
-        selectable={false}
-    	  style={{
-        	backgroundColor: 'rgba(240, 240, 240, 0.8)', textColor: '#ffffff'}}>
-          <TableHeader 
-            adjustForCheckbox={false}
-            displaySelectAll={false}>
-            <TableRow>
-              <TableHeaderColumn><h1 id="title">Poems</h1></TableHeaderColumn>
-              <TableHeaderColumn>{this.props.user.isAdmin && <div id="centerMeTable"><Link to="/poems/add"><RaisedButton label="New"/></Link><br/><br/></div>}</TableHeaderColumn>
-              <TableHeaderColumn>
-                <form method="GET" onSubmit={this.poemSearch}>
-                <input type="text" placeholder="Find Poems" name="search" id="search" />
-                  <RaisedButton 
-                    type="submit" 
-                    label="Find Poems"        
-                    backgroundColor='green'
-                    labelColor='white'/>
-                </form>
-              </TableHeaderColumn>
-            </TableRow>
-            <TableRow>
-              <TableHeaderColumn><h2 id="title">Title</h2></TableHeaderColumn>
-      	      <TableHeaderColumn><h2 id="title">Author</h2></TableHeaderColumn>
-            </TableRow>
-          </TableHeader>
-          <TableBody displayRowCheckbox={false}>
-      	  {this.props.poems && this.props.poems.map(poem => (
-            <TableRow key={poem.id}>
-              <TableRowColumn><Link to={`/poems/${poem.id}`}>{poem.name}</Link></TableRowColumn>
-              <TableRowColumn><Link to={`/users/${poem.user_id}`}>{poem.user.name}</Link></TableRowColumn>
-              <TableRowColumn></TableRowColumn>
-            </TableRow>)
-      	  )}
-          </TableBody>
-        </Table>
-      }</div></div> : <h2>Please log in.</h2>}
+      </div></div> : <h2>Please log in.</h2>}
       </div>
     )
   }
@@ -128,12 +84,11 @@ class Poems extends React.Component {
 
 import {connect} from 'react-redux'
 import {findPoemsByName} from '../reducers/poemSearchResults'
-import {getAllPoems} from '../reducers/allPoems'
+import countOfResults from '../utils/countOfResults'
 
 export default connect(
-  ({ auth, allPoems, poemSearchResults }) => ({ 
+  ({ auth, poemSearchResults }) => ({ 
   	user: auth,
-  	poems: allPoems,
     searchResults: poemSearchResults
-  }), {findPoemsByName, getAllPoems},
+  }), {findPoemsByName, countOfResults},
 )(Poems)

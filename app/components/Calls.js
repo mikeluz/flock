@@ -31,10 +31,7 @@ class Calls extends React.Component {
       <div>
       <br/>
       <div>
-      {
-        this.props.searchResults
-        ?
-        <Table   
+      <Table   
         height={'300px'}
         fixedHeader={true}
         fixedFooter={true}
@@ -45,7 +42,7 @@ class Calls extends React.Component {
             adjustForCheckbox={false}
             displaySelectAll={false}>
             <TableRow>
-              <TableHeaderColumn><h1 id="title">Calls</h1></TableHeaderColumn>
+              <TableHeaderColumn><h1 id="title">Calls</h1><div>{this.props.searchResults && this.props.countOfResults(this.props.searchResults)}</div></TableHeaderColumn>
               <TableHeaderColumn></TableHeaderColumn>
               <TableHeaderColumn></TableHeaderColumn>
               <TableHeaderColumn><div>      
@@ -79,53 +76,7 @@ class Calls extends React.Component {
           )}
           </TableBody>
         </Table>
-        :
-        <Table   
-    	  height={'300px'}
-    	  fixedHeader={true}
-    	  fixedFooter={true}
-        selectable={false}
-    	  style={{
-        	backgroundColor: 'rgba(240, 240, 240, 0.8)', textColor: '#ffffff'}}>
-          <TableHeader 
-            adjustForCheckbox={false}
-            displaySelectAll={false}>
-            <TableRow>
-              <TableHeaderColumn><h1 id="title">Calls</h1></TableHeaderColumn>
-              <TableHeaderColumn></TableHeaderColumn>
-              <TableHeaderColumn></TableHeaderColumn>
-              <TableHeaderColumn><div>      
-                <form method="GET" onSubmit={this.callSearch}>
-                <input type="text" placeholder="Find Calls" name="search" id="search" />
-                  <RaisedButton 
-                    type="submit" 
-                    label="Find Calls"        
-                    backgroundColor='green'
-                    labelColor='white'/>
-                </form></div>
-              </TableHeaderColumn>
-            </TableRow>
-            <TableRow>
-              <TableHeaderColumn><h2 id="title">Name</h2></TableHeaderColumn>
-              <TableHeaderColumn><h2 id="title">Pub</h2></TableHeaderColumn>
-              <TableHeaderColumn><h2 id="title">Date Start</h2></TableHeaderColumn>
-              <TableHeaderColumn><h2 id="title">Date End</h2></TableHeaderColumn>
-              <TableHeaderColumn><h2 id="title">Open or Closed</h2></TableHeaderColumn>
-            </TableRow>
-          </TableHeader>
-          <TableBody displayRowCheckbox={false}>
-      	  {this.props.calls && this.props.calls.map(call => (
-            <TableRow key={call.id}>
-              <TableRowColumn><Link to={`/calls/${call.id}`}>{call.call_name}</Link></TableRowColumn>
-              <TableRowColumn><Link to={`/pubs/${call.pub.id}`}>{call.pub.pub_name}</Link></TableRowColumn>
-              <TableRowColumn>{moment(call.call_start).format('LL')}</TableRowColumn>
-              <TableRowColumn>{moment(call.call_end).format('LL')}</TableRowColumn>
-              <TableRowColumn>{call.open_or_closed}</TableRowColumn>
-            </TableRow>)
-      	  )}
-          </TableBody>
-        </Table>
-      }</div></div> : <h2>Please log in.</h2>}
+      </div></div> : <h2>Please log in.</h2>}
       </div>
     )
   }
@@ -133,11 +84,11 @@ class Calls extends React.Component {
 
 import {connect} from 'react-redux'
 import {findCallsByName} from '../reducers/callSearchResults'
+import countOfResults from '../utils/countOfResults'
 
 export default connect(
-  ({ auth, allCalls, callSearchResults }) => ({ 
+  ({ auth, callSearchResults }) => ({ 
   	user: auth,
-  	calls: allCalls,
     searchResults: callSearchResults
-  }), {findCallsByName},
+  }), {findCallsByName, countOfResults},
 )(Calls)

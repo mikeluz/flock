@@ -39,6 +39,7 @@ const OneSub = (props) => {
   <hr/>
   <Paper style={style} zDepth={3}>
   <h1>Submission for {props.currentSub && props.currentSub.user.name}</h1>
+  <div id="form-left">
   <h4>Date Submitted</h4>
   <h2>{props.currentSub ? date : "No selection was made."}</h2>
   <h4>Status</h4>
@@ -47,18 +48,23 @@ const OneSub = (props) => {
   <h2>{props.currentSub ? props.currentSub.sub_notes : "No selection was made."}</h2>
   <h4>User</h4>
   <h2>{props.currentSub ? <div>{props.currentSub.user ? props.currentSub.user.name : "No User Assigned"}</div> : "No selection was made."}</h2>
+  </div>
+  <div id="form-center">
+  {props.user.isAdmin && <div><br/>
+    <Link to={`/subs/${currentSubId}/edit`}>
+    <RaisedButton label="Delete" onClick={deleteSub}/>
+    <RaisedButton type="submit" label="Edit" backgroundColor='#000000' labelColor='white' /><br/><br/>
+    </Link>
+  </div>}
+  </div>
+  <div id="form-right">
   <h4>Publication</h4>
   <h2>{props.currentSub ? <div>{props.currentSub.pub ? props.currentSub.pub.pub_name : "No Publication Assigned"}</div> : "No selection was made."}</h2> 
   <h4>Call</h4>
   <h2>{props.currentSub ? <div>{props.currentSub.call ? props.currentSub.call.call_name : "No Call Assigned"}</div> : "No selection was made."}</h2>
   <h4>Poems</h4>
   {props.currentSub ? (props.currentSub.poems ? props.currentSub.poems.map(poem => <h2 key={poem.id}>{poem.name}</h2>) : <h2>No Poems Assigned</h2>) : "No selection was made."}
-  {props.user.isAdmin && <div>
-    <Link to={`/subs/${currentSubId}/edit`}>
-    <RaisedButton label="Delete" onClick={deleteSub}/>
-    <RaisedButton type="submit" label="Edit" backgroundColor='#000000' labelColor='white' /><br/><br/>
-    </Link>
-  </div>}
+  </div>
   </Paper>
   </div>
   : 
