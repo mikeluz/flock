@@ -14,7 +14,7 @@ export const setAllSubs = subs => ({
 })
 
 export const getAllSubs = () =>
-  dispatch =>
+	dispatch =>
     axios.get('/api/subs')
       .then((res) => dispatch(setAllSubs(res.data)))
       .catch(() => dispatch(setAllSubs(null)))

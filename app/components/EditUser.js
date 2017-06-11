@@ -40,6 +40,7 @@ const EditUser = (props) => {
     var confirm = window.confirm("Are you sure?");
     if (confirm) {
       props.deleteCurrentUser(props.currentUser.id)
+      props.getAllUsers();
       browserHistory.push('/users')
     }
   }
@@ -81,10 +82,11 @@ const EditUser = (props) => {
 
 import {connect} from 'react-redux'
 import {updateCurrentUser, deleteCurrentUser} from '../reducers/oneUser'
+import {getAllUsers} from '../reducers/users'
 
 export default connect(
   ({ auth, currentUser }) => ({ 
   	user: auth,
     currentUser: currentUser
-  }), {updateCurrentUser, deleteCurrentUser},
+  }), {updateCurrentUser, deleteCurrentUser, getAllUsers},
 )(EditUser)

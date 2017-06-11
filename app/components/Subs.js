@@ -120,7 +120,10 @@ class Subs extends React.Component {
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
-      	  {this.props.subs && this.props.subs.map(sub => (
+      	  {this.props.subs && this.props.subs.filter(sub => {
+            // filter out any subs that don't have an assigned user
+            return sub.user !== null;
+          }).map(sub => (
             <TableRow key={sub.id}>
               <TableRowColumn><Link to={`/subs/${sub.id}`}>{sub.id}</Link></TableRowColumn>
               <TableRowColumn><Link to={`/users/${sub.user.id}`}>{sub.user.name}</Link></TableRowColumn>

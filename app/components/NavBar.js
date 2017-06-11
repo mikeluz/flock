@@ -24,7 +24,6 @@ class NavBar extends React.Component {
   }
 
   handlePubClick() {
-    // this.props.getAllPubs();
     this.props.findPubsByName('');
   }
 
@@ -51,12 +50,7 @@ class NavBar extends React.Component {
 
   pubSearch(evt) {
     evt.preventDefault();
-    // this.props.findPubsByName(this.state.searchTerm);
     this.props.findPubsByName(evt.target.search.value);
-    // axios.get(`/api/pubs/search/?search=${evt.target.search.value}`)
-    //   .then(res => this.setState({
-    //     searchResults: res.data
-    //   }));
   }
 
   handleSearch(evt) {
@@ -90,22 +84,6 @@ class NavBar extends React.Component {
           <Link to="/calls"><RaisedButton label="Calls" onClick={this.handleCallClick}/></Link>
           <ToolbarSeparator/>
           <Link to="/flockpad"><RaisedButton backgroundColor='green' label="FlockPad" labelColor="white" onClick={this.handleJotClick}/></Link>
-          {/*<ToolbarSeparator/>
-          <form method="GET" onSubmit={this.pubSearch}>
-          <input type="text" placeholder="Find Publications" name="search" id="search"/>
-          <RaisedButton 
-            type="submit" 
-            label="Search"        
-            backgroundColor='green'
-            labelColor='white'/>
-          </form>
-          <input type="text" placeholder="Find Publications" name="search" id="search" onChange={this.handleSearch}/>
-          <RaisedButton 
-            type="submit" 
-            label="Search by Name"        
-            backgroundColor='green'
-            labelColor='white'
-            onClick={this.pubSearch}/>*/}
       		</ToolbarGroup>
         </Toolbar>
       </div>
