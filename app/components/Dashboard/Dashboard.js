@@ -35,8 +35,8 @@ class Dashboard extends React.Component {
 	}
 
   componentWillReceiveProps() {
-    if (this.props.getAllCalls) {
-      this.props.getAllCalls();
+    if (this.props.findCallsByName) {
+      this.props.findCallsByName('');
     }
   }
 
@@ -66,10 +66,10 @@ class Dashboard extends React.Component {
 
 import {connect} from 'react-redux'
 import {getUserSubs} from 'APP/app/reducers/users/userSubs'
-import {getAllCalls} from 'APP/app/reducers/calls/allCalls'
+import {findCallsByName} from 'APP/app/reducers/calls/callSearchResults'
 
 export default connect(
   ({ auth }) => ({ 
   	user: auth
-  }), {getUserSubs, getAllCalls},
+  }), {getUserSubs, findCallsByName},
 )(Dashboard)

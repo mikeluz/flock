@@ -84,8 +84,8 @@ class DashDeadlines extends React.Component {
 import {connect} from 'react-redux'
 
 export default connect(
-  ({ auth, allCalls }) => ({ 
+  ({ auth, callSearchResults }) => ({ 
   	user: auth,
-    calls: allCalls
+    calls: callSearchResults
   }), {}
 )(DashDeadlines)
