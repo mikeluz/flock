@@ -1,4 +1,4 @@
 # flock
 flocklit.nyc
 
-FLOCK -- an online community of writers
+FLOCK -- a community of writers

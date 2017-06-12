@@ -101,12 +101,12 @@ class NavBar extends React.Component {
 import {connect} from 'react-redux'
 
 // action creators
-import {findPubsByName} from '../reducers/pubSearchResults'
-import {findCallsByName} from '../reducers/callSearchResults'
-import {findPoemsByName} from '../reducers/poemSearchResults'
-import {findSubsByUserName} from '../reducers/subSearchResults'
-import {getAllUsers} from '../reducers/users'
-import {getCurrentJot} from '../reducers/currentJot'
+import {findPubsByName} from 'APP/app/reducers/pubs/pubSearchResults'
+import {findCallsByName} from 'APP/app/reducers/calls/callSearchResults'
+import {findPoemsByName} from 'APP/app/reducers/poems/poemSearchResults'
+import {findSubsByUserName} from 'APP/app/reducers/subs/subSearchResults'
+import {getAllUsers} from 'APP/app/reducers/users/users'
+import {getCurrentJot} from 'APP/app/reducers/currentJot'
 
 export default connect(
   ({ auth }) => ({ 

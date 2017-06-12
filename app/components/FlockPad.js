@@ -90,8 +90,8 @@ class FlockPad extends React.Component {
 }
 
 import {connect} from 'react-redux'
-import {getCurrentJot} from '../reducers/currentJot'
-import {getUserSubs} from '../reducers/userSubs'
+import {getCurrentJot} from 'APP/app/reducers/currentJot'
+import {getUserSubs} from 'APP/app/reducers/users/userSubs'
 
 export default connect(
   ({ auth, currentJot }) => ({ 

@@ -1,28 +1,28 @@
 import { combineReducers } from 'redux'
 
 const appReducer = combineReducers({
+
+  // logged-in user
   auth: require('./auth').default,
-  allPubs: require('./allPubs').default,
-  pubSearchResults: require('./pubSearchResults').default,
-  callSearchResults: require('./callSearchResults').default,
-  poemSearchResults: require('./poemSearchResults').default,
-  subSearchResults: require('./subSearchResults').default,
-  currentPub: require('./onePub').default,
-  currentUser: require('./oneUser').default,
-  currentCall: require('./oneCall').default,
-  currentSub: require('./oneSub').default,
-  allPoems: require('./allPoems').default,
-  currentPoem: require('./onePoem').default,
-  allCalls: require('./allCalls').default,
-  allSubs: require('./allSubs').default,
+
+  // global search
+  pubSearchResults: require('./pubs/pubSearchResults').default,
+  callSearchResults: require('./calls/callSearchResults').default,
+  poemSearchResults: require('./poems/poemSearchResults').default,
   
-  // for user dashboard
-  userSubs: require('./userSubs').default,
-  // currentCalls: require('./currentCalls').default,
+  // current
+  currentPub: require('./pubs/onePub').default,
+  currentUser: require('./users/oneUser').default,
+  currentCall: require('./calls/oneCall').default,
+  currentSub: require('./subs/oneSub').default,
+  currentPoem: require('./poems/onePoem').default,
+  
+  // dashboard
+  userSubs: require('./users/userSubs').default,
 
   // admin only
-  users: require('./users').default,
-  // allSubs: require('./allSubs').default,
+  users: require('./users/users').default,
+  subSearchResults: require('./subs/subSearchResults').default,
 
   // flockpad
   currentJot: require('./currentJot').default
