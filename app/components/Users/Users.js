@@ -25,6 +25,7 @@ class Users extends React.Component {
       <div>{this.props.user.isAdmin ?
         <Table   
       	  height={'300px'}
+          width={'20%'}
       	  fixedHeader={true}
       	  fixedFooter={true}
           selectable={false}

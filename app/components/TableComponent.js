@@ -26,13 +26,15 @@ const TableComponent = (props) => (
       adjustForCheckbox={false}
       displaySelectAll={false}>
       <TableRow>
-        <TableHeaderColumn><h2 id="title">Name</h2></TableHeaderColumn>
-        <TableHeaderColumn><h2 id="title">Web Address</h2></TableHeaderColumn>
-        <TableHeaderColumn><h2 id="title">Submittable Link</h2></TableHeaderColumn>
+      {
+        props.headers && props.headers.map(header => (
+          <TableHeaderColumn><h2 id="title">{header}</h2></TableHeaderColumn>
+        ))
+      }
       </TableRow>
     </TableHeader>
     <TableBody displayRowCheckbox={false}>
-    {this.props.data && this.props.data.map(data => {
+    {props.rows && props.rows.map(row => {
       
       return (
       <TableRow key={data.id}>

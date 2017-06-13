@@ -5,28 +5,31 @@ import {shallow} from 'enzyme'
 import {spy} from 'sinon'
 chai.use(require('sinon-chai'))
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import {Login} from './Login'
 
 /* global describe it beforeEach */
 describe('<Login />', () => {
   let root
   beforeEach('render the root', () =>
-    root = shallow(<Login/>)
+    // wrap component being tested in <MuiThemeProvider> ???
+    root = render(<MuiThemeProvider><Login/></MuiThemeProvider>)
   )
 
   it('shows a login form', () => {
-    expect(root.find('input[name="username"]')).to.have.length(1)
-    expect(root.find('input[name="password"]')).to.have.length(1)
+    // .find('NameTag')
+    expect(root.find('TextField[name="username"]')).to.have.length(1)
+    expect(root.find('TextField[name="password"]')).to.have.length(1)
   })
 
   it('shows a password field', () => {
-    const pw = root.find('input[name="password"]')
+    const pw = root.find('TextField[name="password"]')
     expect(pw).to.have.length(1)
     expect(pw.at(0)).to.have.attr('type').equals('password')
   })
 
   it('has a login button', () => {
-    const submit = root.find('input[type="submit"]')
+    const submit = root.find('TextField[type="submit"]')
     expect(submit).to.have.length(1)
   })
 

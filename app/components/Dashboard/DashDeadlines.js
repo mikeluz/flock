@@ -47,7 +47,7 @@ class DashDeadlines extends React.Component {
     return (
       <div id="deadlines">
       <h2>Upcoming Deadlines</h2>
-      <input type="text" placeholder="Set Deadline Window" name="deadlineWindow" id="search" onChange={this.setDeadlineWindow}/>
+      <input type="text" placeholder="# of days in the future" name="deadlineWindow" id="search" onChange={this.setDeadlineWindow}/>
       <br /><br />
       <Table   
         height={'300px'}

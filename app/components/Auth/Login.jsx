@@ -8,6 +8,9 @@ export const Login = ({ login }) => (
   <br/>
   <br/>
   <br/>
+  <br/>
+  <br/>
+  <br/>
     <div id="centerMe">
       <h1 id="banner">FLOCK</h1>
       <form onSubmit={evt => {
