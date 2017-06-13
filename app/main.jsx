@@ -90,25 +90,25 @@ render(
         <IndexRedirect to="/dashboard" />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/poems" component={Poems} />
-        <Route path="/poems/:id" component={OnePoem} onEnter={(nextRouterState) => getCurrentPoem(nextRouterState)} />
         <Route path="/poems/add" component={AddPoem} />
+        <Route path="/poems/:id" component={OnePoem} onEnter={(nextRouterState) => getCurrentPoem(nextRouterState)} />
         <Route path="/poems/:id/edit" component={EditPoem}/>
         <Route path="/flockpad" component={FlockPad} />
         <Route path="/users" component={Users} />
-        <Route path="/users/:id" component={OneUser} onEnter={(nextRouterState) => getCurrentUser(nextRouterState)} />
         <Route path="/users/add" component={AddUser}/>
+        <Route path="/users/:id" component={OneUser} onEnter={(nextRouterState) => getCurrentUser(nextRouterState)} />
         <Route path="/users/:id/edit" component={EditUser}/>
         <Route path="/subs" component={Subs} />
-        <Route path="/subs/:id" component={OneSub} onEnter={(nextRouterState) => getCurrentSub(nextRouterState)} />
         <Route path="/subs/add" component={AddSub} />
+        <Route path="/subs/:id" component={OneSub} onEnter={(nextRouterState) => getCurrentSub(nextRouterState)} />
         <Route path="/subs/:id/edit" component={EditSub}/>
         <Route path="/calls" component={Calls} />
-        <Route path="/calls/:id" component={OneCall} onEnter={(nextRouterState) => getCurrentCall(nextRouterState)} />
         <Route path="/calls/add" component={AddCall} />
+        <Route path="/calls/:id" component={OneCall} onEnter={(nextRouterState) => getCurrentCall(nextRouterState)} />
         <Route path="/calls/:id/edit" component={EditCall}/>
         <Route path="/pubs" component={Pubs}/>
-        <Route path="/pubs/:id" component={OnePub} onEnter={(nextRouterState) => getCurrentPub(nextRouterState)} />
         <Route path="/pubs/add" component={AddPub}/>
+        <Route path="/pubs/:id" component={OnePub} onEnter={(nextRouterState) => getCurrentPub(nextRouterState)} />
         <Route path="/pubs/:id/edit" component={EditPub}/>
       </Route>
       <Route path='*' component={NotFound} />
