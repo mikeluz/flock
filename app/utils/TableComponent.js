@@ -37,7 +37,7 @@ const TableComponent = (props) => (
     {props.rows && props.rows.map(row => {
       
       return (
-      <TableRow key={data.id}>
+      <TableRow key={row.id}>
         <TableRowColumn><Link to={`/pubs/${data.id}`}>{pub.pub_name}</Link></TableRowColumn>
         <TableRowColumn><a href={data.web_address}>{pub.web_address}</a></TableRowColumn>
         <TableRowColumn><a href={data.submittable_link}>{pub.submittable_link}</a></TableRowColumn>
