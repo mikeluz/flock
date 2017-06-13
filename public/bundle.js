@@ -13009,7 +13009,8 @@ var deleteCurrentPoem = exports.deleteCurrentPoem = function deleteCurrentPoem(i
 
 var addPoem = exports.addPoem = function addPoem(nextRouterState) {
   return function (dispatch) {
-    return _axios2.default.post('/api/poems', nextRouterState).then(function (res) {
+    console.log("ADD POEM");
+    _axios2.default.post('/api/poems', nextRouterState).then(function (res) {
       return dispatch(setCurrentPoem(res.data));
     }).catch(function () {
       return dispatch(setCurrentPoem(null));
@@ -50840,6 +50841,9 @@ var DashPie = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+
+      var areThereSubs = this.props.userSubs ? this.props.userSubs.length : 0;
+
       return _react2.default.createElement(
         'div',
         { id: 'pie' },
@@ -50848,7 +50852,15 @@ var DashPie = function (_React$Component) {
           { id: 'centerMe' },
           'Your Submissions'
         ),
-        _react2.default.createElement('canvas', { id: 'myChart' })
+        _react2.default.createElement(
+          'div',
+          null,
+          areThereSubs ? _react2.default.createElement('canvas', { id: 'myChart' }) : _react2.default.createElement(
+            'h4',
+            { id: 'centerMe' },
+            'You have no submissions!'
+          )
+        )
       );
     }
   }]);
@@ -51225,35 +51237,35 @@ var App = (0, _reactRedux.connect)(function (_ref) {
       _react2.default.createElement(_reactRouter.IndexRedirect, { to: '/dashboard' }),
       _react2.default.createElement(_reactRouter.Route, { path: '/dashboard', component: _Dashboard2.default }),
       _react2.default.createElement(_reactRouter.Route, { path: '/poems', component: _Poems2.default }),
+      _react2.default.createElement(_reactRouter.Route, { path: '/poems/add', component: _AddPoem2.default }),
       _react2.default.createElement(_reactRouter.Route, { path: '/poems/:id', component: _OnePoem2.default, onEnter: function onEnter(nextRouterState) {
           return (0, _onePoem.getCurrentPoem)(nextRouterState);
         } }),
-      _react2.default.createElement(_reactRouter.Route, { path: '/poems/add', component: _AddPoem2.default }),
       _react2.default.createElement(_reactRouter.Route, { path: '/poems/:id/edit', component: _EditPoem2.default }),
       _react2.default.createElement(_reactRouter.Route, { path: '/flockpad', component: _FlockPad2.default }),
       _react2.default.createElement(_reactRouter.Route, { path: '/users', component: _Users2.default }),
+      _react2.default.createElement(_reactRouter.Route, { path: '/users/add', component: _AddUser2.default }),
       _react2.default.createElement(_reactRouter.Route, { path: '/users/:id', component: _OneUser2.default, onEnter: function onEnter(nextRouterState) {
           return (0, _oneUser.getCurrentUser)(nextRouterState);
         } }),
-      _react2.default.createElement(_reactRouter.Route, { path: '/users/add', component: _AddUser2.default }),
       _react2.default.createElement(_reactRouter.Route, { path: '/users/:id/edit', component: _EditUser2.default }),
       _react2.default.createElement(_reactRouter.Route, { path: '/subs', component: _Subs2.default }),
+      _react2.default.createElement(_reactRouter.Route, { path: '/subs/add', component: _AddSub2.default }),
       _react2.default.createElement(_reactRouter.Route, { path: '/subs/:id', component: _OneSub2.default, onEnter: function onEnter(nextRouterState) {
           return (0, _oneSub.getCurrentSub)(nextRouterState);
         } }),
-      _react2.default.createElement(_reactRouter.Route, { path: '/subs/add', component: _AddSub2.default }),
       _react2.default.createElement(_reactRouter.Route, { path: '/subs/:id/edit', component: _EditSub2.default }),
       _react2.default.createElement(_reactRouter.Route, { path: '/calls', component: _Calls2.default }),
+      _react2.default.createElement(_reactRouter.Route, { path: '/calls/add', component: _AddCall2.default }),
       _react2.default.createElement(_reactRouter.Route, { path: '/calls/:id', component: _OneCall2.default, onEnter: function onEnter(nextRouterState) {
           return (0, _oneCall.getCurrentCall)(nextRouterState);
         } }),
-      _react2.default.createElement(_reactRouter.Route, { path: '/calls/add', component: _AddCall2.default }),
       _react2.default.createElement(_reactRouter.Route, { path: '/calls/:id/edit', component: _EditCall2.default }),
       _react2.default.createElement(_reactRouter.Route, { path: '/pubs', component: _Pubs2.default }),
+      _react2.default.createElement(_reactRouter.Route, { path: '/pubs/add', component: _AddPub2.default }),
       _react2.default.createElement(_reactRouter.Route, { path: '/pubs/:id', component: _OnePub2.default, onEnter: function onEnter(nextRouterState) {
           return (0, _onePub.getCurrentPub)(nextRouterState);
         } }),
-      _react2.default.createElement(_reactRouter.Route, { path: '/pubs/add', component: _AddPub2.default }),
       _react2.default.createElement(_reactRouter.Route, { path: '/pubs/:id/edit', component: _EditPub2.default })
     ),
     _react2.default.createElement(_reactRouter.Route, { path: '*', component: _NotFound2.default })
