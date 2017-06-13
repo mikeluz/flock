@@ -54,10 +54,17 @@ class DashPie extends React.Component {
   }
 
   render() {
+
+    let areThereSubs = this.props.userSubs ? this.props.userSubs.length : 0;
+
     return (
       <div id="pie">
       <h2 id="centerMe">Your Submissions</h2>
-      <canvas id="myChart"></canvas>
+      <div>{
+        areThereSubs ?
+        <canvas id="myChart"></canvas> : <h4 id="centerMe">You have no submissions!</h4>
+        
+      }</div>
       </div>
   )}
 }

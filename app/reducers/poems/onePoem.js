@@ -32,9 +32,11 @@ export const deleteCurrentPoem = (id) =>
       .catch(() => dispatch(setCurrentPoem(null)))
 
 export const addPoem = (nextRouterState) => 
-  dispatch =>
+  dispatch => {
+    console.log("ADD POEM");
     axios.post(`/api/poems`, nextRouterState)
       .then((res) => dispatch(setCurrentPoem(res.data)))
       .catch(() => dispatch(setCurrentPoem(null)))
+  }
 
 export default reducer
