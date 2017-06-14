@@ -46684,7 +46684,7 @@ var Dashboard = function (_React$Component) {
   _createClass(Dashboard, [{
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps() {
-      if (this.props.findCallsByName) {
+      if (this.props.user) {
         this.props.findCallsByName('');
       }
     }
@@ -46692,6 +46692,7 @@ var Dashboard = function (_React$Component) {
     key: 'componentDidUpdate',
     value: function componentDidUpdate() {
       if (this.props.user) {
+        this.props.findCallsByName('');
         this.props.getUserSubs(this.props.user.id);
       }
     }

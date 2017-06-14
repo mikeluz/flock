@@ -8,8 +8,5 @@ node_modules/*
 public/bundle.js
 public/bundle.js.map
 
-# email auth
-auth.js
-
 # NPM errors
 npm-debug.log

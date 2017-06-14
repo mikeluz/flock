@@ -38,7 +38,7 @@ class DashSubs extends React.Component {
             </TableHeader>
             <TableBody displayRowCheckbox={false}>
             {
-              this.props.userSubs && this.props.userSubs.filter((sub) => {
+              this.props.userSubs && this.props.userSubs.filter(sub => {
                 return sub.sub_status === "in process"
               }).sort((a, b) => {
                 return new Date(b.sub_date) - new Date(a.sub_date)

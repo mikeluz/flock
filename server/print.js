@@ -6,9 +6,10 @@ const PDFParser = require("pdf2json")
 
 const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport');
-const {emailAuth} = require('../auth.js')
 
 const {mustBeLoggedIn, forbidden, isUserAdmin} = require('./auth.filters')
+
+const {emailAuth} = require('../auth.js')
 
 const PDFDocument = require('pdfkit')
 
