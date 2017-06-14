@@ -45373,7 +45373,8 @@ function warning(message) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Login = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(1);
 
@@ -45393,44 +45394,75 @@ var _reactRedux = __webpack_require__(17);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Login = exports.Login = function Login(_ref) {
-  var login = _ref.login;
-  return _react2.default.createElement(
-    'div',
-    { className: 'container text-center' },
-    _react2.default.createElement('br', null),
-    _react2.default.createElement('br', null),
-    _react2.default.createElement('br', null),
-    _react2.default.createElement('br', null),
-    _react2.default.createElement('br', null),
-    _react2.default.createElement('br', null),
-    _react2.default.createElement(
-      'div',
-      { id: 'centerMe' },
-      _react2.default.createElement(
-        'h1',
-        { id: 'banner' },
-        'FLOCK'
-      ),
-      _react2.default.createElement(
-        'form',
-        { onSubmit: function onSubmit(evt) {
-            evt.preventDefault();
-            login(evt.target.username.value, evt.target.password.value);
-          } },
-        _react2.default.createElement(_TextField2.default, { hintText: 'username', name: 'username' }),
-        _react2.default.createElement('br', null),
-        _react2.default.createElement(_TextField2.default, { hintText: 'password', name: 'password', type: 'password' }),
-        _react2.default.createElement('br', null),
-        _react2.default.createElement('br', null),
-        _react2.default.createElement(_RaisedButton2.default, { type: 'submit', label: 'Login', backgroundColor: '#000000', labelColor: 'white' })
-      )
-    )
-  );
-};
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-exports.default = (0, _reactRedux.connect)(function (state) {
-  return {};
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Login = function (_React$Component) {
+  _inherits(Login, _React$Component);
+
+  function Login(props) {
+    _classCallCheck(this, Login);
+
+    var _this = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this, props));
+
+    _this.state = {
+      badLogin: ''
+    };
+    return _this;
+  }
+
+  _createClass(Login, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'container text-center' },
+        _react2.default.createElement('br', null),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement(
+          'div',
+          { id: 'centerMe' },
+          _react2.default.createElement(
+            'h1',
+            { id: 'banner' },
+            'FLOCK'
+          ),
+          _react2.default.createElement(
+            'form',
+            { onSubmit: function onSubmit(evt) {
+                evt.preventDefault();
+                _this2.props.login(evt.target.username.value, evt.target.password.value);
+                _this2.setState({
+                  badLogin: 'Invalid entry. Please try again.'
+                });
+              } },
+            _react2.default.createElement(_TextField2.default, { hintText: 'email', name: 'username', errorText: this.state.badLogin }),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(_TextField2.default, { hintText: 'password', name: 'password', type: 'password', errorText: this.state.badLogin }),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(_RaisedButton2.default, { type: 'submit', label: 'Login', backgroundColor: '#000000', labelColor: 'white' })
+          )
+        )
+      );
+    }
+  }]);
+
+  return Login;
+}(_react2.default.Component);
+
+exports.default = (0, _reactRedux.connect)(function (_ref) {
+  var auth = _ref.auth;
+  return { user: auth };
 }, { login: _auth.login })(Login);
 
 /***/ }),
