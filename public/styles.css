@@ -35,7 +35,9 @@ h4 {
 #flockpad {
 	margin-left: auto;
 	margin-right: auto;
-	font-size: 12px;
+	font-size: 16px;
+	background-color: black;
+	color: white;
 }
 
 #bio {

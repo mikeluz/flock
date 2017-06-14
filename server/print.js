@@ -9,7 +9,7 @@ const smtpTransport = require('nodemailer-smtp-transport');
 
 const {mustBeLoggedIn, forbidden, isUserAdmin} = require('./auth.filters')
 
-const {emailAuth} = require('../auth.js')
+// const {emailAuth} = require('../auth.js')
 
 const PDFDocument = require('pdfkit')
 
@@ -23,7 +23,10 @@ function handleEmail(req, res, next) {
         // for now credentials are in another file that is being .gitignored
         service: 'Gmail',
         secure: true,
-        auth: emailAuth
+        auth: {
+          user: '',
+          pass: ''
+        }
     }));
 
     const message = {
@@ -71,7 +74,9 @@ function promisifiedWriteFile (filename, str) {
   return new Promise((resolve, reject) => {
     fs.writeFile(
       filename,
-      str.getRawTextContent(),
+      // if using pdf stuff
+      // str.getRawTextContent(),
+      str,
       (err) => {
         if (err) {
           reject(err)
@@ -88,44 +93,67 @@ module.exports = require('express').Router()
     mustBeLoggedIn,
     (req, res, next) => {
 
-    let pdfParser = new PDFParser(this, 1);
+      promisifiedReadFile(`${__dirname}/flockpad.txt`)
+        .then(data => {
+          res.send(data)
+        })
+        .catch()
+
+    // pdf stuff
+    ///////////////////////////////////////////////////
+    // let pdfParser = new PDFParser(this, 1);
     
-    pdfParser.on("pdfParser_dataError", errData => console.error(errData.parserError));
-    pdfParser.on("pdfParser_dataReady", pdfData => {
+    // pdfParser.on("pdfParser_dataError", errData => console.error(errData.parserError));
+    // pdfParser.on("pdfParser_dataReady", pdfData => {
 
-        // promises to write to .txt then read from it
-        promisifiedWriteFile(`${__dirname}/flockpad.txt`, pdfParser)
-          .then((data) => {
-            console.log("Value write resolved to: ", data);
-            promisifiedReadFile(`${__dirname}/flockpad.txt`)
-              .then(data => {
-                res.send(data)
-                pdfParser = null;
-              })
-              .catch()
-          })
-          .catch()
+    //     // promises to write to .txt then read from it
+    //     promisifiedWriteFile(`${__dirname}/flockpad.txt`, pdfParser)
+    //       .then((data) => {
+    //         console.log("Value write resolved to: ", data);
+    //         promisifiedReadFile(`${__dirname}/flockpad.txt`)
+    //           .then(data => {
+    //             res.send(data)
+    //             pdfParser = null;
+    //           })
+    //           .catch()
+    //       })
+    //       .catch()
 
-    });
+    // });
  
-    pdfParser.loadPDF(`${__dirname}/flockpad.pdf`);
+    // pdfParser.loadPDF(`${__dirname}/flockpad.pdf`);
+    /////////////////////////////////////////////////////
 
   })
-  .post('/email', handleEmail)
+  // .post('/email', handleEmail)
   .post('/',
     (req, res, next) => {
 
-    let doc = new PDFDocument
+      promisifiedWriteFile(`${__dirname}/flockpad.txt`, req.body.input)
+        .then((data) => {
+          console.log("Value write resolved to: ", data);
+          promisifiedReadFile(`${__dirname}/flockpad.txt`)
+            .then(data => {
+              res.send(data)
+            })
+            .catch()
+        })
+      .catch()
+
+    // pdf stuff
+    ///////////////////////////////
+    // let doc = new PDFDocument
      
-    // Pipe its output somewhere, like to a file or HTTP response 
-    doc.pipe(fs.createWriteStream(`${__dirname}/flockpad.pdf`))
+    // // Pipe its output somewhere, like to a file or HTTP response 
+    // doc.pipe(fs.createWriteStream(`${__dirname}/flockpad.pdf`))
      
-    // Embed a font, set the font size, and render some text 
-    doc.font(`${__dirname}/fonts/PalatinoBold.ttf`)
-       .fontSize(12)
-       .text(req.body.input, 100, 100)
+    // // Embed a font, set the font size, and render some text 
+    // doc.font(`${__dirname}/fonts/PalatinoBold.ttf`)
+    //    .fontSize(12)
+    //    .text(req.body.input, 100, 100)
      
-    // Finalize PDF file 
-    doc.end()
-    res.send();
+    // // Finalize PDF file 
+    // doc.end()
+    // res.send();
+    //////////////////////////////////
   })
