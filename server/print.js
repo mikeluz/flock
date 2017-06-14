@@ -5,22 +5,23 @@ const fs = require('fs')
 const PDFParser = require("pdf2json")
 
 const nodemailer = require('nodemailer');
+const smtpTransport = require('nodemailer-smtp-transport');
+const {emailAuth} = require('../auth.js')
 
 const {mustBeLoggedIn, forbidden, isUserAdmin} = require('./auth.filters')
 
 const PDFDocument = require('pdfkit')
 
-const {emailAuth} = require('../auth.js')
-
 function handleEmail(req, res, next) {
 
-    const transporter = nodemailer.createTransport({
+    const transporter = nodemailer.createTransport(smtpTransport({
         // if using gmail, you need to set "allow less secure apps" option in gmail security center
         // should find an alternative email service to use and conceal password
+        // for now credentials are in another file that is being .gitignored
         service: 'Gmail',
         secure: true,
         auth: emailAuth
-    });
+    }));
 
     const message = {
         from: 'admin@flocklit.nyc',
@@ -57,12 +58,27 @@ function readFile (filename, callback) {
 function promisifiedReadFile (filename) {
   return new Promise(function (resolve, reject) {
     readFile(filename, function (err, str) {
-      console.log("str in promise", str)
       if (err) reject(err);
       else resolve(str);
     });
   })
 };
+
+function promisifiedWriteFile (filename, str) {
+  return new Promise((resolve, reject) => {
+    fs.writeFile(
+      filename,
+      str.getRawTextContent(),
+      (err) => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve("Success")
+        }
+      }
+    );
+  });
+}
 
 module.exports = require('express').Router()
   .get('/',
@@ -73,31 +89,37 @@ module.exports = require('express').Router()
     
     pdfParser.on("pdfParser_dataError", errData => console.error(errData.parserError));
     pdfParser.on("pdfParser_dataReady", pdfData => {
-        fs.writeFile(__dirname + '/flockpad.txt', pdfParser.getRawTextContent())
-    
-        promisifiedReadFile.call(null, __dirname + '/flockpad.txt')
-        .then(data => {
-          console.log('data', data)
-          res.send(data)
-          pdfParser = null;
-        })
+
+        // promises to write to .txt then read from it
+        promisifiedWriteFile(`${__dirname}/flockpad.txt`, pdfParser)
+          .then((data) => {
+            console.log("Value write resolved to: ", data);
+            promisifiedReadFile(`${__dirname}/flockpad.txt`)
+              .then(data => {
+                res.send(data)
+                pdfParser = null;
+              })
+              .catch()
+          })
+          .catch()
+
     });
  
-    pdfParser.loadPDF(__dirname + '/flockpad.pdf');
+    pdfParser.loadPDF(`${__dirname}/flockpad.pdf`);
 
   })
   .post('/email', handleEmail)
   .post('/',
     (req, res, next) => {
-    console.log("input", req.body.input);
+
     let doc = new PDFDocument
      
     // Pipe its output somewhere, like to a file or HTTP response 
-    doc.pipe(fs.createWriteStream(__dirname + '/flockpad.pdf'))
+    doc.pipe(fs.createWriteStream(`${__dirname}/flockpad.pdf`))
      
     // Embed a font, set the font size, and render some text 
-    doc.font(__dirname + '/fonts/PalatinoBold.ttf')
-       .fontSize(25)
+    doc.font(`${__dirname}/fonts/PalatinoBold.ttf`)
+       .fontSize(12)
        .text(req.body.input, 100, 100)
      
     // Finalize PDF file 
