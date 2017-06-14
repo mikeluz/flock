@@ -17,7 +17,8 @@ export const getCurrentJot = () =>
 	dispatch =>
     axios.get('/api/print')
 	    .then((res) => {
-        let jot = res.data.split("----")[0].slice(0, -1)
+        // let jot = res.data.split("----")[0].slice(0, -1)
+        let jot = res.data
         dispatch(setCurrentJot(jot))
       })
 	    .catch(() => dispatch(setCurrentJot('')))

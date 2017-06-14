@@ -44,11 +44,12 @@ class FlockPad extends React.Component {
     if (confirm) {
       axios.post('/api/print', {"input": this.state.jot})
         .then(res => {
-          axios.post('/api/print/email', {"email": this.props.user.email})
-            .then(res => {
+          // fuse for emailing
+          // axios.post('/api/print/email', {"email": this.props.user.email})
+          //   .then(res => {
               this.props.getUserSubs(this.props.user.id);
               this.props.getCurrentJot();
-            })
+            // })
         })
         .then(() => {
           browserHistory.push('/dashboard')
@@ -67,7 +68,7 @@ class FlockPad extends React.Component {
       <form onSubmit={this.printHandler}>
       {
         this.props.currentJot &&
-        <textarea id="flockpad" name="pad" rows="20" cols="100" defaultValue={this.props.currentJot} onChange={this.handleChange}></textarea>
+        <textarea id="flockpad" name="pad" rows="20" cols="80" defaultValue={this.props.currentJot} onChange={this.handleChange}></textarea>
       }
       <br/>
       <RaisedButton 
