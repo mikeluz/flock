@@ -10,7 +10,7 @@ const {mustBeLoggedIn, forbidden, isUserAdmin} = require('./auth.filters')
 
 const PDFDocument = require('pdfkit')
 
-const emailAuth = require('../auth.js')
+const {emailAuth} = require('../auth.js')
 
 function handleEmail(req, res, next) {
 
