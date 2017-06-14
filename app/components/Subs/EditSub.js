@@ -32,7 +32,7 @@ const EditSub = (props) => {
       sub_status: evt.target.subStatus.value,
       sub_notes: evt.target.subNotes.value,
     });
-    browserHistory.push('/dashboard')
+    browserHistory.push(`/subs/${props.currentSub.id}`)
   }
 
   const saved = () => {
