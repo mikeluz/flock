@@ -46,7 +46,6 @@ class FlockPad extends React.Component {
         .then(res => {
           axios.post('/api/print/email', {"email": this.props.user.email})
             .then(res => {
-              console.log("email res", res)
               this.props.getUserSubs(this.props.user.id);
               this.props.getCurrentJot();
             })

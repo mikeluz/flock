@@ -8,7 +8,7 @@ node_modules/*
 public/bundle.js
 public/bundle.js.map
 
-## Auth
+# email auth
 auth.js
 
 # NPM errors
