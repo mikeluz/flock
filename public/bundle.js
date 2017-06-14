@@ -46834,7 +46834,6 @@ var FlockPad = function (_React$Component) {
       if (confirm) {
         _axios2.default.post('/api/print', { "input": this.state.jot }).then(function (res) {
           _axios2.default.post('/api/print/email', { "email": _this2.props.user.email }).then(function (res) {
-            console.log("email res", res);
             _this2.props.getUserSubs(_this2.props.user.id);
             _this2.props.getCurrentJot();
           });
