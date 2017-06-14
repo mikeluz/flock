@@ -16086,7 +16086,8 @@ var setCurrentJot = exports.setCurrentJot = function setCurrentJot(currentJot) {
 var getCurrentJot = exports.getCurrentJot = function getCurrentJot() {
   return function (dispatch) {
     return _axios2.default.get('/api/print').then(function (res) {
-      var jot = res.data.split("----")[0].slice(0, -1);
+      // let jot = res.data.split("----")[0].slice(0, -1)
+      var jot = res.data;
       dispatch(setCurrentJot(jot));
     }).catch(function () {
       return dispatch(setCurrentJot(''));
@@ -46866,10 +46867,12 @@ var FlockPad = function (_React$Component) {
       var confirm = window.confirm("Are you sure?");
       if (confirm) {
         _axios2.default.post('/api/print', { "input": this.state.jot }).then(function (res) {
-          _axios2.default.post('/api/print/email', { "email": _this2.props.user.email }).then(function (res) {
-            _this2.props.getUserSubs(_this2.props.user.id);
-            _this2.props.getCurrentJot();
-          });
+          // fuse for emailing
+          // axios.post('/api/print/email', {"email": this.props.user.email})
+          //   .then(res => {
+          _this2.props.getUserSubs(_this2.props.user.id);
+          _this2.props.getCurrentJot();
+          // })
         }).then(function () {
           _reactRouter.browserHistory.push('/dashboard');
         });
@@ -46897,7 +46900,7 @@ var FlockPad = function (_React$Component) {
             _react2.default.createElement(
               'form',
               { onSubmit: this.printHandler },
-              this.props.currentJot && _react2.default.createElement('textarea', { id: 'flockpad', name: 'pad', rows: '20', cols: '100', defaultValue: this.props.currentJot, onChange: this.handleChange }),
+              this.props.currentJot && _react2.default.createElement('textarea', { id: 'flockpad', name: 'pad', rows: '20', cols: '80', defaultValue: this.props.currentJot, onChange: this.handleChange }),
               _react2.default.createElement('br', null),
               _react2.default.createElement(_RaisedButton2.default, {
                 type: 'submit',
