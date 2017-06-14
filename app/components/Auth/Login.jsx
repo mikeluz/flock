@@ -2,33 +2,46 @@ import React from 'react'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton';
 
-export const Login = ({ login }) => (
+class Login extends React.Component{
 
-  <div className='container text-center'>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-    <div id="centerMe">
-      <h1 id="banner">FLOCK</h1>
-      <form onSubmit={evt => {
-        evt.preventDefault()
-        login(evt.target.username.value, evt.target.password.value)
-      } }>
-        <TextField hintText="username" name="username" /><br/>
-        <TextField hintText="password" name="password" type="password" /><br/><br/>
-        <RaisedButton type="submit" label="Login" backgroundColor='#000000' labelColor='white' />
-      </form>
+   constructor(props) {
+    super(props)
+
+    this.state = {
+      badLogin: ""
+    }
+   }
+
+  render() {
+
+    return (
+    <div className='container text-center'>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+      <div id="centerMe">
+        <h1 id="banner">FLOCK</h1>
+        <form onSubmit={evt => {
+          evt.preventDefault()
+          this.props.login(evt.target.username.value, evt.target.password.value)
+        } }>
+          <TextField hintText="email" name="username" errorText={'Please log in.'} /><br/>
+          <TextField hintText="password" name="password" type="password" errorText={'Please log in.'} /><br/><br/>
+          <RaisedButton type="submit" label="Login" backgroundColor='#000000' labelColor='white' />
+        </form>
+      </div>
     </div>
-  </div>
-)
+    )
+  }
+}
 
 import {login} from 'APP/app/reducers/auth'
 import {connect} from 'react-redux'
 
 export default connect(
-  state => ({}),
+  ({auth}) => ({user: auth}),
   {login},
 )(Login)
