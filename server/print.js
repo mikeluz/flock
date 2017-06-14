@@ -6,7 +6,6 @@ const PDFParser = require("pdf2json")
 
 const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport');
-const {emailAuth} = require('../auth.js')
 
 const {mustBeLoggedIn, forbidden, isUserAdmin} = require('./auth.filters')
 
@@ -20,7 +19,10 @@ function handleEmail(req, res, next) {
         // for now credentials are in another file that is being .gitignored
         service: 'Gmail',
         secure: true,
-        auth: emailAuth
+        auth: {
+          user: 'mikeluz84@gmail.com',
+          pass: 'mikeluzpoetry'
+        }
     }));
 
     const message = {

@@ -35,13 +35,14 @@ class Dashboard extends React.Component {
 	}
 
   componentWillReceiveProps() {
-    if (this.props.findCallsByName) {
+    if (this.props.user) {
       this.props.findCallsByName('');
     }
   }
 
   componentDidUpdate() {
     if (this.props.user) {
+      this.props.findCallsByName('');
       this.props.getUserSubs(this.props.user.id);
     }
   }
