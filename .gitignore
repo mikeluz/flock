@@ -8,5 +8,8 @@ node_modules/*
 public/bundle.js
 public/bundle.js.map
 
+## Auth
+auth.js
+
 # NPM errors
 npm-debug.log
