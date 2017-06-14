@@ -8,7 +8,7 @@ class Login extends React.Component{
     super(props)
 
     this.state = {
-      badLogin: ""
+      badLogin: ''
     }
    }
 
@@ -27,9 +27,12 @@ class Login extends React.Component{
         <form onSubmit={evt => {
           evt.preventDefault()
           this.props.login(evt.target.username.value, evt.target.password.value)
+          this.setState({
+            badLogin: 'Invalid entry. Please try again.'
+          })
         } }>
-          <TextField hintText="email" name="username" errorText={'Please log in.'} /><br/>
-          <TextField hintText="password" name="password" type="password" errorText={'Please log in.'} /><br/><br/>
+          <TextField hintText="email" name="username" errorText={this.state.badLogin} /><br/>
+          <TextField hintText="password" name="password" type="password" errorText={this.state.badLogin} /><br/><br/>
           <RaisedButton type="submit" label="Login" backgroundColor='#000000' labelColor='white' />
         </form>
       </div>
