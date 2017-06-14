@@ -40,7 +40,7 @@ const EditCall = (props) => {
       req_sase: evt.target.reqSase.value,
       mailing_address: evt.target.mailingAddress.value
     });
-    browserHistory.push('/dashboard')
+    browserHistory.push(`/calls/${props.currentCall.id}`)
   }
 
   const saved = () => {
@@ -51,7 +51,7 @@ const EditCall = (props) => {
     var confirm = window.confirm("Are you sure?");
     if (confirm) {
       props.deleteCurrentCall(props.currentCall.id)
-      browserHistory.push('/dashboard')
+      browserHistory.push('/calls')
     }
   }
 
