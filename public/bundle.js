@@ -46089,7 +46089,7 @@ var EditCall = function EditCall(props) {
       req_sase: evt.target.reqSase.value,
       mailing_address: evt.target.mailingAddress.value
     });
-    _reactRouter.browserHistory.push('/dashboard');
+    _reactRouter.browserHistory.push('/calls/' + props.currentCall.id);
   };
 
   var saved = function saved() {
@@ -46100,7 +46100,7 @@ var EditCall = function EditCall(props) {
     var confirm = window.confirm("Are you sure?");
     if (confirm) {
       props.deleteCurrentCall(props.currentCall.id);
-      _reactRouter.browserHistory.push('/dashboard');
+      _reactRouter.browserHistory.push('/calls');
     }
   };
 
@@ -48531,7 +48531,7 @@ var EditSub = function EditSub(props) {
       sub_status: evt.target.subStatus.value,
       sub_notes: evt.target.subNotes.value
     });
-    _reactRouter.browserHistory.push('/dashboard');
+    _reactRouter.browserHistory.push('/subs/' + props.currentSub.id);
   };
 
   var saved = function saved() {
