@@ -10,7 +10,7 @@ const {mustBeLoggedIn, forbidden, isUserAdmin} = require('./auth.filters')
 
 const PDFDocument = require('pdfkit')
 
-const {emailAuth} = require('../auth.js')
+// const {emailAuth} = require('../auth.js')
 
 function handleEmail(req, res, next) {
 
@@ -19,7 +19,10 @@ function handleEmail(req, res, next) {
         // should find an alternative email service to use and conceal password
         service: 'Gmail',
         secure: true,
-        auth: emailAuth
+        auth: {
+            user: 'mikeluz84@gmail.com',
+            pass: 'mikeluzpoetry'
+        }
     });
 
     const message = {
