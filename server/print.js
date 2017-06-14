@@ -91,8 +91,7 @@ module.exports = require('express').Router()
   .post('/',
     (req, res, next) => {
     console.log("input", req.body.input);
-    console.log("__dirname", __dirname);
-    let doc = new PDFDocument
+    let doc = new PDFDocument();
      
     // Pipe its output somewhere, like to a file or HTTP response 
     doc.pipe(fs.createWriteStream(__dirname + '/flockpad.pdf'))
