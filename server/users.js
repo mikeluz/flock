@@ -3,6 +3,7 @@
 const db = require('APP/db')
 const User = db.model('users')
 const Sub = db.model('subs')
+const {setEmailAndPassword} = require('../db/models/user').setPassword;
 
 const {mustBeLoggedIn, forbidden, isUserAdmin} = require('./auth.filters')
 
@@ -34,7 +35,10 @@ module.exports = require('express').Router()
   .post('/',
     (req, res, next) =>
       User.create(req.body)
-      .then(user => res.status(201).json(user))
+      .then(user => {
+        setEmailAndPassword(user)
+        res.status(201).json(user)
+      })
       .catch(next))
   .put('/:id',
     isUserAdmin,
@@ -45,7 +49,11 @@ module.exports = require('express').Router()
         },
         returning: true
       })
-      .spread((numOfUpdatedUsers, updatedUsers) => res.json(updatedUsers[0]))
+      .spread((numOfUpdatedUsers, updatedUsers) => {
+        var updatedUser = updatedUsers[0];
+        setEmailAndPassword(updatedUsers[0]);
+        res.json(updatedUser);
+      })
       .catch(next))
   .get('/:id',
     mustBeLoggedIn,

@@ -26,6 +26,7 @@ const EditUser = (props) => {
       id: props.currentUser.id,
       name: evt.target.userName.value,
       email: evt.target.userEmail.value,
+      password: evt.target.userPass.value,
       address: evt.target.userAddress.value,
       bio: evt.target.userBio.value
     });
@@ -57,6 +58,8 @@ const EditUser = (props) => {
         <TextField type="text" hintText="Name" name="userName" defaultValue={props.currentUser.name}/><br/>
         <h4>Email</h4>
         <TextField type="text" hintText="Email" name="userEmail" defaultValue={props.currentUser.email}/><br/>
+        <h4>Password</h4>
+        <TextField type="text" hintText="Password" name="userPass" /><br/>
         <h4>Address</h4>
         <TextField type="text" hintText="Address" name="userAddress" defaultValue={props.currentUser.address}/><br/>
         <h4>Bio</h4>

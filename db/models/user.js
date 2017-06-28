@@ -39,16 +39,22 @@ module.exports = db => db.define('users', {
   }
 })
 
+function setEmailAndPassword(user) {
+  user.email = user.email && user.email.toLowerCase()
+  if (!user.password) {
+    return Promise.resolve(user)
+  }
+
+  return bcrypt.hash(user.get('password'), 10)
+    .then(hash => user.set('password_digest', hash))
+}
+
+module.exports.setPassword = {
+  setEmailAndPassword: setEmailAndPassword
+}
+
 module.exports.associations = (User, {OAuth, Poem, Sub}) => {
   User.hasOne(OAuth)
   User.hasMany(Poem)
   User.hasMany(Sub)
-}
-
-function setEmailAndPassword(user) {
-  user.email = user.email && user.email.toLowerCase()
-  if (!user.password) return Promise.resolve(user)
-
-  return bcrypt.hash(user.get('password'), 10)
-    .then(hash => user.set('password_digest', hash))
 }

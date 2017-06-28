@@ -27,6 +27,7 @@ const AddUser = (props) => {
     props.addUser({
       name: evt.target.userName.value,
       email: evt.target.userEmail.value,
+      password: evt.target.userPass.value,
       address: evt.target.userAddress.value,
       bio: evt.target.userBio.value
     })
@@ -50,6 +51,8 @@ const AddUser = (props) => {
         <TextField type="text" hintText="Name" name="userName" /><br/>
         <h4>Email</h4>
         <TextField type="text" hintText="Email" name="userEmail" /><br/>
+        <h4>Password</h4>
+        <TextField type="text" hintText="Password" name="userPass" /><br/>
         <h4>Address</h4>
         <TextField type="text" hintText="Address" name="userAddress" /><br/>
         <h4>Bio</h4>

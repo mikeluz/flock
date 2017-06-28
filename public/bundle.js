@@ -49212,6 +49212,7 @@ var AddUser = function AddUser(props) {
     props.addUser({
       name: evt.target.userName.value,
       email: evt.target.userEmail.value,
+      password: evt.target.userPass.value,
       address: evt.target.userAddress.value,
       bio: evt.target.userBio.value
     });
@@ -49252,6 +49253,13 @@ var AddUser = function AddUser(props) {
               'Email'
             ),
             _react2.default.createElement(_TextField2.default, { type: 'text', hintText: 'Email', name: 'userEmail' }),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+              'h4',
+              null,
+              'Password'
+            ),
+            _react2.default.createElement(_TextField2.default, { type: 'text', hintText: 'Password', name: 'userPass' }),
             _react2.default.createElement('br', null),
             _react2.default.createElement(
               'h4',
@@ -49357,6 +49365,7 @@ var EditUser = function EditUser(props) {
       id: props.currentUser.id,
       name: evt.target.userName.value,
       email: evt.target.userEmail.value,
+      password: evt.target.userPass.value,
       address: evt.target.userAddress.value,
       bio: evt.target.userBio.value
     });
@@ -49402,6 +49411,13 @@ var EditUser = function EditUser(props) {
             'Email'
           ),
           _react2.default.createElement(_TextField2.default, { type: 'text', hintText: 'Email', name: 'userEmail', defaultValue: props.currentUser.email }),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'h4',
+            null,
+            'Password'
+          ),
+          _react2.default.createElement(_TextField2.default, { type: 'text', hintText: 'Password', name: 'userPass' }),
           _react2.default.createElement('br', null),
           _react2.default.createElement(
             'h4',
